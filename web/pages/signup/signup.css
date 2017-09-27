@@ -1,0 +1,19 @@
+body{
+    background-image: url("/resources/images/background.jpg");
+}
+
+#loginDiv{
+    margin: auto;
+    width: 20%;
+    border: 3px solid green;
+    padding: 10px;
+    border-color: lime;
+    border-width: thick;
+    background-color: deepskyblue;
+    font-family: cursive;
+    color: darkslategray;
+}
+
+#submitButton:hover{
+    background-color: deepskyblue;
+}

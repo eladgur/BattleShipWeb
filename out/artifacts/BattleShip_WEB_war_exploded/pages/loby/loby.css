@@ -1,0 +1,46 @@
+/*Box-Sizing - padding and border of all elements no increase its width*/
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url("/resources/images/background.jpg");
+}
+
+.userListDiv{
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+    border-style: solid ;
+    border-color: deepskyblue;
+    display: inline-block;
+    margin: 20px;
+    vertical-align: top;
+}
+
+#userslist{
+    color: deepskyblue;
+}
+
+#logoutButton{
+    position: fixed;
+    right: 5px;
+    up: 5 px;
+}
+
+#logoutButton:hover{
+    background-color: lightcoral;
+}
+
+.listHeadLine{
+    text-align: center;
+    text-decoration: underline;
+    color: greenyellow;
+}
+
+#boxesDiv{
+    margin: auto;
+    width: 50%;
+}

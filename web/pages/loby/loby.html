@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/lib/jquery-3.2.1.min.js"></script>
+    <script src="loby.js"></script>
+    <link rel="stylesheet" href="loby.css">
+</head>
+<body>
+<form method="GET" action="/logout">
+    <input type="submit" name="logoutButton" id="logoutButton" value="logout">
+</form>
+<div id='boxesDiv'>
+<div class="userListDiv">
+    <h2 class="listHeadLine">Users:</h2>
+    <ul id="userslist" title="users"></ul>
+</div>
+<div class="userListDiv">
+    <h2 id class="listHeadLine">Games:</h2>
+    <ul id="gameslist" title="games"></ul>
+</div>
+<div class="userListDiv">
+    <h2 id class="listHeadLine">Game Info:</h2>
+</div>
+</div>
+<form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
+    <input type="file" name="file" id="fileInput" accept=".xml"><br>
+    <input type="Submit" value="Upload File"><br>
+</form>
+</body>
+</html>

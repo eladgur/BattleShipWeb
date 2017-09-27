@@ -1,0 +1,12 @@
+body{
+    background-image: url("/resources/images/background.jpg");
+}
+
+#headline{
+    font-family: serif;
+    color: gold;
+}
+
+a[href]:hover{
+    color: lime;
+}
