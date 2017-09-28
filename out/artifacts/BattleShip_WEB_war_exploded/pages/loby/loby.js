@@ -68,3 +68,10 @@ function sendFile(file) {
   });
 
 }
+
+function onStartGameButtonEventHandler(e) {
+    $.ajax({
+        url: '/gamePage',
+        type: 'GET',
+    });
+}

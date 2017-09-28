@@ -25,8 +25,12 @@
 </div>
 </div>
 <form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
+    <input type="text" placeholder="Game Name" name="gameName">
     <input type="file" name="file" id="fileInput" accept=".xml"><br>
     <input type="Submit" value="Upload File"><br>
+</form>
+<form action="/gamePage" method="get" xmlFileWasLoaded="false" >
+    <input type="submit" value="start game">
 </form>
 </body>
 </html>

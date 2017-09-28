@@ -1,0 +1,16 @@
+td {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid blue;
+}
+
+/*Draw the cell that the mouse is hover in green*/
+td:hover{ 
+  background-color: lightblue;
+}
+
+.boardSquare:hover{
+	background-color: green;
+}

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-import java.util.Scanner;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +28,8 @@ import static xmlInputManager.XmlReader.getDataFromXml;
 //This is mandatory for using the Parts() function for reciving the file!
 public class FileUploadServlet extends HttpServlet {
 
+    public static final String GAME_ENGINE_DICTIONARY = "gameEngineDictionary";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect("fileupload/form.html");
@@ -35,13 +37,19 @@ public class FileUploadServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String gameName = request.getParameter("gameName");
         response.setContentType("text/html");
-        String fileName = saveFileFromRequest(request, response);
-        String filePath = "c:\\uploads\\" + fileName;
+        saveFileFromRequest(request, response);
+        String filePath = "c:\\uploads\\" + gameName + ".xml";
         try {
-            GameInfo gameInfo = getDataFromXml(filePath);
-            GameEngine gameEngine = new GameEngine();
-            gameEngine.loadAndValidateGameInfo(gameInfo);
+            if (!isGameNameExist(gameName)) {
+                GameInfo gameInfo = getDataFromXml(filePath);
+                GameEngine gameEngine = new GameEngine();
+                gameEngine.loadAndValidateGameInfo(gameInfo);
+                addGameEngineToListContext(gameName, gameEngine);
+            } else {
+                response.setStatus(500);
+            }
         } catch (InvalidXmFormatException | LogicallyInvalidXmlInputException e) {
             response.setStatus(500);
         }
@@ -85,5 +93,36 @@ public class FileUploadServlet extends HttpServlet {
         out.println("<textarea style=\"width:100%;height:400px\">");
         out.println(content);
         out.println("</textarea>");
+    }
+
+    /**
+     * This Function returnes true if success to add this game (GameName isn't  allready exist in map)
+     */
+    private void addGameEngineToListContext(String gameName, GameEngine gameEngineToAdd) {
+        //on the first call the value will be null
+        Map<String, GameEngine> gameEngineMap = (Map<String, GameEngine>) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);
+
+        //if there is no value for 'GAME_ENGINE_DICTIONARY' - create a new list ( LAZY CREATION )
+        if (gameEngineMap == null) {
+            getServletContext().setAttribute(GAME_ENGINE_DICTIONARY, new Hashtable<String, GameEngine>());
+            gameEngineMap = (Map<String, GameEngine>) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);//TODO: To check if Hashtable is OK !
+        }
+
+        if (!isGameNameExist(gameName)) {
+            gameEngineMap.put(gameName, gameEngineToAdd);
+        }
+    }
+
+    private boolean isGameNameExist(String gameName) {
+        boolean isExist = false;
+
+        Map<String, GameEngine> gameEngineMap = (Map<String, GameEngine>) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);
+
+        //if there is no value for 'GAME_ENGINE_DICTIONARY' - create a new list ( LAZY CREATION )
+        if (gameEngineMap != null && gameEngineMap.containsKey(gameName)) {
+            isExist = true;
+        }
+
+        return isExist;
     }
 }

@@ -1,0 +1,19 @@
+.root {
+    -fx-background-image: url(/resources/images/background.jpg);
+    -fx-background-size: stretch;
+}
+
+.button {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill:black;
+}
+
+#startGameButton:hover{
+    -fx-background-color: deepskyblue;
+}
+
+#loadGameButton:hover{
+    -fx-background-color: lime;
+}
+.buttonDisable{}
