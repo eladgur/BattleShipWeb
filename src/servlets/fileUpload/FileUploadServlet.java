@@ -43,6 +43,8 @@ public class FileUploadServlet extends HttpServlet {
         response.setContentType("text/html");
         saveFileFromRequest(request, response, gameName);
         String filePath = "c:\\uploads\\" + gameName + ".xml";
+        PrintWriter writer = response.getWriter();
+
         try {
             if (!isGameNameExist(gameName)) {
                 GameInfo gameInfo = getDataFromXml(filePath);
@@ -50,12 +52,12 @@ public class FileUploadServlet extends HttpServlet {
                 gameEngine.loadAndValidateGameInfo(gameInfo);
                 addGameEngineToListContext(gameName, gameEngine);
             } else {
+                writer.print("File Name allready exist");
                 response.setStatus(500);
             }
         } catch (InvalidXmFormatException | LogicallyInvalidXmlInputException e) {
-            response.setStatus(500);
-            PrintWriter writer = response.getWriter();
             writer.print(e.getMessage());
+            response.setStatus(500);
         }
     }
 

@@ -7,34 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45e11a0a-7fb5-42f1-919e-f2b1df5803a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/servlets/gamesManagment/GamesListServlet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/servlets/gamesManagment/GamesManager.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/UserManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/UserManager.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/servlets/signup/UserManager.java" afterPath="$PROJECT_DIR$/src/servlets/signup/UsersManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/fileUpload/FileUploadServlet.class" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/fileUpload/FileUploadServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/LoginServlet.class" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/LoginServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/LogoutServlet.class" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/LogoutServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/UsersListServlet.class" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/signup/UsersListServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/utils/ServletUtils.class" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/utils/ServletUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/fileUpload/FileUploadServlet.class" afterPath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/fileUpload/FileUploadServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/LoginServlet.class" afterPath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/LoginServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/LogoutServlet.class" afterPath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/LogoutServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/UsersListServlet.class" afterPath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/signup/UsersListServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/utils/ServletUtils.class" afterPath="$PROJECT_DIR$/out/production/BattleShip WEB/utils/ServletUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/loby/loby.css" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/loby/loby.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/loby/loby.html" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/loby/loby.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/loby/loby.js" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/loby/loby.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java" afterPath="$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servlets/signup/LoginServlet.java" afterPath="$PROJECT_DIR$/src/servlets/signup/LoginServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servlets/signup/LogoutServlet.java" afterPath="$PROJECT_DIR$/src/servlets/signup/LogoutServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servlets/signup/UsersListServlet.java" afterPath="$PROJECT_DIR$/src/servlets/signup/UsersListServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/ServletUtils.java" afterPath="$PROJECT_DIR$/src/utils/ServletUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/pages/loby/loby.css" afterPath="$PROJECT_DIR$/web/pages/loby/loby.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/pages/loby/loby.html" afterPath="$PROJECT_DIR$/web/pages/loby/loby.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/pages/loby/loby.js" afterPath="$PROJECT_DIR$/web/pages/loby/loby.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,11 +19,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UsersListServlet.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FileUploadServlet.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="54" column="54" lean-forward="false" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
+              <folding>
+                <element signature="e#902#966#0" expanded="false" />
+                <element signature="method#doGet#0;class#FileUploadServlet#0" expanded="false" />
+                <element signature="method#saveFileFromRequest#0;class#FileUploadServlet#0" expanded="false" />
+                <element signature="method#printPart#0;class#FileUploadServlet#0" expanded="false" />
+                <element signature="method#readFromInputStream#0;class#FileUploadServlet#0" expanded="false" />
+                <element signature="method#printFileContent#0;class#FileUploadServlet#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsersListServlet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servlets/signup/UsersListServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="170">
+              <caret line="20" column="52" lean-forward="true" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
               <folding>
                 <element signature="docComment;method#doGet#0;class#UsersListServlet#0" expanded="false" />
                 <element signature="method#doGet#0;class#UsersListServlet#0" expanded="false" />
@@ -117,8 +107,8 @@
         <option value="$PROJECT_DIR$/src/servlets/gamesManagment/GamesListServlet.java" />
         <option value="$PROJECT_DIR$/src/servlets/signup/UsersListServlet.java" />
         <option value="$PROJECT_DIR$/src/servlets/gamesManagment/GamesManager.java" />
-        <option value="$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java" />
         <option value="$PROJECT_DIR$/web/pages/loby/loby.js" />
+        <option value="$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java" />
       </list>
     </option>
   </component>
@@ -403,12 +393,12 @@
       <workItem from="1506606838108" duration="2978000" />
       <workItem from="1506610238185" duration="64000" />
       <workItem from="1506610335412" duration="2540000" />
-      <workItem from="1506614632414" duration="16253000" />
+      <workItem from="1506614632414" duration="16511000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26705000" />
+    <option name="totallyTimeSpent" value="26963000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -424,7 +414,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5286416" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5286416" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -908,21 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="40" column="82" lean-forward="false" selection-start-line="40" selection-start-column="74" selection-end-line="40" selection-end-column="82" />
-          <folding>
-            <element signature="e#902#966#0" expanded="false" />
-            <element signature="method#doGet#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#saveFileFromRequest#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#printPart#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#readFromInputStream#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#printFileContent#0;class#FileUploadServlet#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -933,14 +908,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/signup/UsersListServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="170">
+          <caret line="20" column="52" lean-forward="true" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
           <folding>
             <element signature="docComment;method#doGet#0;class#UsersListServlet#0" expanded="false" />
             <element signature="method#doGet#0;class#UsersListServlet#0" expanded="false" />
             <element signature="docComment;method#doPost#0;class#UsersListServlet#0" expanded="false" />
             <element signature="method#doPost#0;class#UsersListServlet#0" expanded="false" />
             <element signature="docComment;method#getServletInfo#0;class#UsersListServlet#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="54" column="54" lean-forward="false" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
+          <folding>
+            <element signature="e#902#966#0" expanded="false" />
+            <element signature="method#doGet#0;class#FileUploadServlet#0" expanded="false" />
+            <element signature="method#saveFileFromRequest#0;class#FileUploadServlet#0" expanded="false" />
+            <element signature="method#printPart#0;class#FileUploadServlet#0" expanded="false" />
+            <element signature="method#readFromInputStream#0;class#FileUploadServlet#0" expanded="false" />
+            <element signature="method#printFileContent#0;class#FileUploadServlet#0" expanded="false" />
           </folding>
         </state>
       </provider>
