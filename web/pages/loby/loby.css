@@ -9,7 +9,7 @@ body{
     background-image: url("/resources/images/background.jpg");
 }
 
-.userListDiv{
+.usersListDiv{
     width: 200px;
     height: 200px;
     background-color: gray;

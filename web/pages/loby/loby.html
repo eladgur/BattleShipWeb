@@ -12,20 +12,20 @@
     <input type="submit" name="logoutButton" id="logoutButton" value="logout">
 </form>
 <div id='boxesDiv'>
-<div class="userListDiv">
+<div class="usersListDiv">
     <h2 class="listHeadLine">Users:</h2>
     <ul id="userslist" title="users"></ul>
 </div>
-<div class="userListDiv">
+<div class="usersListDiv">
     <h2 id class="listHeadLine">Games:</h2>
-    <ul id="gameslist" title="games"></ul>
+    <ul id="gamesList" title="games"></ul>
 </div>
-<div class="userListDiv">
+<div class="usersListDiv">
     <h2 id class="listHeadLine">Game Info:</h2>
 </div>
 </div>
 <form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
-    <input type="text" placeholder="Game Name" name="gameName">
+    <input type="text" placeholder="Game Name" name="gameName" id="gameName">
     <input type="file" name="file" id="fileInput" accept=".xml"><br>
     <input type="Submit" value="Upload File"><br>
 </form>

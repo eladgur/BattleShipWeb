@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserManager {
+public class UsersManager {
 
     private final Set<String> usersSet;
 
-    public UserManager() {
+    public UsersManager() {
         usersSet = new HashSet<>();
     }
 

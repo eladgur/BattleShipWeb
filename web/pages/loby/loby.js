@@ -1,5 +1,6 @@
 var refreshRate = 2000; //mili seconds
-var USER_LIST_URL = "/userslist";
+var USERS_LIST_URL = "/userslist";
+var GAMES_LIST_URL = "/gameslist";
 
 //users = a list of usernames, essentially an array of javascript strings:
 function refreshUsersList(users) {
@@ -15,11 +16,33 @@ function refreshUsersList(users) {
     });
 }
 
+function refreshGamesList(users) {
+    //clear all current users
+    $("#gamesList").empty();
+
+    // rebuild the list of users: scan all users and add them to the list of users
+    $.each(users || [], function(index, gameName) {
+        console.log("Adding game #" + index + ": " + gameName);
+        //create a new <option> tag with a value in it and
+        //appeand it to the #userslist (div with id=userslist) element
+        $('<li>' + gameName + '</li>').appendTo($("#gamesList"));
+    });
+}
+
 function ajaxUsersList() {
     $.ajax({
-        url: USER_LIST_URL,
+        url: USERS_LIST_URL,
         success: function(users) {
             refreshUsersList(users);
+        }
+    });
+}
+
+function ajaxGamesList() {
+    $.ajax({
+        url: GAMES_LIST_URL,
+        success: function(games) {
+            refreshGamesList(games);
         }
     });
 }
@@ -32,6 +55,9 @@ $(function() {
 
     //The users list is refreshed automatically every second
     setInterval(ajaxUsersList, refreshRate);
+
+    //The games list is refreshed automatically every second
+    setInterval(ajaxGamesList, refreshRate);
 });
 
 // Add onSubmit Event Handler for sending file to the server (using ajax)
@@ -49,8 +75,9 @@ $(function () {
 
 function sendFile(file) {
   var data = new FormData();
-
+  var gameName = $("#gameName").val();
   data.append('xmlFile',file);
+  data.append('gameName',gameName);
   $.ajax({
       url: '/upload',
       type: 'POST',
@@ -62,8 +89,8 @@ function sendFile(file) {
       success: function (data, textStatus, jqXHR) {
           alert("File Uploaded Successfully!")
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-          alert("Unscussfull file upload, Please try again");
+      error: function (jqXHR) {
+          alert("Unscussfull file upload: " + jqXHR.responseText);
       }
   });
 

@@ -5,6 +5,8 @@ package servlets.fileUpload;
 
 import logic.GameEngine;
 import logic.exceptions.LogicallyInvalidXmlInputException;
+import servlets.gamesManagment.GamesManager;
+import utils.ServletUtils;
 import xmlInputManager.GameInfo;
 import xmlInputManager.InvalidXmFormatException;
 
@@ -39,7 +41,7 @@ public class FileUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String gameName = request.getParameter("gameName");
         response.setContentType("text/html");
-        saveFileFromRequest(request, response);
+        saveFileFromRequest(request, response, gameName);
         String filePath = "c:\\uploads\\" + gameName + ".xml";
         try {
             if (!isGameNameExist(gameName)) {
@@ -52,15 +54,17 @@ public class FileUploadServlet extends HttpServlet {
             }
         } catch (InvalidXmFormatException | LogicallyInvalidXmlInputException e) {
             response.setStatus(500);
+            PrintWriter writer = response.getWriter();
+            writer.print(e.getMessage());
         }
     }
 
-    private String saveFileFromRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private String saveFileFromRequest(HttpServletRequest request, HttpServletResponse response, String gameName) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
         Part xmlFile = request.getPart("xmlFile");
         String disposition = xmlFile.getHeader("Content-Disposition");
-        String fileName = disposition.replaceFirst("(?i)^.*filename=\"([^\"]+)\".*$", "$1");
-
+//        String fileName = disposition.replaceFirst("(?i)^.*filename=\"([^\"]+)\".*$", "$1");
+        String fileName = gameName + ".xml";
         //to write the content of the file to an actual file in the system (will be created at c:\samplefile)
         xmlFile.write(fileName);
 
@@ -95,34 +99,15 @@ public class FileUploadServlet extends HttpServlet {
         out.println("</textarea>");
     }
 
-    /**
-     * This Function returnes true if success to add this game (GameName isn't  allready exist in map)
-     */
     private void addGameEngineToListContext(String gameName, GameEngine gameEngineToAdd) {
-        //on the first call the value will be null
-        Map<String, GameEngine> gameEngineMap = (Map<String, GameEngine>) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);
+        GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
 
-        //if there is no value for 'GAME_ENGINE_DICTIONARY' - create a new list ( LAZY CREATION )
-        if (gameEngineMap == null) {
-            getServletContext().setAttribute(GAME_ENGINE_DICTIONARY, new Hashtable<String, GameEngine>());
-            gameEngineMap = (Map<String, GameEngine>) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);//TODO: To check if Hashtable is OK !
-        }
-
-        if (!isGameNameExist(gameName)) {
-            gameEngineMap.put(gameName, gameEngineToAdd);
-        }
+        gamesManager.addGame(gameName, gameEngineToAdd);
     }
 
     private boolean isGameNameExist(String gameName) {
-        boolean isExist = false;
+        GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
 
-        Map<String, GameEngine> gameEngineMap = (Map<String, GameEngine>) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);
-
-        //if there is no value for 'GAME_ENGINE_DICTIONARY' - create a new list ( LAZY CREATION )
-        if (gameEngineMap != null && gameEngineMap.containsKey(gameName)) {
-            isExist = true;
-        }
-
-        return isExist;
+        return gamesManager.isGameExist(gameName);
     }
 }
