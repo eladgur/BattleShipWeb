@@ -9,7 +9,7 @@ body{
     background-image: url("/resources/images/background.jpg");
 }
 
-.usersListDiv{
+.ContainerDiv{
     width: 200px;
     height: 200px;
     background-color: gray;
@@ -18,6 +18,8 @@ body{
     display: inline-block;
     margin: 20px;
     vertical-align: top;
+    align-self: center;
+    display: inline-block;
 }
 
 #userslist{
@@ -41,6 +43,13 @@ body{
 }
 
 #boxesDiv{
-    margin: auto;
-    width: 50%;
+    margin: 0 auto;
+    /*background-color: lightblue;*/
+    text-align: center;
+}
+
+#uploadFileDiv{
+    width: auto;
+    height: auto;
+    text-align: left;
 }

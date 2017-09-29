@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,25 +13,33 @@
     <input type="submit" name="logoutButton" id="logoutButton" value="logout">
 </form>
 <div id='boxesDiv'>
-<div class="usersListDiv">
-    <h2 class="listHeadLine">Users:</h2>
-    <ul id="userslist" title="users"></ul>
-</div>
-<div class="usersListDiv">
-    <h2 id class="listHeadLine">Games:</h2>
-    <ul id="gamesList" title="games"></ul>
-</div>
-<div class="usersListDiv">
-    <h2 id class="listHeadLine">Game Info:</h2>
-</div>
-</div>
-<form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
-    <input type="text" placeholder="Game Name" name="gameName" id="gameName">
-    <input type="file" name="file" id="fileInput" accept=".xml"><br>
+    <div class="ContainerDiv">
+        <h2 class="listHeadLine">Users:</h2>
+        <ul id="userslist" title="users"></ul>
+
+    </div>
+    <div class="ContainerDiv" id="uploadFileDiv">
+    <form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
+    <input type="text" placeholder="Game Name" name="gameName" id="gameName" required>
+    <input type="file" name="file" id="fileInput" accept=".xml" required><br>
     <input type="Submit" value="Upload File"><br>
-</form>
-<form action="/gamePage" method="get" xmlFileWasLoaded="false" >
-    <input type="submit" value="start game">
-</form>
+    </form>
+    </div>
+    <div class="boxesDiv">
+    <h3 class="listHeadLine">Games:</h3>   
+        <div class="ContainerDiv">
+        <form action="/gamePage" method="get" id="chooseGameForm">
+            <select name="gameSelectList" size="4" id="gameSelectList" required>
+            <!--TODO: Games added dynamically to this list using js !-->
+            </select>
+            <input type="submit" value="start game">
+        </form>
+        </div>
+        <div class="ContainerDiv">
+            <h3 id class="listHeadLine">Game Info:</h3>
+             <p id="gameInfo"></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

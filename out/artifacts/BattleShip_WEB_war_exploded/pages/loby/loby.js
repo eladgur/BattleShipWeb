@@ -16,16 +16,18 @@ function refreshUsersList(users) {
     });
 }
 
-function refreshGamesList(users) {
+function refreshGamesList(games) {
     //clear all current users
     $("#gamesList").empty();
+    $("#gameSelectList").empty();
 
     // rebuild the list of users: scan all users and add them to the list of users
-    $.each(users || [], function(index, gameName) {
+    $.each(games || [], function(index, gameName) {
         console.log("Adding game #" + index + ": " + gameName);
         //create a new <option> tag with a value in it and
         //appeand it to the #userslist (div with id=userslist) element
         $('<li>' + gameName + '</li>').appendTo($("#gamesList"));
+        $('<option value="' + gameName + '">' + gameName + '</option>').appendTo($("#gameSelectList"));
     });
 }
 

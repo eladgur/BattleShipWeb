@@ -34,6 +34,9 @@ public class GamesManager {
         return Collections.unmodifiableSet(gamesNamesSet);
     }
 
+    public Map<String, GameEngine> getGameEngineMap() {
+        return gameEngineMap;
+    }
 
     public boolean isGameExist(String gameName) {
         return gameEngineMap.containsKey(gameName);

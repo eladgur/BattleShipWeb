@@ -1,9 +1,13 @@
 package servlets.gameServlet;
 
 import logic.GameEngine;
+import servlets.gamesManagment.GamesManager;
+import utils.ServletUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import static servlets.fileUpload.FileUploadServlet.GAME_ENGINE_DICTIONARY;
 
-@WebServlet(name = "ClickServlet", urlPatterns = {"/gamePage"})
+@WebServlet(name = "GameServlet", urlPatterns = {"/gamePage"})
 public class GameServlet extends HttpServlet {
 
     private static final int BOARD_SIZE = 10;
     private static final String ROW_PARAMETER = "row";
     private static final String COL_PARAMETER = "col";
+    private static final String GAME_NAME = "gameSelectList";
 
     TableCellLocation leftClickLocation;
     TableCellLocation rightClickLocation;
@@ -36,9 +41,10 @@ public class GameServlet extends HttpServlet {
 
         String rowStr = request.getParameter(ROW_PARAMETER);
         String colStr = request.getParameter(COL_PARAMETER);
+        String gameName = request.getParameter(GAME_NAME);
         // String button = request.getParameter("button");
 
-        GameEngine gameEngine = (GameEngine) getServletContext().getAttribute(GAME_ENGINE_DICTIONARY);
+        GameEngine gameEngine = getGameEngineByGameName(gameName);
         int boardSize = gameEngine.getPlayerData().getBoardSize();
 
         response.setContentType("text/html;charset=UTF-8");
@@ -47,8 +53,8 @@ public class GameServlet extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet ClickServlet</title>");
-            out.println("<link rel='stylesheet' type='text/css' href='click/click.css' />");
-            out.println("<script src='click/click.js' type='text/javascript'></script>");
+            out.println("<link rel='stylesheet' type='text/css' href='/pages/gamePage/gamePage.css' />");
+            out.println("<script src='/pages/gamePage/gamePage.js' type='text/javascript'></script>");
             out.println("</head>");
             out.println("<body>");
 
@@ -83,6 +89,14 @@ public class GameServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
+    }
+
+    private GameEngine getGameEngineByGameName(String gameName) {
+        GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
+        Map<String, GameEngine> gamesList = gamesManager.getGameEngineMap();
+        GameEngine gameEngine = gamesList.get(gameName);
+
+        return gameEngine;
     }
 
     private void updateClickLocations(String rowStr, String colStr, String button) {
