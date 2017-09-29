@@ -48,6 +48,10 @@ public class GameServlet extends HttpServlet {
         int boardSize = gameEngine.getPlayerData().getBoardSize();
 
         response.setContentType("text/html;charset=UTF-8");
+        writePageToClient(response, boardSize);
+    }
+
+    private void writePageToClient(HttpServletResponse response, int boardSize) throws IOException {
         try (PrintWriter out = response.getWriter()) {
 
             out.println("<html>");
