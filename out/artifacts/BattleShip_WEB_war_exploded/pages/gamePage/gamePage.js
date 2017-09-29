@@ -19,10 +19,3 @@ function myclick (event) {
     clickedSquare.classList.add('clickedSquare');
     clickedSquare.onclick = null;
 }
-
-// function onTrackBoardSquareClickEventHandler() {
-//     var clickedSquare = event.target;
-//
-//     clickedSquare.classList.add('clickedSquare');
-//     clickedSquare.onclick = null;
-// }

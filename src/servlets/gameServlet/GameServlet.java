@@ -2,9 +2,7 @@ package servlets.gameServlet;
 
 import logic.GameEngine;
 import logic.data.ShipBoard;
-import logic.data.TrackBoard;
 import logic.data.enums.ShipBoardSquareValue;
-import logic.data.enums.TrackBoardSquareValue;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
 import xmlInputManager.Position;
@@ -12,15 +10,12 @@ import xmlInputManager.Position;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import static servlets.fileUpload.FileUploadServlet.GAME_ENGINE_DICTIONARY;
 
 @WebServlet(name = "GameServlet", urlPatterns = {"/gamePage"})
 public class GameServlet extends HttpServlet {
@@ -29,7 +24,6 @@ public class GameServlet extends HttpServlet {
     private static final String ROW_PARAMETER = "row";
     private static final String COL_PARAMETER = "col";
     private static final String GAME_NAME = "gameSelectList";
-    public static int TOTAL_AMOUNT_OF_USERS = 0;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,9 +42,22 @@ public class GameServlet extends HttpServlet {
         String gameName = request.getParameter(GAME_NAME);
         GameEngine gameEngine = getGameEngineByGameName(gameName);
         int boardSize = gameEngine.getPlayerData().getBoardSize();
-        int userIndexInGame = getUserIndexFromGod();
+        addUserToGame(gameName);
+        int userIndexInGame = getUserIndex(gameName);
+        storeGameNameOnSession(gameName, request);
 
+        storeUserIndexInSession(userIndexInGame, request.getSession());
         writePageToClient(response, boardSize, gameEngine, userIndexInGame);
+    }
+
+    private void storeGameNameOnSession(String gameName, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("gameName",gameName);
+    }
+
+    private void addUserToGame(String gameName) {
+        GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
+        gamesManager.addUserToRoom(gameName);
     }
 
     private void storeUserIndexInSession(int userIndex, HttpSession session) {
@@ -89,8 +96,8 @@ public class GameServlet extends HttpServlet {
 
     private GameEngine getGameEngineByGameName(String gameName) {
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
-        Map<String, GameEngine> gamesList = gamesManager.getGameEngineMap();
-        GameEngine gameEngine = gamesList.get(gameName);
+        Map<String, GameEngine> gamesMap = gamesManager.getGameEngineMap();
+        GameEngine gameEngine = gamesMap.get(gameName);
 
         return gameEngine;
     }
@@ -192,12 +199,11 @@ public class GameServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public int getUserIndexFromGod() {
-        //TODO: To implement this function
-        int userIndex = TOTAL_AMOUNT_OF_USERS % 2;
-        ++TOTAL_AMOUNT_OF_USERS;
+    public int getUserIndex(String gameName) {
+        GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
+        int amountOfPlayerInGame = gamesManager.getNumberOfPlayersInSpecificGame(gameName);
+        int userIndex = amountOfPlayerInGame - 1;
 
         return userIndex;
     }
-
 }
