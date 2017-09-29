@@ -7,8 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45e11a0a-7fb5-42f1-919e-f2b1df5803a6" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/gameServlet/GameServlet$TableCellLocation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/gameServlet/GameServlet$TableCellLocation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/BattleShip WEB/servlets/gameServlet/GameServlet.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/gameServlet/GameServlet.class" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/WEB-INF/classes/servlets/gameServlet/GameServlet.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/gamePage/gamePage.css" afterPath="$PROJECT_DIR$/out/artifacts/BattleShip_WEB_war_exploded/pages/gamePage/gamePage.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servlets/gameServlet/GameServlet.java" afterPath="$PROJECT_DIR$/src/servlets/gameServlet/GameServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.css" afterPath="$PROJECT_DIR$/web/index.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/pages/gamePage/gamePage.css" afterPath="$PROJECT_DIR$/web/pages/gamePage/gamePage.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/pages/gamePage/gamePage.js" afterPath="$PROJECT_DIR$/web/pages/gamePage/gamePage.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,27 +31,9 @@
       <file leaf-file-name="loby.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="37" column="34" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+            <state relative-caret-position="712">
+              <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loby.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!block;n#refreshUsersList#0" expanded="false" />
-                <element signature="n#!!block;n#ajaxUsersList#0" expanded="false" />
-                <element signature="n#!!block;n#ajaxGamesList#0" expanded="false" />
-                <element signature="e#1714#2006#0" expanded="false" />
-                <element signature="e#2098#2479#0" expanded="false" />
-                <element signature="n#!!block;n#sendFile#0" expanded="false" />
-                <element signature="n#!!block;n#onStartGameButtonEventHandler#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -53,35 +43,71 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
               <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/servlets/gameServlet/GameServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="466">
+              <caret line="146" column="60" lean-forward="false" selection-start-line="146" selection-start-column="60" selection-end-line="146" selection-end-column="60" />
               <folding>
-                <marker date="1506681272826" expanded="true" signature="262:456" ph="{...}" />
+                <element signature="docComment;method#processRequest#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#processRequest#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#storeUserIndexInSession#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#writePageToClient#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#getGameEngineByGameName#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#generateShipBoard#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#generateShipBoardClassNameFromShipBoard#0;class#GameServlet#0" expanded="false" />
+                <element signature="docComment;method#doGet#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#doGet#0;class#GameServlet#0" expanded="false" />
+                <element signature="docComment;method#doPost#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#doPost#0;class#GameServlet#0" expanded="false" />
+                <element signature="docComment;method#getServletInfo#0;class#GameServlet#0" expanded="false" />
+                <element signature="method#getUserIndexFromGod#0;class#GameServlet#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameServlet.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/servlets/gameServlet/GameServlet.java">
+      <file leaf-file-name="Position.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XmlInput/src/xmlInputManager/Position.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="50" column="47" lean-forward="true" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
-              <folding>
-                <element signature="docComment;method#processRequest#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#writePageToClient#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#updateClickLocations#0;class#GameServlet#0" expanded="false" />
-                <element signature="e#5198#5317#0" expanded="true" />
-                <element signature="docComment;method#doGet#0;class#GameServlet#0" expanded="false" />
-                <element signature="docComment;method#doPost#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#doPost#0;class#GameServlet#0" expanded="false" />
-                <element signature="docComment;method#getServletInfo#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#isLeftClickedCell#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#isRightClickedCell#0;class#GameServlet#0" expanded="false" />
-                <element signature="class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#TableCellLocation#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#TableCellLocation#1;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#hashCode#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-                <element signature="method#equals#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="289">
+              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShipBoard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Logic/src/logic/data/ShipBoard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gamePage.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/pages/gamePage/gamePage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gamePage.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/gamePage/gamePage.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="466">
+              <caret line="38" column="32" lean-forward="false" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -108,6 +134,11 @@
       <find>gamesNamesSet</find>
       <find>success</find>
       <find>gameslist</find>
+      <find>getplayer</find>
+      <find>otherplayer</find>
+      <find>NUM_OF_USERS_IN_GAME</find>
+      <find>click</find>
+      <find>index</find>
     </findStrings>
     <replaceStrings>
       <replace>this.gameEngineMap</replace>
@@ -126,7 +157,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/XmlInput/src/xmlInputManager/XmlReader.java" />
-        <option value="$PROJECT_DIR$/web/pages/gamePage/gamePage.js" />
         <option value="$PROJECT_DIR$/web/index.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/servlets/signup/UserManager.java" />
@@ -144,7 +174,11 @@
         <option value="$PROJECT_DIR$/src/servlets/gamesManagment/GamesManager.java" />
         <option value="$PROJECT_DIR$/web/pages/signup/signup.html" />
         <option value="$PROJECT_DIR$/web/pages/loby/loby.html" />
+        <option value="$PROJECT_DIR$/Logic/src/logic/GameEngine.java" />
+        <option value="$PROJECT_DIR$/web/pages/gamePage/gamePage.css" />
+        <option value="$PROJECT_DIR$/web/index.css" />
         <option value="$PROJECT_DIR$/src/servlets/gameServlet/GameServlet.java" />
+        <option value="$PROJECT_DIR$/web/pages/gamePage/gamePage.js" />
       </list>
     </option>
   </component>
@@ -188,24 +222,6 @@
             <path>
               <item name="BattleShip WEB" type="b2602c69:ProjectViewProjectNode" />
               <item name="BattleShip WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleShip WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleShip WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="servlets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleShip WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleShip WEB" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="servlets" type="462c0819:PsiDirectoryNode" />
-              <item name="gameServlet" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BattleShip WEB" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BattleShip WEB" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -213,6 +229,13 @@
               <item name="BattleShip WEB" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BattleShip WEB" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BattleShip WEB" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="gamePage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -442,12 +465,12 @@
       <workItem from="1506610335412" duration="2540000" />
       <workItem from="1506614632414" duration="16710000" />
       <workItem from="1506672514575" duration="2766000" />
-      <workItem from="1506675361722" duration="4634000" />
+      <workItem from="1506675361722" duration="16470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34562000" />
+    <option name="totallyTimeSpent" value="46398000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -455,7 +478,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -468,14 +491,14 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13072917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13854167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30877572" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3109426" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -525,49 +548,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="34" />
+      <option name="time" value="39" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/servlets/fileUpload/FileUploadServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="54" column="54" lean-forward="false" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
-          <folding>
-            <element signature="method#doGet#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#saveFileFromRequest#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#printPart#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#readFromInputStream#0;class#FileUploadServlet#0" expanded="false" />
-            <element signature="method#printFileContent#0;class#FileUploadServlet#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="7" lean-forward="true" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#refreshUsersList#0" expanded="false" />
-            <element signature="n#!!block;n#ajaxUsersList#0" expanded="false" />
-            <element signature="n#!!block;n#ajaxGamesList#0" expanded="false" />
-            <element signature="e#1714#2006#0" expanded="false" />
-            <element signature="e#2098#2479#0" expanded="false" />
-            <element signature="n#!!block;n#sendFile#0" expanded="false" />
-            <element signature="n#!!block;n#onStartGameButtonEventHandler#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/gamesManagment/GamesManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -576,8 +561,8 @@
             <element signature="method#GamesManager#0;class#GamesManager#0" expanded="false" />
             <element signature="method#addGame#0;class#GamesManager#0" expanded="false" />
             <element signature="method#removeGame#0;class#GamesManager#0" expanded="false" />
-            <element signature="e#950#951#0" expanded="true" />
-            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#950#951#0" expanded="false" />
+            <element signature="e#986#987#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -602,20 +587,18 @@
           <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding>
             <element signature="docComment;method#processRequest#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#processRequest#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#storeUserIndexInSession#0;class#GameServlet#0" expanded="false" />
             <element signature="method#writePageToClient#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#updateClickLocations#0;class#GameServlet#0" expanded="false" />
-            <element signature="e#5198#5317#0" expanded="true" />
+            <element signature="method#getGameEngineByGameName#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#generateShipBoard#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#generateShipBoardClassNameFromShipBoard#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#doGet#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#doGet#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#doPost#0;class#GameServlet#0" expanded="false" />
             <element signature="method#doPost#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#getServletInfo#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#isLeftClickedCell#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#isRightClickedCell#0;class#GameServlet#0" expanded="false" />
-            <element signature="class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#TableCellLocation#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#TableCellLocation#1;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#hashCode#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#equals#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#getUserIndexFromGod#0;class#GameServlet#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -668,20 +651,18 @@
           <caret line="34" column="49" lean-forward="true" selection-start-line="34" selection-start-column="49" selection-end-line="34" selection-end-column="49" />
           <folding>
             <element signature="docComment;method#processRequest#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#processRequest#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#storeUserIndexInSession#0;class#GameServlet#0" expanded="false" />
             <element signature="method#writePageToClient#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#updateClickLocations#0;class#GameServlet#0" expanded="false" />
-            <element signature="e#5198#5317#0" expanded="true" />
+            <element signature="method#getGameEngineByGameName#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#generateShipBoard#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#generateShipBoardClassNameFromShipBoard#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#doGet#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#doGet#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#doPost#0;class#GameServlet#0" expanded="false" />
             <element signature="method#doPost#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#getServletInfo#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#isLeftClickedCell#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#isRightClickedCell#0;class#GameServlet#0" expanded="false" />
-            <element signature="class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#TableCellLocation#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#TableCellLocation#1;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#hashCode#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#equals#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#getUserIndexFromGod#0;class#GameServlet#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -824,7 +805,6 @@
         <state relative-caret-position="340">
           <caret line="75" column="1" lean-forward="true" selection-start-line="75" selection-start-column="1" selection-end-line="75" selection-end-column="1" />
           <folding>
-            <element signature="n#!!block;n#refreshUsersList#0" expanded="false" />
             <element signature="n#!!block;n#ajaxUsersList#0" expanded="false" />
             <element signature="n#!!block;n#ajaxGamesList#0" expanded="false" />
             <element signature="e#1714#2006#0" expanded="false" />
@@ -874,13 +854,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/gamePage/gamePage.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -940,13 +913,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Logic/src/logic/GameEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/signup/UsersManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -990,8 +956,8 @@
             <element signature="method#GamesManager#0;class#GamesManager#0" expanded="false" />
             <element signature="method#addGame#0;class#GamesManager#0" expanded="false" />
             <element signature="method#removeGame#0;class#GamesManager#0" expanded="false" />
-            <element signature="e#950#951#0" expanded="true" />
-            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#950#951#0" expanded="false" />
+            <element signature="e#986#987#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1001,30 +967,6 @@
         <state relative-caret-position="204">
           <caret line="12" column="81" lean-forward="false" selection-start-line="12" selection-start-column="81" selection-end-line="12" selection-end-column="81" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/gamePage/gamePage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#refreshUsersList#0" expanded="false" />
-            <element signature="n#!!block;n#ajaxUsersList#0" expanded="false" />
-            <element signature="n#!!block;n#ajaxGamesList#0" expanded="false" />
-            <element signature="e#1714#2006#0" expanded="false" />
-            <element signature="e#2098#2479#0" expanded="false" />
-            <element signature="n#!!block;n#sendFile#0" expanded="false" />
-            <element signature="n#!!block;n#onStartGameButtonEventHandler#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1042,45 +984,126 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.css">
+    <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="559">
+          <caret line="40" column="1" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
           <folding>
-            <marker date="1506681272826" expanded="true" signature="262:456" ph="{...}" />
+            <element signature="n#!!block;n#ajaxUsersList#0" expanded="false" />
+            <element signature="n#!!block;n#ajaxGamesList#0" expanded="false" />
+            <element signature="e#1714#2006#0" expanded="false" />
+            <element signature="e#2098#2479#0" expanded="false" />
+            <element signature="n#!!block;n#sendFile#0" expanded="false" />
+            <element signature="n#!!block;n#onStartGameButtonEventHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="37" column="34" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+        <state relative-caret-position="712">
+          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/loby/loby.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/gamePage/gamePage.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="38" column="32" lean-forward="false" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XmlInput/src/xmlInputManager/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Logic/src/logic/data/ShipBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Logic/src/logic/GameEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
+          <folding>
+            <element signature="method#GameEngine#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#loadAndValidateGameInfo#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#validateInputData#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#setPlayersData#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#attackPosition#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#storeMove#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#swapActivePlayer#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#positionBeenAttackedBefore#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#waterSquareAttackedActions#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#attackShip#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#mineAttackedSquareActions#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#updateGameStatusAfterAttack#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#shipDrownActions#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#getShip#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#validateAttackPosition#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#addShipDrownListener#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#removeShipDrownListener#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#notifyAllShipDrownListeners#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#retreat#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#insertMine#0;class#GameEngine#0" expanded="false" />
+            <element signature="method#isValidMineLocation#0;class#GameEngine#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/gameServlet/GameServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="50" column="47" lean-forward="true" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
+        <state relative-caret-position="466">
+          <caret line="146" column="60" lean-forward="false" selection-start-line="146" selection-start-column="60" selection-end-line="146" selection-end-column="60" />
           <folding>
             <element signature="docComment;method#processRequest#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#processRequest#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#storeUserIndexInSession#0;class#GameServlet#0" expanded="false" />
             <element signature="method#writePageToClient#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#updateClickLocations#0;class#GameServlet#0" expanded="false" />
-            <element signature="e#5198#5317#0" expanded="true" />
+            <element signature="method#getGameEngineByGameName#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#generateShipBoard#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#generateShipBoardClassNameFromShipBoard#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#doGet#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#doGet#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#doPost#0;class#GameServlet#0" expanded="false" />
             <element signature="method#doPost#0;class#GameServlet#0" expanded="false" />
             <element signature="docComment;method#getServletInfo#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#isLeftClickedCell#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#isRightClickedCell#0;class#GameServlet#0" expanded="false" />
-            <element signature="class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#TableCellLocation#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#TableCellLocation#1;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#hashCode#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
-            <element signature="method#equals#0;class#TableCellLocation#0;class#GameServlet#0" expanded="false" />
+            <element signature="method#getUserIndexFromGod#0;class#GameServlet#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/gamePage/gamePage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

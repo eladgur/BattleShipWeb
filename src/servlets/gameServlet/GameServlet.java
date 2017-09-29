@@ -1,8 +1,13 @@
 package servlets.gameServlet;
 
 import logic.GameEngine;
+import logic.data.ShipBoard;
+import logic.data.TrackBoard;
+import logic.data.enums.ShipBoardSquareValue;
+import logic.data.enums.TrackBoardSquareValue;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
+import xmlInputManager.Position;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static servlets.fileUpload.FileUploadServlet.GAME_ENGINE_DICTIONARY;
 
@@ -23,18 +29,16 @@ public class GameServlet extends HttpServlet {
     private static final String ROW_PARAMETER = "row";
     private static final String COL_PARAMETER = "col";
     private static final String GAME_NAME = "gameSelectList";
-
-    TableCellLocation leftClickLocation;
-    TableCellLocation rightClickLocation;
+    public static int TOTAL_AMOUNT_OF_USERS = 0;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,18 +46,21 @@ public class GameServlet extends HttpServlet {
         String rowStr = request.getParameter(ROW_PARAMETER);
         String colStr = request.getParameter(COL_PARAMETER);
         String gameName = request.getParameter(GAME_NAME);
-        // String button = request.getParameter("button");
-
         GameEngine gameEngine = getGameEngineByGameName(gameName);
         int boardSize = gameEngine.getPlayerData().getBoardSize();
+        int userIndexInGame = getUserIndexFromGod();
 
-        response.setContentType("text/html;charset=UTF-8");
-        writePageToClient(response, boardSize);
+        writePageToClient(response, boardSize, gameEngine, userIndexInGame);
     }
 
-    private void writePageToClient(HttpServletResponse response, int boardSize) throws IOException {
-        try (PrintWriter out = response.getWriter()) {
+    private void storeUserIndexInSession(int userIndex, HttpSession session) {
+        session.setAttribute("userIndex", userIndex);
+    }
 
+    private void writePageToClient(HttpServletResponse response, int boardSize, GameEngine gameEngine, int userIndexInGame) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet ClickServlet</title>");
@@ -62,24 +69,9 @@ public class GameServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
 
-            //oncontextmenu=\"return false\" - causes the right click menu to not open
-            out.println("<table oncontextmenu=\"return false\">");
-            for (int col = 1; col <= boardSize; col++) {
-                out.println("<tr>");
-                for (int row = 1; row <= boardSize; row++) {
-                    String className = "boardSquare";
-                    //each td element is set to call 'myclick' on mouse up passing
-                    //three parameters - the event parameter comes from the browser
-                    //and contains details on the mouse click event;
-                    //row and col are generated when the page is generated
-                    //and are fixed for each td element
-                    out.println("<td class= '" + className + "' row='" + row + "' col='" + col + "'>");
-//                    out.println("<span>" + col * row + "</span>"); //TODO: NO NEED ?
-                    out.println("</td>");
-                }
-                out.println("</tr>");
-            }
-            out.println("</table>");
+            //Generate Boards
+            generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
+            generateTrackBoard(boardSize, out, gameEngine);
 
             //type='hidden' means the field is not visible
             //also - notice there is no type='submit' input since this form
@@ -103,33 +95,72 @@ public class GameServlet extends HttpServlet {
         return gameEngine;
     }
 
-    private void updateClickLocations(String rowStr, String colStr, String button) {
-        if (rowStr != null && colStr != null && button != null) {
-            //0 or 1 - means left button
-            switch (button) {
-                case "0":
-                case "1":
-                    leftClickLocation = new TableCellLocation(rowStr, colStr);
-                    break;
-                case "2":
-                    rightClickLocation = new TableCellLocation(rowStr, colStr);
-                    break;
-                default:
-                    leftClickLocation = null;
-                    rightClickLocation = null;
-                    break;
+    private void generateShipBoard(int boardSize, PrintWriter out, GameEngine gameEngine, int userIndexInGame) {
+        ShipBoard shipBoard = gameEngine.getPlayerData(userIndexInGame).getShipBoard();
+
+        out.println("<h2 class='boardHeadline'>ShipBoard<h2>");
+        //oncontextmenu=\"return false\" - causes the right click menu to not open
+        out.println("<table class='board' id='shipBoard' oncontextmenu=\"return false\">");
+        for (int row = 0; row < boardSize; row++) {
+            out.println("<tr>");
+            for (int col = 0; col < boardSize; col++) {
+                String className = generateShipBoardClassNameFromShipBoard(shipBoard, row, col);
+                out.println("<td class= '" + className + "' row='" + row + "' col='" + col + "'>");
+                out.println("</td>");
             }
+            out.println("</tr>");
         }
+        out.println("</table>");
+    }
+
+    private String generateShipBoardClassNameFromShipBoard(ShipBoard shipBoard, int row, int col) {
+        Position position = new Position(row, col);
+        ShipBoardSquareValue shipBoardSquareValue = shipBoard.getShipBoardSquareValue(position);
+        String className;
+
+        switch (shipBoardSquareValue) {
+            case WATER:
+                className = "water";
+                break;
+            case SHIP:
+                className = "ship";
+                break;
+            case MINE:
+                className = "mine";
+                break;
+            default:
+                className = "water";
+                break;
+        }
+
+        return className;
+    }
+
+    private void generateTrackBoard(int boardSize, PrintWriter out, GameEngine gameEngine) {
+        out.println("<h2 class='boardHeadline'>TrackBoard<h2>");
+        //oncontextmenu=\"return false\" - causes the right click menu to not open
+        out.println("<table class='board' id='trackBoard' oncontextmenu=\"return false\">");
+        for (int col = 0; col < boardSize; col++) {
+            out.println("<tr>");
+            for (int row = 0; row < boardSize; row++) {
+                String className = "water";
+                out.println("<td class= '" + className + '"' + "' row='" + row + "' col='" + col + "'>");
+                out.println("</td>");
+            }
+            out.println("</tr>");
+        }
+        out.println("</table>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -140,10 +171,10 @@ public class GameServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -161,49 +192,12 @@ public class GameServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean isLeftClickedCell(int row, int col) {
-        TableCellLocation currentTableCellLocation = new TableCellLocation(row, col);
-        return currentTableCellLocation.equals(leftClickLocation);
-    }
+    public int getUserIndexFromGod() {
+        //TODO: To implement this function
+        int userIndex = TOTAL_AMOUNT_OF_USERS % 2;
+        ++TOTAL_AMOUNT_OF_USERS;
 
-    private boolean isRightClickedCell(int row, int col) {
-        TableCellLocation currentTableCellLocation = new TableCellLocation(row, col);
-        return currentTableCellLocation.equals(rightClickLocation);
-    }
-
-    static class TableCellLocation {
-        public int row;
-        public int col;
-
-        public TableCellLocation(String row, String col) {
-            this.row = Integer.parseInt(row);
-            this.col = Integer.parseInt(col);
-        }
-
-        public TableCellLocation(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 3;
-            hash = 29 * hash + this.row;
-            hash = 29 * hash + this.col;
-            return hash;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            final TableCellLocation other = (TableCellLocation) obj;
-            return this.row == other.row && this.col == other.col;
-        }
+        return userIndex;
     }
 
 }

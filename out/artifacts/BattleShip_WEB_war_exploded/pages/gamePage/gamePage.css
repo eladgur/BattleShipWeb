@@ -7,10 +7,34 @@ td {
 }
 
 /*Draw the cell that the mouse is hover in green*/
-td:hover{ 
-  background-color: lightblue;
+td:hover{
+    background-color: lightblue;
 }
 
 .boardSquare:hover{
-	background-color: green;
+    background-color: green;
+}
+
+.board{
+    margin: auto;
+    background-image: url("/resources/images/background.jpg");
+}
+
+.boardHeadline{
+    text-align: center;
+}
+
+/*Board Squares Styles*/
+.ship{
+    background-image: url("/resources/images/battleship.png");
+    background-size: cover;
+}
+
+.mine{
+    background-image: url("/resources/images/mine.png");
+    background-size: cover;
+}
+
+.clickedSquare:hover{
+    background-color: indianred;
 }
