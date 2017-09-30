@@ -98,6 +98,30 @@ function sendFile(file) {
 
 }
 
+//function getGameInfo
+
+$(function () {
+    $("#gameSelectList").on('change', function (e) {
+        e.preventDefault(); // prevent form for submiting for using ajax instead
+        var gameName = ($("#gameSelectList :selected").text());
+        var formDataGameName = new FormData();
+        formDataGameName.append('gameName',gameName);
+        $.ajax({
+            url: '/gamesInfo',
+            type: 'POST',
+            data: formDataGameName,
+            success: function (data) {
+                fillInfo(data);
+            }
+
+        });
+    });
+});
+
+function fillInfo(data){
+    data.appendTo($("#gameInfo"));
+}
+
 function onStartGameButtonEventHandler(e) {
     $.ajax({
         url: '/gamePage',

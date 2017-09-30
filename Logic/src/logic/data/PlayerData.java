@@ -187,4 +187,8 @@ public class PlayerData implements Cloneable {
 
         return playerData;
     }
+
+    public GameType getGameType() {
+        return gameType;
+    }
 }
