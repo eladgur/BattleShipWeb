@@ -25,7 +25,7 @@ public class gameInfoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //returning JSON objects, not HTML
-        response.setContentType("application/json");
+        response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
             GamesManager GamesManager = ServletUtils.getGamesManager(getServletContext());
             String gameName = request.getParameter("gameName");
