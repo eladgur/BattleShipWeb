@@ -99,7 +99,7 @@ function sendFile(file) {
 }
 
 //function getGameInfo
-
+//jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 $(function () {
     $("#gameSelectList").on('change', function (e) {
         e.preventDefault(); // prevent form for submiting for using ajax instead
@@ -120,6 +120,7 @@ $(function () {
 });
 
 function fillInfo(data) {
+    $( "#gameInfo p" ).empty();
     $( "#gameInfo" ).append( data );
 }
 

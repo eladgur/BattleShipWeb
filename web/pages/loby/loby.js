@@ -120,6 +120,7 @@ $(function () {
 });
 
 function fillInfo(data) {
+    $( "#gameInfo p" ).empty();
     $( "#gameInfo" ).append( data );
 }
 
