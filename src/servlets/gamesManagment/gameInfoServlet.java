@@ -29,12 +29,14 @@ public class gameInfoServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             GamesManager GamesManager = ServletUtils.getGamesManager(getServletContext());
             String gameName = request.getParameter("gameName");
-            PlayerData playerData = GamesManager.getGameEngineMap().get(gameName).getPlayerData();
+            Game game = GamesManager.getGameByName(gameName);
+            PlayerData playerData = GamesManager.getGameEngineByGameName(gameName).getPlayerData();
+
             out.println("<p>Game Name: " + gameName + "</p>");
-            //out.println("Game Uploader User Name: ");//TODO:add to upload game
+            out.println("<p>Game Uploader User Name: " + game.getUploaderName() + "</p");//TODO:add to upload game
             out.println("<p>Game Board Size: " + playerData.getBoardSize() + "</p>");
             out.println("<p>Game Kind: " + playerData.getGameType() + "</p>");
-            out.println("<p>Number OF Players In Game: " + GamesManager.getNumberOfPlayersInSpecificGame(gameName) + "</p>");
+            out.println("<p>Number OF Players In Game: " + game.getAmountOfPlayers() + "</p>");
             out.flush();
         }
     }

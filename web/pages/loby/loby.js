@@ -18,16 +18,16 @@ function refreshUsersList(users) {
 
 function refreshGamesList(games) {
     //clear all current users
-    $("#gamesList").empty();
-    $("#gameSelectList").empty();
+    // gameSelectList.empty();
 
     // rebuild the list of users: scan all users and add them to the list of users
     $.each(games || [], function (index, gameName) {
         console.log("Adding game #" + index + ": " + gameName);
-        //create a new <option> tag with a value in it and
-        //appeand it to the #userslist (div with id=userslist) element
-        $('<li>' + gameName + '</li>').appendTo($("#gamesList"));
-        $('<option value="' + gameName + '">' + gameName + '</option>').appendTo($("#gameSelectList"));
+        //Check if there the item is not in the list (New Item)
+        //If item is not found int the list, append it !
+        if( $('#gameSelectList').find("option:contains('" + gameName  + "')").length == 0 ) {
+            $('<option value="' + gameName + '">' + gameName + '</option>').appendTo($("#gameSelectList"));
+        }
     });
 }
 
@@ -99,7 +99,6 @@ function sendFile(file) {
 }
 
 //function getGameInfo
-//jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 $(function () {
     $("#gameSelectList").on('change', function (e) {
         e.preventDefault(); // prevent form for submiting for using ajax instead
@@ -120,7 +119,7 @@ $(function () {
 });
 
 function fillInfo(data) {
-    $( "#gameInfo p" ).empty();
+    $( "#gameInfo p" ).remove();
     $( "#gameInfo" ).append( data );
 }
 

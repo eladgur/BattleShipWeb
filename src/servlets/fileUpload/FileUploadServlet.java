@@ -7,6 +7,7 @@ import logic.GameEngine;
 import logic.exceptions.LogicallyInvalidXmlInputException;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
+import utils.SessionUtils;
 import xmlInputManager.GameInfo;
 import xmlInputManager.InvalidXmFormatException;
 
@@ -40,6 +41,7 @@ public class FileUploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String gameName = request.getParameter("gameName");
+        String uploaderName = SessionUtils.getUsername(request);
         response.setContentType("text/html");
         saveFileFromRequest(request, response, gameName);
         String filePath = "c:\\uploads\\" + gameName + ".xml";
@@ -50,7 +52,7 @@ public class FileUploadServlet extends HttpServlet {
                 GameInfo gameInfo = getDataFromXml(filePath);
                 GameEngine gameEngine = new GameEngine();
                 gameEngine.loadAndValidateGameInfo(gameInfo);
-                addGameEngineToListContext(gameName, gameEngine);
+                addGameToDataBase(gameName, gameEngine, uploaderName);
             } else {
                 writer.print("File Name allready exist");
                 response.setStatus(500);
@@ -101,10 +103,10 @@ public class FileUploadServlet extends HttpServlet {
         out.println("</textarea>");
     }
 
-    private void addGameEngineToListContext(String gameName, GameEngine gameEngineToAdd) {
+    private void addGameToDataBase(String gameName, GameEngine gameEngineToAdd, String uploaderName) {
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
 
-        gamesManager.addGame(gameName, gameEngineToAdd);
+        gamesManager.addGame(gameName, gameEngineToAdd, uploaderName);
     }
 
     private boolean isGameNameExist(String gameName) {

@@ -12,80 +12,72 @@ public class GamesManager {
 
     public static final String GAME_ENGINE_DICTIONARY = "gameEngineDictionary";
 
+    private Map<String, Game> gamesList;
+
     private Set<String> gamesNamesSet;
 
-    private Map<String, GameEngine> gameEngineMap;
-
-    private Map<String, Integer> amountOfplayersInGameMap;
-
-    private Map<String, SquareStatusAfterMove> lastMoveInGameMap;
-
     public GamesManager() {
-        this.gameEngineMap = new Hashtable<>();
+        this.gamesList = new Hashtable<>();
         this.gamesNamesSet = new HashSet<>();
-        this.amountOfplayersInGameMap = new Hashtable<>();
-        this.lastMoveInGameMap = new Hashtable<>();
     }
 
-    public void addGame(String gameName, GameEngine gameEngine) {
+    public void addGame(String gameName, GameEngine gameEngine, String uploaderName) {
+        Game game = new Game(gameName, gameEngine, 0, uploaderName);
+        //Add name Game to names list for refresh on the client side every 2 seconds
         gamesNamesSet.add(gameName);
-        gameEngineMap.put(gameName, gameEngine);
-        amountOfplayersInGameMap.put(gameName, new Integer(0));
+        //Add game Object to the game list for forther details about this game
+        gamesList.put(gameName, game);
     }
 
     public void removeGame(String gameName) {
         gamesNamesSet.remove(gameName);
-        gameEngineMap.remove(gameName);
-        amountOfplayersInGameMap.remove(gameName);
+        gamesList.remove(gameName);
     }
 
     public Set<String> getGamesList() {
         return Collections.unmodifiableSet(gamesNamesSet);
     }
 
-    public Map<String, GameEngine> getGameEngineMap() {
-        return gameEngineMap;
-    }
-
-    public Map<String, Integer> getAmountOfplayersInGameMap() {
-        return amountOfplayersInGameMap;
-    }
-
     public int getNumberOfPlayersInSpecificGame(String gameName) {
         if (isGameExist(gameName)) {
-            return amountOfplayersInGameMap.get(gameName).intValue();
+            return gamesList.get(gameName).getAmountOfPlayers();
         } else {
             return -1; //insteadOfexception
         }
     }
 
-    public void addUserToRoom(String gameName) {
+    public void addUserToGame(String gameName, String userName) throws Game.GameFullException {
+        Game game = gamesList.get(gameName);
 
-        if (isGameExist(gameName)) {
-            int newAmountOfpeople = amountOfplayersInGameMap.get(gameName).intValue() + 1;
-            amountOfplayersInGameMap.replace(gameName, new Integer(newAmountOfpeople));
+        if (game != null) {
+           game.addUserToGame(userName);
         }
     }
 
-    public void decUserFromRoom(String gameName) {
+    public void removeUserFromGame(String gameName, String userName) {
 
         if (isGameExist(gameName)) {
-            int newAmountOfpeople = amountOfplayersInGameMap.get(gameName).intValue() - 1;
-            amountOfplayersInGameMap.replace(gameName, new Integer(newAmountOfpeople));
+            Game game = gamesList.get(gameName);
+            game.removeUserFromGame(userName);
         }
     }
 
     public boolean isGameExist(String gameName) {
-        return gameEngineMap.containsKey(gameName);
+        return gamesList.containsKey(gameName);
     }
 
     public GameEngine getGameEngineByGameName(String gameName) {
-        GameEngine gameEngine = gameEngineMap.get(gameName);
+        GameEngine gameEngine = gamesList.get(gameName).getGameEngine();
 
         return gameEngine;
     }
 
     public void updateLastMoveInLastMoveInGameMap(String gameName, SquareStatusAfterMove squareStatusAfterMove) {
-        lastMoveInGameMap.put(gameName, squareStatusAfterMove);
+        Game game = gamesList.get(gameName);
+        game.updateLastMove(squareStatusAfterMove);
+    }
+
+    public Game getGameByName(String gameName) {
+        return this.gamesList.get(gameName);
     }
 }

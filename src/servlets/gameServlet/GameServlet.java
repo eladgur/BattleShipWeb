@@ -3,8 +3,10 @@ package servlets.gameServlet;
 import logic.GameEngine;
 import logic.data.ShipBoard;
 import logic.data.enums.ShipBoardSquareValue;
+import servlets.gamesManagment.Game;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
+import utils.SessionUtils;
 import xmlInputManager.Position;
 
 import java.io.IOException;
@@ -37,17 +39,24 @@ public class GameServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String rowStr = request.getParameter(ROW_PARAMETER);
-        String colStr = request.getParameter(COL_PARAMETER);
+//        String rowStr = request.getParameter(ROW_PARAMETER);
+//        String colStr = request.getParameter(COL_PARAMETER);
         String gameName = request.getParameter(GAME_NAME);
         GameEngine gameEngine = getGameEngineByGameName(gameName);
         int boardSize = gameEngine.getPlayerData().getBoardSize();
-        addUserToGame(gameName);
-        int userIndexInGame = getUserIndex(gameName);
+        String userName = SessionUtils.getUsername(request);
         storeGameNameOnSession(gameName, request);
 
-        storeUserIndexInSession(userIndexInGame, request.getSession());
-        writePageToClient(response, boardSize, gameEngine, userIndexInGame);
+        try {
+            addUserToGame(gameName, userName);
+            int userIndexInGame = getUserIndex(gameName);
+            storeUserIndexInSession(userIndexInGame, request.getSession());
+            writePageToClient(response, boardSize, gameEngine, userIndexInGame);
+        } catch (Game.GameFullException e) { // Game is full
+            response.setStatus(500);
+            PrintWriter writer = response.getWriter();
+            writer.print(e.getMessage() + "Please try other game");
+        }
     }
 
     private void storeGameNameOnSession(String gameName, HttpServletRequest request) {
@@ -55,9 +64,10 @@ public class GameServlet extends HttpServlet {
         session.setAttribute("gameName",gameName);
     }
 
-    private void addUserToGame(String gameName) {
+    private void addUserToGame(String gameName, String userName) throws Game.GameFullException {
+
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
-        gamesManager.addUserToRoom(gameName);
+        gamesManager.addUserToGame(gameName, userName);
     }
 
     private void storeUserIndexInSession(int userIndex, HttpSession session) {
@@ -96,8 +106,7 @@ public class GameServlet extends HttpServlet {
 
     private GameEngine getGameEngineByGameName(String gameName) {
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
-        Map<String, GameEngine> gamesMap = gamesManager.getGameEngineMap();
-        GameEngine gameEngine = gamesMap.get(gameName);
+        GameEngine gameEngine = gamesManager.getGameEngineByGameName(gameName);
 
         return gameEngine;
     }

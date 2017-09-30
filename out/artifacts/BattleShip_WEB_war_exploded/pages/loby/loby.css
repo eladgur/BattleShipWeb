@@ -53,3 +53,8 @@ body{
     height: auto;
     text-align: left;
 }
+
+#gameInfo{
+    width: auto;
+    height: auto;
+}

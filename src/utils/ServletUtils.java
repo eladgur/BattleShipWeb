@@ -4,6 +4,7 @@ import logic.GameEngine;
 import servlets.gamesManagment.GamesManager;
 import servlets.signup.UsersManager;
 
+import javax.jms.Session;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
