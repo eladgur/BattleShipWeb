@@ -8,7 +8,7 @@ function refreshUsersList(users) {
     $("#userslist").empty();
 
     // rebuild the list of users: scan all users and add them to the list of users
-    $.each(users || [], function(index, username) {
+    $.each(users || [], function (index, username) {
         console.log("Adding user #" + index + ": " + username);
         //create a new <option> tag with a value in it and
         //appeand it to the #userslist (div with id=userslist) element
@@ -22,7 +22,7 @@ function refreshGamesList(games) {
     $("#gameSelectList").empty();
 
     // rebuild the list of users: scan all users and add them to the list of users
-    $.each(games || [], function(index, gameName) {
+    $.each(games || [], function (index, gameName) {
         console.log("Adding game #" + index + ": " + gameName);
         //create a new <option> tag with a value in it and
         //appeand it to the #userslist (div with id=userslist) element
@@ -34,7 +34,7 @@ function refreshGamesList(games) {
 function ajaxUsersList() {
     $.ajax({
         url: USERS_LIST_URL,
-        success: function(users) {
+        success: function (users) {
             refreshUsersList(users);
         }
     });
@@ -43,14 +43,14 @@ function ajaxUsersList() {
 function ajaxGamesList() {
     $.ajax({
         url: GAMES_LIST_URL,
-        success: function(games) {
+        success: function (games) {
             refreshGamesList(games);
         }
     });
 }
 
 //activate the timer calls after the page is loaded
-$(function() {
+$(function () {
 
     //prevent IE from caching ajax calls
     $.ajaxSetup({cache: false});
@@ -67,35 +67,60 @@ $(function () {
     $("#uploadFileForm").on('submit', function (e) {
         e.preventDefault(); // prevent form for submiting for using ajax instead
         var file = $("#fileInput").prop('files')[0];
-        if(file.type === 'text/xml'){
-          sendFile(file);
+        if (file.type === 'text/xml') {
+            sendFile(file);
         } else { // file type != 'text/xml'
-          alert('Illegal file type, please choose an xml file');
+            alert('Illegal file type, please choose an xml file');
         }
     });
 });
 
 function sendFile(file) {
-  var data = new FormData();
-  var gameName = $("#gameName").val();
-  data.append('xmlFile',file);
-  data.append('gameName',gameName);
-  $.ajax({
-      url: '/upload',
-      type: 'POST',
-      data: data,
-      cache: false,
-      enctype: "multipart/form-data",
-      processData: false, // Don't process the files
-      contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-      success: function (data, textStatus, jqXHR) {
-          alert("File Uploaded Successfully!")
-      },
-      error: function (jqXHR) {
-          alert("Unscussfull file upload: " + jqXHR.responseText);
-      }
-  });
+    var data = new FormData();
+    var gameName = $("#gameName").val();
+    data.append('xmlFile', file);
+    data.append('gameName', gameName);
+    $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: data,
+        cache: false,
+        enctype: "multipart/form-data",
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        success: function (data, textStatus, jqXHR) {
+            alert("File Uploaded Successfully!")
+        },
+        error: function (jqXHR) {
+            alert("Unscussfull file upload: " + jqXHR.responseText);
+        }
+    });
 
+}
+
+//function getGameInfo
+
+$(function () {
+    $("#gameSelectList").on('change', function (e) {
+        e.preventDefault(); // prevent form for submiting for using ajax instead
+        var curGameName = ($("#gameSelectList :selected").text());
+        var formDataGameName = new FormData();
+        formDataGameName.append('gameName', curGameName);
+        $.ajax({
+            url: '/gamesInfo',
+            type: 'POST',
+            data: {'gameName': curGameName},
+            cache: false,
+            success: function (data) {
+                fillInfo(data);
+                //alert("succsses");
+            }
+        });
+    });
+});
+
+function fillInfo(data) {
+    $( "#gameInfo" ).append( data );
 }
 
 function onStartGameButtonEventHandler(e) {
