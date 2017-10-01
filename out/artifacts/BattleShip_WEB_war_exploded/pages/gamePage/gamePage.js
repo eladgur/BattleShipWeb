@@ -1,7 +1,8 @@
 var waitingForSync = false;
 
 window.onload = function () {
-    var cells = document.getElementsByTagName('td');
+    // var cells = document.getElementsByTagName('td');
+    var cells = $("#trackBoard td");
     for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         cell.onclick = onTrackBoardSquareClickEventHandler;
@@ -22,13 +23,16 @@ function onTrackBoardSquareClickEventHandler(event) {
         //Put row and col on form
         document.getElementById('form_row').value = row;
         document.getElementById('form_col').value = col;
-        // document.forms['clickform'].submit(); //TODO: To use ajax intead
-        var formData = new FormData(document.forms['clickform']);
+        var form = $('form')[0]; // You need to use standard javascript object here
+        var formData = new FormData(form);
 
         $.ajax({
             url: '/playerMove',
+            data: {'row':row,'col':col},
             type: 'POST',
-            data: formData,
+            success: function (someData) {
+            //    TODO: Tamir implemnt this !
+            }
         });
     }
 }

@@ -7,6 +7,7 @@
 
 body{
     background-image: url("/resources/images/background.jpg");
+    background-size: cover;
 }
 
 .ContainerDiv{
@@ -52,9 +53,4 @@ body{
     width: auto;
     height: auto;
     text-align: left;
-}
-
-#gameInfo{
-    width: auto;
-    height: auto;
 }

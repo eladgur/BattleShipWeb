@@ -27,6 +27,7 @@ public class PlayerMoveServlet extends HttpServlet {
 
     private void playMove(HttpServletRequest req ,HttpServletResponse resp) throws IOException {
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
+        String check = req.getParameter("row");
         int row = Integer.parseInt(req.getParameter("row"));
         int col = Integer.parseInt(req.getParameter("col"));
         HttpSession session = req.getSession();

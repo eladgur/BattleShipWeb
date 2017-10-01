@@ -61,7 +61,7 @@ public class GameServlet extends HttpServlet {
 
     private void storeGameNameOnSession(String gameName, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("gameName",gameName);
+        session.setAttribute("gameName", gameName);
     }
 
     private void addUserToGame(String gameName, String userName) throws Game.GameFullException {
@@ -82,6 +82,7 @@ public class GameServlet extends HttpServlet {
             out.println("<head>");
             out.println("<title>Servlet ClickServlet</title>");
             out.println("<link rel='stylesheet' type='text/css' href='/pages/gamePage/gamePage.css' />");
+            out.println("<script src='/lib/jquery-3.2.1.min.js' type='text/javascript'></script>");
             out.println("<script src='/pages/gamePage/gamePage.js' type='text/javascript'></script>");
             out.println("</head>");
             out.println("<body>");
@@ -156,11 +157,11 @@ public class GameServlet extends HttpServlet {
         out.println("<h2 class='boardHeadline'>TrackBoard<h2>");
         //oncontextmenu=\"return false\" - causes the right click menu to not open
         out.println("<table class='board' id='trackBoard' oncontextmenu=\"return false\">");
-        for (int col = 0; col < boardSize; col++) {
+        String className = "water";
+        for (int row = 0; row < boardSize; row++) {
             out.println("<tr>");
-            for (int row = 0; row < boardSize; row++) {
-                String className = "water";
-                out.println("<td class= '" + className + '"' + "' row='" + row + "' col='" + col + "'>");
+            for (int col = 0; col < boardSize; col++) {
+                out.println("<td class= '" + className + "'" + "' row='" + row + "' col='" + col + "'>");
                 out.println("</td>");
             }
             out.println("</tr>");
