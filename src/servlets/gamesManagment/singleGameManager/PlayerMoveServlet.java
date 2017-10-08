@@ -2,12 +2,12 @@ package servlets.gamesManagment.singleGameManager;
 
 import com.google.gson.Gson;
 import logic.GameEngine;
+import logic.data.Constants;
 import logic.data.enums.AttackResult;
 import logic.exceptions.NoShipAtPoisitionException;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
 import xmlInputManager.Position;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,12 +38,16 @@ public class PlayerMoveServlet extends HttpServlet {
 
         try {
             AttackResult attackResult = gameEngine.attackPosition(positionToAttack, false);
-            SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult);
-            gamesManager.updateLastMoveInLastMoveInGameMap(gameName, squareStatus);
-            Gson gson = new Gson();
-            String json = gson.toJson(squareStatus);
+            SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult,userIndex);
+            UpdateVerifyer curMoveUpdateVerifyer= null;
+            curMoveUpdateVerifyer =  UpdateVerifyer.noUpdatedValues(squareStatus);
+            gamesManager.getGameByName(gameName).setUpdateVerifyer(curMoveUpdateVerifyer);
+            //---for debugging
+           Gson gson = new Gson();
+            String json = gson.toJson(curMoveUpdateVerifyer.lastMove);
             PrintWriter writer = resp.getWriter();
-            writer.println(json);;
+            writer.println(json);
+            //------------
         } catch (NoShipAtPoisitionException | CloneNotSupportedException e) {
             e.printStackTrace();
         }

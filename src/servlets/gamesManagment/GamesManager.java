@@ -72,10 +72,10 @@ public class GamesManager {
         return gameEngine;
     }
 
-    public void updateLastMoveInLastMoveInGameMap(String gameName, SquareStatusAfterMove squareStatusAfterMove) {
-        Game game = gamesList.get(gameName);
-        game.updateLastMove(squareStatusAfterMove);
-    }
+//    public void updateLastMoveInLastMoveInGameMap(String gameName, SquareStatusAfterMove squareStatusAfterMove) {
+//        Game game = gamesList.get(gameName);
+//        game.updateLastMove(squareStatusAfterMove);
+//    }
 
     public Game getGameByName(String gameName) {
         return this.gamesList.get(gameName);

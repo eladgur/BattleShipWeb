@@ -55,7 +55,7 @@ public class GameServlet extends HttpServlet {
         } catch (Game.GameFullException e) { // Game is full
             response.setStatus(500);
             PrintWriter writer = response.getWriter();
-            writer.print(e.getMessage() + "Please try other game");
+            writer.print(e.getMessage() + " Please try other game");
         }
     }
 
@@ -90,7 +90,7 @@ public class GameServlet extends HttpServlet {
             //Generate Boards
             generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
             generateTrackBoard(boardSize, out, gameEngine);
-
+            out.println("<p id='whosTurn'></p>");
             //type='hidden' means the field is not visible
             //also - notice there is no type='submit' input since this form
             //will be submitted using JavaScript

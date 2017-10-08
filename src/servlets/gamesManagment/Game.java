@@ -1,7 +1,9 @@
 package servlets.gamesManagment;
 
 import logic.GameEngine;
+import servlets.gamesManagment.singleGameManager.PlayerMoveServlet;
 import servlets.gamesManagment.singleGameManager.SquareStatusAfterMove;
+import servlets.gamesManagment.singleGameManager.UpdateVerifyer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,8 +16,17 @@ public class Game {
     private GameEngine gameEngine;
     private int amountOfPlayers;
     private String uploader;
-    private SquareStatusAfterMove lastMove;
+    //private SquareStatusAfterMove lastMove;
     private List<String> playersNames;
+    private UpdateVerifyer updateVerifyer;
+
+    public UpdateVerifyer getUpdateVerifyer() {
+        return updateVerifyer;
+    }
+
+    public void setUpdateVerifyer(UpdateVerifyer updateVerifyer) {
+        this.updateVerifyer = updateVerifyer;
+    }
 
     public Game(String gameName, GameEngine gameEngine, int amountOfPlayers, String uploaderName) {
         this.name = gameName;
@@ -23,6 +34,7 @@ public class Game {
         this.amountOfPlayers = amountOfPlayers;
         this.playersNames = new LinkedList<>();
         this.uploader = uploaderName;
+        this.updateVerifyer = null;
     }
 
     public int getAmountOfPlayers() {
@@ -33,9 +45,9 @@ public class Game {
         return this.gameEngine;
     }
 
-    public void updateLastMove(SquareStatusAfterMove squareStatusAfterMove) {
-        this.lastMove = squareStatusAfterMove;
-    }
+    //public void updateLastMove(SquareStatusAfterMove squareStatusAfterMove) {
+//        this.lastMove = squareStatusAfterMove;
+//    }
 
     public void addUserToGame(String userName) throws GameFullException {
         if (amountOfPlayers + 1 <= MAX_AMOUNT_OF_PLAYERS) {

@@ -127,8 +127,5 @@ function onStartGameButtonEventHandler(e) {
     $.ajax({
         url: '/gamePage',
         type: 'GET',
-        error: function (jqXHR) {
-            alert(jqXHR.responseText);
-        }
     });
 }
