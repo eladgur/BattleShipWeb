@@ -11,3 +11,11 @@ body{
 a[href]:hover{
     color: lime;
 }
+
+#submitButton{
+    color: pink;
+}
+
+#submitButton:hover{
+    color: deepskyblue;
+}
