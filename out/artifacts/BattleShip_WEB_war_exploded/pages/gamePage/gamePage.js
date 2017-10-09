@@ -2,7 +2,7 @@
 var myIndex = -1;
 var isUpdated = false;
 var currentIndex = -1;
-var refreshRate = 1000;
+var refreshRate = 100;
 var duringRoutine = false;
 
 window.onload = function () {
