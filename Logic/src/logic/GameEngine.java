@@ -324,4 +324,8 @@ public class GameEngine implements ShipDrownListenable {
     public List<MoveData> getMoveHistory() {
         return this.moveHistoryList;
     }
+
+    public int getWinPlayerIndex() {
+        return this.winPlayer;
+    }
 }

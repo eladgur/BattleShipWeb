@@ -2,12 +2,12 @@ package servlets.gamesManagment.singleGameManager;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import logic.GameEngine;
-import logic.data.enums.AttackResult;
-import logic.exceptions.NoShipAtPoisitionException;
+import logic.GameStatus;
+import servlets.gamesManagment.Game;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
-import xmlInputManager.Position;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "getUpdateFromServerServlt", urlPatterns = "/getUpdateFromServer")
-public class getUpdateFromServerServlet  extends HttpServlet {
+public class getUpdateFromServerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -29,19 +29,36 @@ public class getUpdateFromServerServlet  extends HttpServlet {
         HttpSession session = request.getSession();
         int userIndex = (int) session.getAttribute("userIndex");
         String gameName = (String) session.getAttribute("gameName");
-        UpdateVerifyer curUpdateVerifyer = gamesManager.getGameByName(gameName).getUpdateVerifyer();
-        try (PrintWriter out = response.getWriter())
-        {
-            if(curUpdateVerifyer != null) {
+        MoveUpdateVerifyer curMoveUpdateVerifyer = gamesManager.getGameByName(gameName).getMoveUpdateVerifyer();
+        try (PrintWriter out = response.getWriter()) {
+            if (curMoveUpdateVerifyer != null) {
                 if (userIndex == 0) {
-                    curUpdateVerifyer.index0 = true;
+                    curMoveUpdateVerifyer.index0 = true;
                 } else if (userIndex == 1) {
-                    curUpdateVerifyer.index1 = true;
+                    curMoveUpdateVerifyer.index1 = true;
                 }
+
+                Gson gson = new Gson();
+
+//                String json = gson.toJson(curMoveUpdateVerifyer.lastMove);
+                JsonElement jsonElement = gson.toJsonTree(curMoveUpdateVerifyer.lastMove);
+                Game game = gamesManager.getGameByName(gameName);
+                updateGameEndStatusToJsonElement(jsonElement, game);
+                String json = gson.toJson(jsonElement);
+                out.println(json);
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(curUpdateVerifyer.lastMove);
-            out.println(json);;
+        }
+    }
+
+    private void updateGameEndStatusToJsonElement(JsonElement jsonElement, Game game) {
+        GameEngine gameEngine = game.getGameEngine();
+        boolean isGameEnd = (gameEngine.getStatus() == GameStatus.END);
+
+        jsonElement.getAsJsonObject().addProperty("isGameEnd", isGameEnd);
+
+        if (isGameEnd) {
+            int winningPlayerIndex = gameEngine.getWinPlayerIndex();
+            jsonElement.getAsJsonObject().addProperty("winningPlayerIndex", winningPlayerIndex);
         }
     }
 

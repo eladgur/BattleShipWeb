@@ -1,4 +1,4 @@
-var refreshRate = 2000; //mili seconds
+var refreshRate = 200; //mili seconds
 var USERS_LIST_URL = "/userslist";
 var GAMES_LIST_URL = "/gameslist";
 

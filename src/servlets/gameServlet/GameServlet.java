@@ -80,10 +80,11 @@ public class GameServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClickServlet</title>");
+            out.println("<title>Game Page</title>");
             out.println("<link rel='stylesheet' type='text/css' href='/pages/gamePage/gamePage.css' />");
             out.println("<script src='/lib/jquery-3.2.1.min.js' type='text/javascript'></script>");
             out.println("<script src='/pages/gamePage/gamePage.js' type='text/javascript'></script>");
+            out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js' type='text/javascript'></script>");
             out.println("</head>");
             out.println("<body>");
 

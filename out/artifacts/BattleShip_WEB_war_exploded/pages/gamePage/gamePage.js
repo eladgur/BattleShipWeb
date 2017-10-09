@@ -1,4 +1,3 @@
-//var lookForUpdate = true;
 var myIndex = -1;
 var isUpdated = false;
 var currentIndex = -1;
@@ -8,9 +7,7 @@ var duringRoutine = false;
 window.onload = function () {
     askServerMyIndex();
     DisableTrackBoard();
-    DisableShipBoard();
 };
-
 
 //----index actions-----------
 function askServerMyIndex() {
@@ -26,7 +23,7 @@ function askServerMyIndex() {
 
 function isCurrentIndexEqualToMyIndex() {
     var res;
-    if (myIndex == currentIndex) {
+    if (myIndex === currentIndex) {
         res = true;
         $('#whosTurn').text("your turn");
     }
@@ -39,7 +36,6 @@ function isCurrentIndexEqualToMyIndex() {
 }
 
 //-------------------------------------
-
 
 function askServerCurrentIndex() {
     $.ajax({
@@ -55,7 +51,6 @@ function askServerCurrentIndex() {
 function updateCurrentIndexVar(number) {
     currentIndex = number;
 }
-
 
 function getUpdateFromServer() {
     $.ajax({
@@ -76,11 +71,10 @@ function isUpdateCompleted() {
         url: '/isUpdateCompleted',
         type: 'GET',
         success: function (isCompleted) {
-            if (isCompleted == "true") {
+            if (isCompleted === "true") {
                 updateIsUpdatedVar(true);
-
             }
-            else if (isCompleted == "false") {
+            else if (isCompleted === "false") {
                 updateIsUpdatedVar(false);
             }
         },
@@ -91,7 +85,6 @@ function updateIsUpdatedVar(bool) {
     isUpdated = bool;
 }
 
-
 //Declaration of a function that will be called on mouse clicks
 function onTrackBoardSquareClickEventHandler(event) {
 
@@ -99,9 +92,7 @@ function onTrackBoardSquareClickEventHandler(event) {
     afterMoveActions();
     document.getElementById('button').value = event.button;
     var clickedSquare = event.target;
-    // clickedSquare.classList.add('clickedSquare');
     clickedSquare.classList.remove("trackBoardSquare"); // For not Re-binding On-Click Event !
-    // clickedSquare.onclick = null;
     //Get row and cul from cell
     var row = event.currentTarget.attributes['row'].value;
     var col = event.currentTarget.attributes['col'].value;
@@ -114,12 +105,9 @@ function onTrackBoardSquareClickEventHandler(event) {
         type: 'POST',
         data: {"col": document.getElementById('form_col').value, "row": document.getElementById('form_row').value},
         dataType: "text",
-        success: function (res) {
-            moveObj = $.parseJSON(res);
-            // alertMoveJsonDetials(moveObj);
-            //updateBoards(moveObj);
-            //afterMoveActions();
-        }
+        // success: function () {
+        // For Debugging
+        // }
     });
 }
 
@@ -127,25 +115,41 @@ function alertMoveJsonDetials(moveObj) {
     alert("row: " + moveObj.row + "\n col: " + moveObj.column + "\n attack result: " + moveObj.attackResult + "\n attackers index: " + moveObj.attackersIndex);
 }
 
-
 function updateBoards(moveObj) // todo: to complete all of the 16 cases with elad
 {
     var row = moveObj.row;
     var column = moveObj.column;
     var attackersIndex = moveObj.attackersIndex;
     var attackResult = moveObj.attackResult;
+    var winGame = moveObj.isGameEnd;
 
     if (myIndex === attackersIndex) {
         updateAttackerBoards(row, column, attackersIndex, attackResult);
     } else {
         updateDefenderBoards(row, column, attackersIndex, attackResult);
     }
+
+    if (winGame === true) {
+        updatePageOnGameEnd(moveObj.winningPlayerIndex);
+    }
+}
+
+function updatePageOnGameEnd(winningPlayerIndex) {
+    var currentUserIsTheWinner = (winningPlayerIndex === myIndex);
+
+    if (currentUserIsTheWinner) {
+        // alert("You win the game!");
+        swal("Good job!", "You win the game =]", "success");
+    } else {
+        // alert("You lose the game!");
+        swal("We are sorry", "You lose the game =[", "error");
+    }
 }
 
 function updateAttackerBoards(row, column, attackersIndex, attackResult) {
 
-    var shipBoardSquare =  $("#shipBoard td[row= '" + row + "'][col= '" + column + "']" );
-    var trackBoardSquare =  $("#trackBoard td[row= '" + row + "'][col= '" + column + "']" );
+    var shipBoardSquare = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']");
+    var trackBoardSquare = $("#trackBoard td[row= '" + row + "'][col= '" + column + "']");
 
     if (attackResult === "SHIPHIT") {
         updateCssClass(trackBoardSquare, "hit");
@@ -189,8 +193,8 @@ function updateAttackerBoards(row, column, attackersIndex, attackResult) {
 
 function updateDefenderBoards(row, column, attackersIndex, attackResult) {
 
-    var shipBoardSquare =  $("#shipBoard td[row= '" + row + "'][col= '" + column + "']" );
-    var trackBoardSquare =  $("#trackBoard td[row= '" + row + "'][col= '" + column + "']" );
+    var shipBoardSquare = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']");
+    var trackBoardSquare = $("#trackBoard td[row= '" + row + "'][col= '" + column + "']");
 
     if (attackResult === "SHIPHIT") {
         updateCssClass(shipBoardSquare, "hit");
@@ -230,70 +234,33 @@ function updateDefenderBoards(row, column, attackersIndex, attackResult) {
     }
 }
 
-function updateCssClass(squareObject,className) {
-    squareObject.attr('class',className);
+function updateCssClass(squareObject, className) {
+    squareObject.attr('class', className);
 }
-
 
 //------ before move and after move actions sector
 function BeforeMoveActions() {
-    // isUpdateCompleted();
-    // if( isUpdated == false)
-    // {
-    //     getUpdateFromServer();
-    // }
     EnableTrackBoard();
-    // EnableShipBoard(); // ***for mines
 }
 
 function afterMoveActions() {
-    //lookForUpdate = true;
     DisableTrackBoard();
-    // DisableShipBoard();
 }
 
 //-------------------------------------------------
 
-
-//-- diable and enable button sector
-
-function disableSomethingClickableEventHandler(event) {
-
-    // alert("Im Not clickable");
-
-}
-
-
-function DisableShipBoard() {
-   // $("#shipBoard td").css("background-color", "yellow");
-    $("#shipBoard td").unbind("click");
-    $("#shipBoard td").on("click", disableSomethingClickableEventHandler);
-
-
-}
-
-function EnableShipBoard() {
-   // $("#shipBoard td").css("background-color", "red");
-    $("#shipBoard td").unbind("click");
-    $("#shipBoard td").on("click", onTrackBoardSquareClickEventHandler); // change to ship board event handler(for mines)
-}
+// Disable and enable button sector
 
 function DisableTrackBoard() {
-   // $("#trackBoard td").css("background-color", "yellow");
     $("#trackBoard td").unbind("click");
-    $("#trackBoard td").on("click", disableSomethingClickableEventHandler);
 }
 
 function EnableTrackBoard() {
-   // $("#trackBoard td").css("background-color", "red");
-   //  $("#trackBoard td").unbind("click");
-   //  $("#trackBoard td").on("click", onTrackBoardSquareClickEventHandler);
     $(".trackBoardSquare").unbind("click");
     $(".trackBoardSquare").on("click", onTrackBoardSquareClickEventHandler);
 }
 
 //-----------------------------------------------------
-
 
 //activate the timer calls after the page is loaded
 $(function () {
@@ -307,7 +274,7 @@ $(function () {
 });
 
 function serverRoutine() {
-    if(duringRoutine === false) {
+    if (duringRoutine === false) {
         duringRoutine = true;
         isUpdateCompleted();
         if (isUpdated === true) {

@@ -1,9 +1,7 @@
 package servlets.gamesManagment;
 
 import logic.GameEngine;
-import servlets.gamesManagment.singleGameManager.PlayerMoveServlet;
-import servlets.gamesManagment.singleGameManager.SquareStatusAfterMove;
-import servlets.gamesManagment.singleGameManager.UpdateVerifyer;
+import servlets.gamesManagment.singleGameManager.MoveUpdateVerifyer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,14 +16,16 @@ public class Game {
     private String uploader;
     //private SquareStatusAfterMove lastMove;
     private List<String> playersNames;
-    private UpdateVerifyer updateVerifyer;
+    private MoveUpdateVerifyer moveUpdateVerifyer;
+    private boolean gameEnd;
+    private int winnerIndex;
 
-    public UpdateVerifyer getUpdateVerifyer() {
-        return updateVerifyer;
+    public MoveUpdateVerifyer getMoveUpdateVerifyer() {
+        return moveUpdateVerifyer;
     }
 
-    public void setUpdateVerifyer(UpdateVerifyer updateVerifyer) {
-        this.updateVerifyer = updateVerifyer;
+    public void setMoveUpdateVerifyer(MoveUpdateVerifyer moveUpdateVerifyer) {
+        this.moveUpdateVerifyer = moveUpdateVerifyer;
     }
 
     public Game(String gameName, GameEngine gameEngine, int amountOfPlayers, String uploaderName) {
@@ -34,7 +34,7 @@ public class Game {
         this.amountOfPlayers = amountOfPlayers;
         this.playersNames = new LinkedList<>();
         this.uploader = uploaderName;
-        this.updateVerifyer = null;
+        this.moveUpdateVerifyer = null;
     }
 
     public int getAmountOfPlayers() {

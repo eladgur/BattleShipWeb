@@ -1,9 +1,7 @@
 package servlets.gamesManagment.singleGameManager;
 
-import constants.Constants;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
-import utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,9 +22,9 @@ public class isUpdateCompletedServlet extends HttpServlet {
             GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
             HttpSession session = request.getSession();
             String gameName = (String) session.getAttribute("gameName");
-            UpdateVerifyer curUpdateVerifyer = gamesManager.getGameByName(gameName).getUpdateVerifyer();
+            MoveUpdateVerifyer curMoveUpdateVerifyer = gamesManager.getGameByName(gameName).getMoveUpdateVerifyer();
             String res;
-            if(curUpdateVerifyer == null || curUpdateVerifyer.isBothPlayerRecivedUpdate())
+            if(curMoveUpdateVerifyer == null || curMoveUpdateVerifyer.isBothPlayerRecivedUpdate())
             {
                 res =   "true" ;
             }
@@ -34,7 +32,7 @@ public class isUpdateCompletedServlet extends HttpServlet {
             {
                 res = "false";
             }
-            //res = gamesManager.getGameByName(request.getParameter(Constants.GAME_NAME)).getUpdateVerifyer() == null ? "true" : "false";
+            //res = gamesManager.getGameByName(request.getParameter(Constants.GAME_NAME)).getMoveUpdateVerifyer() == null ? "true" : "false";
             out.print(res);
             out.flush();
         }
