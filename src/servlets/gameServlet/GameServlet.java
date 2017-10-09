@@ -157,7 +157,7 @@ public class GameServlet extends HttpServlet {
         out.println("<h2 class='boardHeadline'>TrackBoard<h2>");
         //oncontextmenu=\"return false\" - causes the right click menu to not open
         out.println("<table class='board' id='trackBoard' oncontextmenu=\"return false\">");
-        String className = "water";
+        String className = "trackBoardSquare";
         for (int row = 0; row < boardSize; row++) {
             out.println("<tr>");
             for (int col = 0; col < boardSize; col++) {

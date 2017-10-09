@@ -99,8 +99,9 @@ function onTrackBoardSquareClickEventHandler(event) {
     afterMoveActions();
     document.getElementById('button').value = event.button;
     var clickedSquare = event.target;
-    clickedSquare.classList.add('clickedSquare');
-    clickedSquare.onclick = null;
+    // clickedSquare.classList.add('clickedSquare');
+    clickedSquare.classList.remove("trackBoardSquare"); // For not Re-binding On-Click Event !
+    // clickedSquare.onclick = null;
     //Get row and cul from cell
     var row = event.currentTarget.attributes['row'].value;
     var col = event.currentTarget.attributes['col'].value;
@@ -115,7 +116,7 @@ function onTrackBoardSquareClickEventHandler(event) {
         dataType: "text",
         success: function (res) {
             moveObj = $.parseJSON(res);
-            alertMoveJsonDetials(moveObj);
+            // alertMoveJsonDetials(moveObj);
             //updateBoards(moveObj);
             //afterMoveActions();
         }
@@ -147,38 +148,39 @@ function updateAttackerBoards(row, column, attackersIndex, attackResult) {
     var trackBoardSquare =  $("#trackBoard td[row= '" + row + "'][col= '" + column + "']" );
 
     if (attackResult === "SHIPHIT") {
-        updateCssClass(trackBoardSquareclassList, "hit", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "hit");
     }
     else if (attackResult == "SHIPDROWNHIT") {
         //TODO: X
-        updateCssClass(trackBoardSquare, "drownShip", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "drownShip");
     }
     else if (attackResult == "REPEATEDHIT") {
+
     }
     else if (attackResult == "MISSHIT") {
-        updateCssClass(trackBoardSquare, "miss", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "miss");
     }
     else if (attackResult == "MINESHIP") {
-        updateCssClass(trackBoardSquare, "mineExplosion", shipBoardSquare);
-        updateCssClass(shipBoardSquare, "hit", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "mineExplosion");
+        updateCssClass(shipBoardSquare, "hit");
     }
     else if (attackResult == "MINEDROWNSHIP") {
-        updateCssClass(trackBoardSquare, "mineExplosion", shipBoardSquare);
-        updateCssClass(shipBoardSquare, "drownShip", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "mineExplosion");
+        updateCssClass(shipBoardSquare, "drownShip");
     }
     else if (attackResult == "MINEWATER") {
-        updateCssClass(trackBoardSquare, "mineExplosion", shipBoardSquare);
-        updateCssClass(shipBoardSquare, "miss", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "mineExplosion");
+        updateCssClass(shipBoardSquare, "miss");
     }
     else if (attackResult == "MINEMINE") {
-        updateCssClass(trackBoardSquare, "mineExplosion", shipBoardSquare);
-        updateCssClass(shipBoardSquare, "mineExplosion", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "mineExplosion");
+        updateCssClass(shipBoardSquare, "mineExplosion");
     }
     else if (attackResult == "MINEREAPETEDHIT") {
-        updateCssClass(trackBoardSquare, "mineExplosion", shipBoardSquare);
+        updateCssClass(trackBoardSquare, "mineExplosion");
     }
     else if (attackResult == "INSERTMINE") {
-        updateCssClass(shipBoardSquare, "mine", shipBoardSquare);
+        updateCssClass(shipBoardSquare, "mine");
     }
     else {
         alert("attack result value is " + attackResult + "and it Doesnt much any option")
@@ -189,9 +191,6 @@ function updateDefenderBoards(row, column, attackersIndex, attackResult) {
 
     var shipBoardSquare =  $("#shipBoard td[row= '" + row + "'][col= '" + column + "']" );
     var trackBoardSquare =  $("#trackBoard td[row= '" + row + "'][col= '" + column + "']" );
-
-    // var shipBoardSquareclassList = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']" ).prop("classList");
-    // var trackBoardSquareclassList = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']" ).prop("classList");
 
     if (attackResult === "SHIPHIT") {
         updateCssClass(shipBoardSquare, "hit");
@@ -244,13 +243,13 @@ function BeforeMoveActions() {
     //     getUpdateFromServer();
     // }
     EnableTrackBoard();
-    EnableShipBoard(); // ***for mines
+    // EnableShipBoard(); // ***for mines
 }
 
 function afterMoveActions() {
     //lookForUpdate = true;
     DisableTrackBoard();
-    DisableShipBoard();
+    // DisableShipBoard();
 }
 
 //-------------------------------------------------
@@ -287,8 +286,10 @@ function DisableTrackBoard() {
 
 function EnableTrackBoard() {
    // $("#trackBoard td").css("background-color", "red");
-    $("#trackBoard td").unbind("click");
-    $("#trackBoard td").on("click", onTrackBoardSquareClickEventHandler);
+   //  $("#trackBoard td").unbind("click");
+   //  $("#trackBoard td").on("click", onTrackBoardSquareClickEventHandler);
+    $(".trackBoardSquare").unbind("click");
+    $(".trackBoardSquare").on("click", onTrackBoardSquareClickEventHandler);
 }
 
 //-----------------------------------------------------

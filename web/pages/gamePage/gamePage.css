@@ -7,13 +7,17 @@ td {
 }
 
 /*Draw the cell that the mouse is hover in green*/
-td:hover{
+.trackBoardSquare:hover{
     background-color: lightblue;
 }
 
-.boardSquare:hover{
-    background-color: green;
-}
+/*td:hover{*/
+    /*background-color: lightblue;*/
+/*}*/
+
+/*.boardSquare:hover{*/
+    /*background-color: green;*/
+/*}*/
 
 .board{
     margin: auto;
@@ -40,14 +44,14 @@ td:hover{
     background-size: cover;
 }
 
-mineExplosion{
+.mineExplosion{
     background-image: url("/resources/images/mine-explosion.png");
     background-size: cover;
 }
 
-drownShip{
+.drownShip{
     background-image: url("/resources/images/sinking-ship.png");
-    background-size: cover;
+    background-size: contain;
 }
 
 .clickedSquare:hover{
