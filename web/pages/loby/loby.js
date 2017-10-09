@@ -25,8 +25,15 @@ function refreshGamesList(games) {
         console.log("Adding game #" + index + ": " + gameName);
         //Check if there the item is not in the list (New Item)
         //If item is not found int the list, append it !
-        if( $('#gameSelectList').find("option:contains('" + gameName  + "')").length == 0 ) {
+        if ($('#gameSelectList').find("option:contains('" + gameName + "')").length == 0) {
             $('<option value="' + gameName + '">' + gameName + '</option>').appendTo($("#gameSelectList"));
+        }
+    });
+
+    $("#gameSelectList").find("option").each(function (index, data) {
+        var val = data.value;
+        if (games.includes(val) === false) {
+            $(this).remove();
         }
     });
 }
@@ -75,6 +82,28 @@ $(function () {
     });
 });
 
+$(function () {
+    $("#deleteGameForm").on('submit', function (e) {
+        e.preventDefault(); // prevent form for submiting for using ajax instead
+        var curGameName = ($("#gameSelectList :selected").text());
+        var formDataGameName = new FormData();
+        formDataGameName.append('gameName', curGameName);
+
+        $.ajax({
+            url: '/deleteGame',
+            type: 'POST',
+            data: {'gameName': curGameName},
+            cache: false,
+            success: function (data) {
+                //Delete the game from the list only if deleted from the server
+                if (data === "true") {
+                    $("#gameSelectList :selected").remove();
+                }
+            }
+        });
+    });
+});
+
 function sendFile(file) {
     var data = new FormData();
     var gameName = $("#gameName").val();
@@ -119,8 +148,8 @@ $(function () {
 });
 
 function fillInfo(data) {
-    $( "#gameInfo p" ).remove();
-    $( "#gameInfo" ).append( data );
+    $("#gameInfo p").remove();
+    $("#gameInfo").append(data);
 }
 
 function onStartGameButtonEventHandler(e) {

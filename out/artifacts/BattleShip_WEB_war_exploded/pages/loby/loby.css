@@ -59,3 +59,37 @@ body{
     width: auto;
     height: auto;
 }
+
+#gameSelectList{
+    display: block;
+}
+
+#startGameButton{
+  border-width: 0;
+  background-color: green;
+  color: white;
+  font-family: monospace;
+  font-size: 11px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+#startGameButton:hover,#deleteGameButton:hover{
+background-color: blue;
+}
+
+#deleteGameButton{
+  border-width: 0;
+  background-color: red;
+  color: white;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+#deleteGameForm{
+    display: inline;
+}
+
+#chooseGameForm{
+    display: inline;
+}
