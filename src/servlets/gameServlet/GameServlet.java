@@ -51,7 +51,7 @@ public class GameServlet extends HttpServlet {
             addUserToGame(gameName, userName);
             int userIndexInGame = getUserIndex(gameName);
             storeUserIndexInSession(userIndexInGame, request.getSession());
-            writePageToClient(response, boardSize, gameEngine, userIndexInGame);
+            writePageToClient(request,response, boardSize, gameEngine, userIndexInGame);
         } catch (Game.GameFullException e) { // Game is full
             response.setStatus(500);
             PrintWriter writer = response.getWriter();
@@ -74,8 +74,8 @@ public class GameServlet extends HttpServlet {
         session.setAttribute("userIndex", userIndex);
     }
 
-    private void writePageToClient(HttpServletResponse response, int boardSize, GameEngine gameEngine, int userIndexInGame) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    private void writePageToClient(HttpServletRequest request, HttpServletResponse response, int boardSize, GameEngine gameEngine, int userIndexInGame) throws IOException {
+        response.setContentType("text/html;charset=UTF-8"); //tamir added request param
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
@@ -87,14 +87,37 @@ public class GameServlet extends HttpServlet {
             out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js' type='text/javascript'></script>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
+
             //Generate Boards
+            //----tamir
+            out.println("<div id='upperContainer'>");
+            out.println("<table class='tg'>");
+            out.println("<tr>");
+            out.println("<th class='tg-yw4l'>SCORE</th>");
+            out.println("<th class='tg-yw4l'>NAME</th>");
+            out.println("<th class='tg-yw4l'>IS IT YOUR TURN</th>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<td class='tg-yzt1' id='scoreHolder'>0</td>");
+            out.println("<td class='tg-yzt1' id='nameHolder'>"+SessionUtils.getUsername(request)+"</td>");
+            out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'></p></td>");
+            out.println("</tr>");
+            out.println("</table>");
+            //----tamir
+
+            out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
+            out.println("</div>");
+
+
+            out.println("<div id='boardsContainer'>");
             generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
             generateTrackBoard(boardSize, out, gameEngine);
-            out.println("<p id='whosTurn'></p>");
+            out.println("</div>");
+            //out.println("<p id='whosTurn'></p>");
             //type='hidden' means the field is not visible
             //also - notice there is no type='submit' input since this form
             //will be submitted using JavaScript
+
             out.println("<form id='clickform' method='post' action='click'>");
             out.println("<input id='form_col' type='hidden' name='" + COL_PARAMETER + "'/>");
             out.println("<input id='form_row' type='hidden' name='" + ROW_PARAMETER + "'/>");
@@ -103,6 +126,7 @@ public class GameServlet extends HttpServlet {
 
             out.println("</body>");
             out.println("</html>");
+
         }
     }
 
@@ -116,7 +140,8 @@ public class GameServlet extends HttpServlet {
     private void generateShipBoard(int boardSize, PrintWriter out, GameEngine gameEngine, int userIndexInGame) {
         ShipBoard shipBoard = gameEngine.getPlayerData(userIndexInGame).getShipBoard();
 
-        out.println("<h2 class='boardHeadline'>ShipBoard<h2>");
+        out.println("<div class='divBoard'>");
+        out.println("<h2 class='boardHeadline'>ShipBoard</h2>");
         //oncontextmenu=\"return false\" - causes the right click menu to not open
         out.println("<table class='board' id='shipBoard' oncontextmenu=\"return false\">");
         for (int row = 0; row < boardSize; row++) {
@@ -129,6 +154,8 @@ public class GameServlet extends HttpServlet {
             out.println("</tr>");
         }
         out.println("</table>");
+        out.println("</div>");
+
     }
 
     private String generateShipBoardClassNameFromShipBoard(ShipBoard shipBoard, int row, int col) {
@@ -155,6 +182,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void generateTrackBoard(int boardSize, PrintWriter out, GameEngine gameEngine) {
+        out.println("<div class='divBoard'>");
         out.println("<h2 class='boardHeadline'>TrackBoard<h2>");
         //oncontextmenu=\"return false\" - causes the right click menu to not open
         out.println("<table class='board' id='trackBoard' oncontextmenu=\"return false\">");
@@ -168,6 +196,7 @@ public class GameServlet extends HttpServlet {
             out.println("</tr>");
         }
         out.println("</table>");
+        out.println("</div>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

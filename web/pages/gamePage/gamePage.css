@@ -7,63 +7,64 @@ td {
 }
 
 /*Draw the cell that the mouse is hover in green*/
-.trackBoardSquare:hover{
+.trackBoardSquare:hover {
     background-color: lightblue;
 }
 
 /*td:hover{*/
-    /*background-color: lightblue;*/
+/*background-color: lightblue;*/
 /*}*/
 
 /*.boardSquare:hover{*/
-    /*background-color: green;*/
+/*background-color: green;*/
 /*}*/
 
-.board{
+.board {
     margin: auto;
     background-image: url("/resources/images/background.jpg");
+
 }
 
-.boardHeadline{
+.boardHeadline {
     text-align: center;
 }
 
 /*Board Squares Styles*/
-.ship{
+.ship {
     background-image: url("/resources/images/battleship.png");
     background-size: cover;
 }
 
-.mine{
+.mine {
     background-image: url("/resources/images/mine.png");
     background-size: cover;
 }
 
-.hit{
+.hit {
     background-image: url("/resources/images/hit.png");
     background-size: cover;
 }
 
-.mineExplosion{
+.mineExplosion {
     background-image: url("/resources/images/mine-explosion.png");
     background-size: cover;
 }
 
-.drownShip{
+.drownShip {
     background-image: url("/resources/images/sinking-ship.png");
     background-size: contain;
 }
 
-.clickedSquare:hover{
+.clickedSquare:hover {
     background-color: indianred;
 }
 
-.miss{
+.miss {
     background-color: darkorange;
 }
 
-
 #quitButton {
+    position:absolute;
     background: #d93434;
     background-image: -webkit-linear-gradient(top, #d93434, #b84e2b);
     background-image: -moz-linear-gradient(top, #d93434, #b84e2b);
@@ -78,9 +79,14 @@ td {
     font-size: 20px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
+
+    right: 5px;
+    top: 5px;
+    /*display: inline-block;*/
+
 }
 
-#quitButton:hover{
+#quitButton:hover {
     background: #3c43fc;
     background-image: -webkit-linear-gradient(top, #3c43fc, #d93434);
     background-image: -moz-linear-gradient(top, #3c43fc, #d93434);
@@ -89,3 +95,68 @@ td {
     background-image: linear-gradient(to bottom, #3c43fc, #d93434);
     text-decoration: none;
 }
+
+/* tamir addition */
+
+.tg {
+    position:absolute;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #aaa;
+
+    /*display: inline-block;*/
+    top: 5px;
+    left : 5px;
+}
+
+.tg td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: #aaa;
+    color: #333;
+    background-color: #fff;
+}
+
+.tg th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: #aaa;
+    color: #fff;
+    background-color: #f38630;
+}
+
+.tg .tg-yzt1 {
+    background-color: #efefef;
+    vertical-align: top
+}
+
+.tg .tg-yw4l {
+    vertical-align: top
+}
+
+.divBoard {
+    display: inline-block;
+}
+
+#boardsContainer {
+    display: block;
+    margin: 0 auto;
+}
+#upperContainer
+{
+    display: block;
+    margin: 0 auto;
+}
+
+/* tamir addition */
