@@ -61,3 +61,31 @@ td {
 .miss{
     background-color: darkorange;
 }
+
+
+#quitButton {
+    background: #d93434;
+    background-image: -webkit-linear-gradient(top, #d93434, #b84e2b);
+    background-image: -moz-linear-gradient(top, #d93434, #b84e2b);
+    background-image: -ms-linear-gradient(top, #d93434, #b84e2b);
+    background-image: -o-linear-gradient(top, #d93434, #b84e2b);
+    background-image: linear-gradient(to bottom, #d93434, #b84e2b);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+#quitButton:hover{
+    background: #3c43fc;
+    background-image: -webkit-linear-gradient(top, #3c43fc, #d93434);
+    background-image: -moz-linear-gradient(top, #3c43fc, #d93434);
+    background-image: -ms-linear-gradient(top, #3c43fc, #d93434);
+    background-image: -o-linear-gradient(top, #3c43fc, #d93434);
+    background-image: linear-gradient(to bottom, #3c43fc, #d93434);
+    text-decoration: none;
+}

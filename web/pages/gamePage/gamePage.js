@@ -3,12 +3,28 @@ var isUpdated = false;
 var currentIndex = -1;
 var refreshRate = 100;
 var duringRoutine = false;
+var Quit = false;
 
 window.onload = function () {
     askServerMyIndex();
     DisableTrackBoard();
+    $("#quitButton").on("click",onQuitCLick);
 };
 
+function userQuitManuallyActions() {
+    $.ajax({
+        url: '/userManuallyQuit',
+        type: 'GET',
+        success: function () {
+        },
+    });
+}
+
+function onQuitCLick(event)
+{
+    userQuitManuallyActions();
+    swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => { QuitGame(); });
+}
 //----index actions-----------
 function askServerMyIndex() {
     $.ajax({
@@ -115,23 +131,48 @@ function alertMoveJsonDetials(moveObj) {
     alert("row: " + moveObj.row + "\n col: " + moveObj.column + "\n attack result: " + moveObj.attackResult + "\n attackers index: " + moveObj.attackersIndex);
 }
 
+function updatePageOnTechnicalGameEnd(attackersIndex) {
+    if(attackersIndex===myIndex)
+    {
+        swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => { QuitGame(); });
+    }
+    else
+    {
+        swal("Your Opoonent ran away!", "You win the game =]", "success").then((value) => { QuitGame(); });
+    }
+
+}
+
 function updateBoards(moveObj) // todo: to complete all of the 16 cases with elad
 {
     var row = moveObj.row;
     var column = moveObj.column;
     var attackersIndex = moveObj.attackersIndex;
     var attackResult = moveObj.attackResult;
-    var winGame = moveObj.isGameEnd;
+    if(attackResult === "Quit" && Quit === false)
+    {
+        Quit = true;
+        updatePageOnTechnicalGameEnd(attackersIndex);
+    }
+    else if(attackResult === "Quit" && Quit === true)
+    {
 
-    if (myIndex === attackersIndex) {
-        updateAttackerBoards(row, column, attackersIndex, attackResult);
-    } else {
-        updateDefenderBoards(row, column, attackersIndex, attackResult);
+    }
+    else
+    {
+        var winGame = moveObj.isGameEnd;
+
+        if (myIndex === attackersIndex) {
+            updateAttackerBoards(row, column, attackersIndex, attackResult);
+        } else {
+            updateDefenderBoards(row, column, attackersIndex, attackResult);
+        }
+
+        if (winGame === true) {
+            updatePageOnGameEnd(moveObj.winningPlayerIndex);
+        }
     }
 
-    if (winGame === true) {
-        updatePageOnGameEnd(moveObj.winningPlayerIndex);
-    }
 }
 
 function updatePageOnGameEnd(winningPlayerIndex) {
@@ -139,11 +180,24 @@ function updatePageOnGameEnd(winningPlayerIndex) {
 
     if (currentUserIsTheWinner) {
         // alert("You win the game!");
-        swal("Good job!", "You win the game =]", "success");
+
+        swal("Good job!", "You win the game =]", "success").then((value) => { QuitGame(); });
+
     } else {
         // alert("You lose the game!");
-        swal("We are sorry", "You lose the game =[", "error");
+        swal("We are sorry", "You lose the game =[", "error").then((value) => { QuitGame(); });
+
     }
+
+
+}
+
+
+function QuitGame()
+{
+    $.get('/redirectToLoby',function(data){
+        window.location.replace(data);
+    });
 }
 
 function updateAttackerBoards(row, column, attackersIndex, attackResult) {

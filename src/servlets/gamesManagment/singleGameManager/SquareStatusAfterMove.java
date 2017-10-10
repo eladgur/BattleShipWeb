@@ -14,4 +14,11 @@ public class SquareStatusAfterMove {
         this.column = column;
         this.attackersIndex = userIndex;
     }
+
+    public SquareStatusAfterMove(int row, int column, String attackResult, int userIndex) {
+        this.attackResult = attackResult;
+        this.row = row;
+        this.column = column;
+        this.attackersIndex = userIndex;
+    }
 }

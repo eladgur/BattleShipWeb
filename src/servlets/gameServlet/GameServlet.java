@@ -87,7 +87,7 @@ public class GameServlet extends HttpServlet {
             out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js' type='text/javascript'></script>");
             out.println("</head>");
             out.println("<body>");
-
+            out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
             //Generate Boards
             generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
             generateTrackBoard(boardSize, out, gameEngine);
