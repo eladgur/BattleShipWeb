@@ -88,10 +88,13 @@ public class GameServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
 
+            out.println("<div id='upperContainer'>");
             //Generate Table
             generateTable(request, out);
             //Generate Quit Button
             generateQuitButton(out);
+            out.println("</div>");
+
             out.println("<div id='boardsContainer'>");
             //Generate Boards
             generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
@@ -115,11 +118,11 @@ public class GameServlet extends HttpServlet {
 
     private void generateQuitButton(PrintWriter out) {
         out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
-        out.println("</div>");
+
     }
 
     private void generateTable(HttpServletRequest request, PrintWriter out) {
-        out.println("<div id='upperContainer'>");
+
         out.println("<table class='tg'>");
         out.println("<tr>");
         out.println("<th class='tg-yw4l'>SCORE</th>");

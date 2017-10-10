@@ -143,6 +143,16 @@ function updatePageOnTechnicalGameEnd(attackersIndex) {
 
 }
 
+function updateScore(index0Score, index1Score) {
+    if (myIndex==0){
+        $("#scoreHolder").text(index0Score);
+    }
+    else if(myIndex == 1) {
+        $("#scoreHolder").text(index1Score);
+    }
+
+}
+
 function updateBoards(moveObj) // todo: to complete all of the 16 cases with elad
 {
     var row = moveObj.row;
@@ -160,6 +170,8 @@ function updateBoards(moveObj) // todo: to complete all of the 16 cases with ela
     }
     else
     {
+
+        updateScore(moveObj.index0Score,moveObj.index1Score);
         var winGame = moveObj.isGameEnd;
 
         if (myIndex === attackersIndex) {

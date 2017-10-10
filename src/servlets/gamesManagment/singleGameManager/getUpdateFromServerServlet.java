@@ -43,12 +43,21 @@ public class getUpdateFromServerServlet extends HttpServlet {
 //                String json = gson.toJson(curMoveUpdateVerifyer.lastMove);
                 JsonElement jsonElement = gson.toJsonTree(curMoveUpdateVerifyer.lastMove);
                 Game game = gamesManager.getGameByName(gameName);
+                updateScoreToJsonElement(jsonElement,game); //tamir
                 updateGameEndStatusToJsonElement(jsonElement, game);
                 String json = gson.toJson(jsonElement);
                 out.println(json);
             }
         }
     }
+
+    //
+    private void updateScoreToJsonElement(JsonElement jsonElement, Game game)
+    {
+        jsonElement.getAsJsonObject().addProperty("index0Score",game.getGameEngine().getPlayerData(0).getScore());
+        jsonElement.getAsJsonObject().addProperty("index1Score",game.getGameEngine().getPlayerData(1).getScore());
+    }
+    //
 
     private void updateGameEndStatusToJsonElement(JsonElement jsonElement, Game game) {
         GameEngine gameEngine = game.getGameEngine();
