@@ -51,7 +51,7 @@ public class GameServlet extends HttpServlet {
             addUserToGame(gameName, userName);
             int userIndexInGame = getUserIndex(gameName);
             storeUserIndexInSession(userIndexInGame, request.getSession());
-            writePageToClient(request,response, boardSize, gameEngine, userIndexInGame);
+            writePageToClient(request, response, boardSize, gameEngine, userIndexInGame);
         } catch (Game.GameFullException e) { // Game is full
             response.setStatus(500);
             PrintWriter writer = response.getWriter();
@@ -74,8 +74,11 @@ public class GameServlet extends HttpServlet {
         session.setAttribute("userIndex", userIndex);
     }
 
-    private void writePageToClient(HttpServletRequest request, HttpServletResponse response, int boardSize, GameEngine gameEngine, int userIndexInGame) throws IOException {
+    private void writePageToClient(HttpServletRequest request, HttpServletResponse response, int boardSize,
+                                   GameEngine gameEngine, int userIndexInGame) throws IOException {
+        int numOfMines = gameEngine.getGameInfo().getMineAmount();
         response.setContentType("text/html;charset=UTF-8"); //tamir added request param
+
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<html>");
@@ -96,13 +99,21 @@ public class GameServlet extends HttpServlet {
             //Generate Boards
             generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
             generateTrackBoard(boardSize, out, gameEngine);
+            generateMines(out, numOfMines);
             out.println("</div>");
             generateHiddenClickForm(out);
-
             out.println("</body>");
             out.println("</html>");
 
         }
+    }
+
+    private void generateMines(PrintWriter out, int numOfMines) {
+        out.println("<div class=\"minesDiv\">\n");
+        for (int i = 0; i < numOfMines; i++) {
+            out.println("<img src='/resources/images/mine.png' id=\"dragSource" + i + "\" class=\"mine\" draggable=\"true\" ondragstart=\"drag(event)\" alt=\"mine" + i + "\" height=\"22\" width=\"22\">");
+        }
+        out.println("</div>");
     }
 
     private void generateHiddenClickForm(PrintWriter out) {
@@ -128,7 +139,7 @@ public class GameServlet extends HttpServlet {
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td class='tg-yzt1' id='scoreHolder'>0</td>");
-        out.println("<td class='tg-yzt1' id='nameHolder'>"+ SessionUtils.getUsername(request)+"</td>");
+        out.println("<td class='tg-yzt1' id='nameHolder'>" + SessionUtils.getUsername(request) + "</td>");
         out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'></p></td>");
         out.println("</tr>");
         out.println("</table>");
@@ -152,7 +163,12 @@ public class GameServlet extends HttpServlet {
             out.println("<tr>");
             for (int col = 0; col < boardSize; col++) {
                 String className = generateShipBoardClassNameFromShipBoard(shipBoard, row, col);
-                out.println("<td class= '" + className + "' row='" + row + "' col='" + col + "'>");
+                if (className == "ship") {
+                    out.println("<td class= '" + className + "' row='" + row + "' col='" + col + "'>");
+                } else {
+                    out.println("<td ondragover=\"allowDrop(event)\" ondrop=\"drop(event)\" ondragenter=\"drawElementOnDragEnter(event)\" ondragleave=\"undrawElementOnDragEnd(event)\"" +
+                            " class= '" + className + "' row='" + row + "' col='" + col + "'>");
+                }
                 out.println("</td>");
             }
             out.println("</tr>");

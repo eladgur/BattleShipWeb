@@ -1,8 +1,6 @@
 package servlets.gamesManagment.singleGameManager;
 
 import logic.GameEngine;
-import logic.data.enums.AttackResult;
-import logic.exceptions.NoShipAtPoisitionException;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
 import xmlInputManager.Position;
@@ -14,29 +12,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet(name = "userManuallyQuitServlet", urlPatterns = "/userManuallyQuit")
-public class userManuallyQuitServlet extends HttpServlet {
+@WebServlet(name = "insertMineServlet", urlPatterns = "/insertMine")
+public class insertMineServlet extends HttpServlet {
+
     private final String LOBY_PAGE_URL = "/pages/loby/loby.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        //Get insert position
+        int row = Integer.parseInt(request.getParameter("row"));
+        int col = Integer.parseInt(request.getParameter("col"));
+        Position insertPosition = new Position(row, col);
         //--- to decline the game people by 1
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
         HttpSession session = request.getSession();
         int userIndex = (int) session.getAttribute("userIndex");
         String gameName = (String) session.getAttribute("gameName");
         GameEngine gameEngine = gamesManager.getGameEngineByGameName(gameName);
+        //Update game logic
 
-        String attackResult = "Quit";
-        SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(-1, -1, attackResult, userIndex);
-        MoveUpdateVerifyer curMoveMoveUpdateVerifyer = null;
-        if (userIndex == 0) {
-            curMoveMoveUpdateVerifyer = MoveUpdateVerifyer.Playe0AttackedUpdateVerifyer(squareStatus);
-        } else if (userIndex == 1) {
-            curMoveMoveUpdateVerifyer = MoveUpdateVerifyer.Playe1AttackedUpdateVerifyer(squareStatus);
-        }
+        gameEngine.insertMine(insertPosition );
+        String attackResult = "insertMine";
+        SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult, userIndex);
+        MoveUpdateVerifyer curMoveMoveUpdateVerifyer = MoveUpdateVerifyer.noUpdatedValues(squareStatus);
+
         gamesManager.getGameByName(gameName).setMoveUpdateVerifyer(curMoveMoveUpdateVerifyer);
 
     }
@@ -80,5 +81,4 @@ public class userManuallyQuitServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

@@ -164,4 +164,6 @@ td {
     display: block;
 }
 
-/* tamir addition */
+.onDragEnter{
+    background-color: Orange;
+}

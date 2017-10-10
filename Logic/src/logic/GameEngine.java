@@ -328,4 +328,8 @@ public class GameEngine implements ShipDrownListenable {
     public int getWinPlayerIndex() {
         return this.winPlayer;
     }
+
+    public GameInfo getGameInfo() {
+        return this.gameInfo;
+    }
 }
