@@ -93,3 +93,7 @@ background-color: blue;
 #chooseGameForm{
     display: inline;
 }
+
+#gameIsActiveParagraph{
+    color: greenyellow;
+}

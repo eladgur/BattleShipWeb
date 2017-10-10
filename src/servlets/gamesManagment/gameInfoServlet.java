@@ -31,13 +31,21 @@ public class gameInfoServlet extends HttpServlet {
             String gameName = request.getParameter("gameName");
             Game game = GamesManager.getGameByName(gameName);
             PlayerData playerData = GamesManager.getGameEngineByGameName(gameName).getPlayerData();
+            boolean isActive = (game.getAmountOfPlayers() == 2);
 
             out.println("<p>Game Name: " + gameName + "</p>");
-            out.println("<p>Game Uploader User Name: " + game.getUploaderName() + "</p");//TODO:add to upload game
+            out.println("<p>Game Uploader User Name: " + game.getUploaderName() + "</p>");//TODO:add to upload game
             out.println("<p>Game Board Size: " + playerData.getBoardSize() + "</p>");
             out.println("<p>Game Kind: " + playerData.getGameType() + "</p>");
             out.println("<p>Number OF Players In Game: " + game.getAmountOfPlayers() + "</p>");
+            generateIfGameIsActive(out, isActive);
             out.flush();
+        }
+    }
+
+    private void generateIfGameIsActive(PrintWriter out, boolean isActive) {
+        if (isActive) {
+            out.println("<p id='gameIsActiveParagraph'>Active</p>");
         }
     }
 
