@@ -166,23 +166,30 @@ function updateBoards(moveObj) // todo: to complete all of the 16 cases with ela
     }
     else if(attackResult === "Quit" && Quit === true)
     {
-
+        //do nothing
     }
     else
     {
+        if(attackResult === "insertMine")
+        {
+            //do nothing
+        }
+        else
+        {
+            updateScore(moveObj.index0Score,moveObj.index1Score);
+            var winGame = moveObj.isGameEnd;
 
-        updateScore(moveObj.index0Score,moveObj.index1Score);
-        var winGame = moveObj.isGameEnd;
+            if (myIndex === attackersIndex) {
+                updateAttackerBoards(row, column, attackersIndex, attackResult);
+            } else {
+                updateDefenderBoards(row, column, attackersIndex, attackResult);
+            }
 
-        if (myIndex === attackersIndex) {
-            updateAttackerBoards(row, column, attackersIndex, attackResult);
-        } else {
-            updateDefenderBoards(row, column, attackersIndex, attackResult);
+            if (winGame === true) {
+                updatePageOnGameEnd(moveObj.winningPlayerIndex);
+            }
         }
 
-        if (winGame === true) {
-            updatePageOnGameEnd(moveObj.winningPlayerIndex);
-        }
     }
 
 }
