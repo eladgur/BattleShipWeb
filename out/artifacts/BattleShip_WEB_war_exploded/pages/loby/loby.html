@@ -6,6 +6,7 @@
     <title>Title</title>
     <script src="/lib/jquery-3.2.1.min.js"></script>
     <script src="loby.js"></script>
+    <script src="http://localhost:35729/livereload.js"></script>
     <link rel="stylesheet" href="loby.css">
 </head>
 <body>
@@ -26,13 +27,16 @@
     </form>
     </div>
     <div class="boxesDiv">
-    <h3 class="listHeadLine">Games:</h3>   
+    <h3 class="listHeadLine">Games:</h3>
         <div class="ContainerDiv">
         <form action="/gamePage" method="get" id="chooseGameForm">
             <select name="gameSelectList" size="4" id="gameSelectList" required>
             <!--TODO: Games added dynamically to this list using js !-->
             </select>
-            <input type="submit" value="start game">
+            <input id="startGameButton" type="submit" value="start game">
+        </form>
+        <form action="/deleteGame" id="deleteGameForm">
+            <input id="deleteGameButton" type="submit" value="delete game">
         </form>
         </div>
         <div class="ContainerDiv" id ="gameInfo">
