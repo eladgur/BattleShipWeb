@@ -156,7 +156,7 @@ function updateBoards(moveObj) // todo: to complete all of the 16 cases with ela
     }
     else if(attackResult === "Quit" && Quit === true)
     {
-        
+
     }
     else
     {
