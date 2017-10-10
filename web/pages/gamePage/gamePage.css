@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center
+}
+
 td {
     width: 32px;
     height: 32px;
@@ -64,7 +70,7 @@ td {
 }
 
 #quitButton {
-    position:absolute;
+    position: absolute;
     background: #d93434;
     background-image: -webkit-linear-gradient(top, #d93434, #b84e2b);
     background-image: -moz-linear-gradient(top, #d93434, #b84e2b);
@@ -99,14 +105,14 @@ td {
 /* tamir addition */
 
 .tg {
-    position:absolute;
+    position: absolute;
     border-collapse: collapse;
     border-spacing: 0;
     border-color: #aaa;
 
     /*display: inline-block;*/
     top: 5px;
-    left : 5px;
+    left: 5px;
 }
 
 .tg td {
@@ -150,13 +156,12 @@ td {
 }
 
 #boardsContainer {
-    display: block;
+    /*display: block;*/
     margin: 0 auto;
 }
-#upperContainer
-{
+
+#upperContainer {
     display: block;
-    margin: 0 auto;
 }
 
 /* tamir addition */
