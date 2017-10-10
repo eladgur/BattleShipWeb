@@ -11,6 +11,7 @@ import utils.SessionUtils;
 import xmlInputManager.GameInfo;
 import xmlInputManager.InvalidXmFormatException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -27,9 +28,16 @@ import javax.servlet.http.Part;
 import static xmlInputManager.XmlReader.getDataFromXml;
 
 @WebServlet(name = "fileUploadServlet", urlPatterns = "/upload")
-@MultipartConfig(location = "C:/uploads", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
+//@MultipartConfig(location = "C:/uploads", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 //This is mandatory for using the Parts() function for reciving the file!
 public class FileUploadServlet extends HttpServlet {
+
+    /**
+     * Directory where uploaded files will be saved, its relative to
+     * the web application directory.
+     */
+    private static final String UPLOAD_DIR = "uploads";
 
     public static final String GAME_ENGINE_DICTIONARY = "gameEngineDictionary";
 
@@ -40,11 +48,24 @@ public class FileUploadServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*--------------------------------------------------------------------------------------------------------------------------------------------*/
+        // gets absolute path of the web application
+        String applicationPath = request.getServletContext().getRealPath("");
+        // constructs path of the directory to save uploaded file
+        String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
+        // creates the save directory if it does not exists
+        File fileSaveDir = new File(uploadFilePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdirs();
+        }
+        /*--------------------------------------------------------------------------------------------------------------------------------------------*/
         String gameName = request.getParameter("gameName");
         String uploaderName = SessionUtils.getUsername(request);
         response.setContentType("text/html");
-        saveFileFromRequest(request, response, gameName);
-        String filePath = "c:\\uploads\\" + gameName + ".xml";
+        saveFileFromRequest(request, response, gameName, uploadFilePath);
+        // Create Complete file path for reading the file
+        String filePath = uploadFilePath + File.separator + gameName + ".xml";
+//        String filePath = "/UploadedGames/" + gameName + ".xml";
         PrintWriter writer = response.getWriter();
 
         try {
@@ -63,14 +84,14 @@ public class FileUploadServlet extends HttpServlet {
         }
     }
 
-    private String saveFileFromRequest(HttpServletRequest request, HttpServletResponse response, String gameName) throws IOException, ServletException {
+    private String saveFileFromRequest(HttpServletRequest request, HttpServletResponse response, String gameName, String uploadFilePath) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
         Part xmlFile = request.getPart("xmlFile");
         String disposition = xmlFile.getHeader("Content-Disposition");
 //        String fileName = disposition.replaceFirst("(?i)^.*filename=\"([^\"]+)\".*$", "$1");
         String fileName = gameName + ".xml";
         //to write the content of the file to an actual file in the system (will be created at c:\samplefile)
-        xmlFile.write(fileName);
+        xmlFile.write(uploadFilePath + File.separator + fileName);
 
         return fileName;
     }
