@@ -41,12 +41,6 @@ public class PlayerMoveServlet extends HttpServlet {
             MoveUpdateVerifyer curMoveMoveUpdateVerifyer = null;
             curMoveMoveUpdateVerifyer =  MoveUpdateVerifyer.noUpdatedValues(squareStatus);
             gamesManager.getGameByName(gameName).setMoveUpdateVerifyer(curMoveMoveUpdateVerifyer);
-//            //---for debugging
-//           Gson gson = new Gson();
-//            String json = gson.toJson(curMoveMoveUpdateVerifyer.lastMove);
-//            PrintWriter writer = resp.getWriter();
-//            writer.println(json);
-//            //------------
         } catch (NoShipAtPoisitionException | CloneNotSupportedException e) {
             e.printStackTrace();
         }

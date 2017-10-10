@@ -1,12 +1,26 @@
 package servlets.gamesManagment;
 
 import logic.GameEngine;
+import logic.exceptions.LogicallyInvalidXmlInputException;
+import servlets.fileUpload.FileUploadServlet;
 import servlets.gamesManagment.singleGameManager.SquareStatusAfterMove;
+import utils.ServletUtils;
+import xmlInputManager.InvalidXmFormatException;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import static constants.Constants.FORWARD_SLASH;
+import static constants.Constants.UPLOAD_DIR;
+import static constants.Constants.XML_FILE_EXTENSTION;
 
 public class GamesManager {
 
@@ -50,7 +64,7 @@ public class GamesManager {
         Game game = gamesList.get(gameName);
 
         if (game != null) {
-           game.addUserToGame(userName);
+            game.addUserToGame(userName);
         }
     }
 
@@ -72,12 +86,21 @@ public class GamesManager {
         return gameEngine;
     }
 
-//    public void updateLastMoveInLastMoveInGameMap(String gameName, SquareStatusAfterMove squareStatusAfterMove) {
-//        Game game = gamesList.get(gameName);
-//        game.updateLastMove(squareStatusAfterMove);
-//    }
-
     public Game getGameByName(String gameName) {
         return this.gamesList.get(gameName);
+    }
+
+    public void resetGame(String gameName, ServletContext servletContext) throws IOException {
+        String gamePath = FileUploadServlet.buildGameFilePathFromGameName(gameName, servletContext);
+        String gameUploaderName = getGameByName(gameName).getUploaderName();
+
+        //Remove Game
+        removeGame(gameName);
+        //Re-Add the Game
+        try {
+            FileUploadServlet.createNewGame(gameName, gameUploaderName, gamePath, this);
+        } catch (InvalidXmFormatException | LogicallyInvalidXmlInputException e) {
+            e.printStackTrace();
+        }
     }
 }

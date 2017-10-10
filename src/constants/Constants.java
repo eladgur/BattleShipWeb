@@ -13,7 +13,14 @@ public class Constants {
     public static final int INT_PARAMETER_ERROR = Integer.MIN_VALUE;
 
 //    public static final String SIGN_UP_URL = "../signup/singup.html";
+
+    public static final String FIRST_PAGE_URL = "/index.html";
     public static final String SIGN_UP_URL = "/pages/signup/signup.html";
     public static final String LOGIN_ERROR_URL = "/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
     public static final String LOBY_PAGE_URL = "/pages/loby/loby.html";
+    public static final String UPLOAD_DIR = "uploads";
+
+    public static final String XML_FILE_EXTENSTION = ".xml";
+    public static final String FORWARD_SLASH = "/";
+
 }

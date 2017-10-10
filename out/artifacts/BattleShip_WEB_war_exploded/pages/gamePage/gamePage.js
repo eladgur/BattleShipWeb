@@ -25,6 +25,7 @@ function onQuitCLick(event)
     userQuitManuallyActions();
     swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => { QuitGame(); });
 }
+
 //----index actions-----------
 function askServerMyIndex() {
     $.ajax({
@@ -153,7 +154,7 @@ function updateScore(index0Score, index1Score) {
 
 }
 
-function updateBoards(moveObj) // todo: to complete all of the 16 cases with elad
+function updateBoards(moveObj)
 {
     var row = moveObj.row;
     var column = moveObj.column;
@@ -319,8 +320,6 @@ function afterMoveActions() {
     DisableTrackBoard();
 }
 
-//-------------------------------------------------
-
 // Disable and enable button sector
 
 function DisableTrackBoard() {
@@ -332,8 +331,6 @@ function EnableTrackBoard() {
     $(".trackBoardSquare").on("click", onTrackBoardSquareClickEventHandler);
 }
 
-//-----------------------------------------------------
-
 //activate the timer calls after the page is loaded
 $(function () {
 
@@ -342,6 +339,9 @@ $(function () {
 
     //The users list is refreshed automatically every second
     setInterval(serverRoutine, refreshRate);
+
+    //Check if the user is still connected to the server
+    setInterval(isUserConnectedRoutine, refreshRate);
 
 });
 
@@ -366,6 +366,20 @@ function serverRoutine() {
         duringRoutine = false;
     }
 
+}
+
+function isUserConnectedRoutine() {
+    $.ajax({
+        url: '/isUserConnected',
+        type: 'GET',
+        success: function (isConnected) {
+            if (isConnected === "false") {
+                $.get('/goToFirstPage',function(data){
+                    window.location.replace(data);
+                });
+            }
+        }
+    });
 }
 
 /*Mines*/

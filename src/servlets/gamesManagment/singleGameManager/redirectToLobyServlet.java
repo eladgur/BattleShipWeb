@@ -30,6 +30,11 @@ public class redirectToLobyServlet extends HttpServlet {
         GamesManager gamesManager = ServletUtils.getGamesManager(getServletContext());
         String playerName = SessionUtils.getUsername(request);
         gamesManager.getGameByName(gameName).removeUserFromGame(playerName);
+
+        if (gamesManager.getGameByName(gameName).getAmountOfPlayers() == 0) {
+            gamesManager.resetGame(gameName, getServletContext());
+        }
+
         try (PrintWriter out = response.getWriter()) {
             out.println(LOBY_PAGE_URL);
             out.flush();

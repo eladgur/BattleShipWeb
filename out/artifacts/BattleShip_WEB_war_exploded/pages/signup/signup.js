@@ -1,14 +1,6 @@
-class player{
-    constructor(name){
-        this.name = name;
-    }
-    showName(){
-        alert(this.name);
-    }
-}
 
-function onSubmitButtonClicked(){
-    var userName = document.getElementById("userName").value;
-    var user = new player(userName);
-    user.showName();
-}
+// function onSubmitButtonClicked(){
+//     var userName = document.getElementById("userName").value;
+//     var user = new player(userName);
+//     user.showName();
+// }

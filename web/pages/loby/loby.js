@@ -67,6 +67,9 @@ $(function () {
 
     //The games list is refreshed automatically every second
     setInterval(ajaxGamesList, refreshRate);
+
+    //Check if the user is still connected to the server
+    setInterval(isUserConnectedRoutine, refreshRate);
 });
 
 // Add onSubmit Event Handler for sending file to the server (using ajax)
@@ -152,9 +155,16 @@ function fillInfo(data) {
     $("#gameInfo").append(data);
 }
 
-function onStartGameButtonEventHandler(e) {
+function isUserConnectedRoutine() {
     $.ajax({
-        url: '/gamePage',
+        url: '/isUserConnected',
         type: 'GET',
+        success: function (isConnected) {
+            if (isConnected === "false") {
+                $.get('/goToFirstPage',function(data){
+                    window.location.replace(data);
+                });
+            }
+        }
     });
 }
