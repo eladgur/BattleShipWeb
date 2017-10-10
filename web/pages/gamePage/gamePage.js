@@ -204,7 +204,6 @@ function updatePageOnGameEnd(winningPlayerIndex) {
 
 }
 
-
 function QuitGame()
 {
     $.get('/redirectToLoby',function(data){
@@ -360,4 +359,49 @@ function serverRoutine() {
         duringRoutine = false;
     }
 
+}
+
+/*Mines*/
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
+function allowDrop(event){
+    event.preventDefault();
+}
+
+function drop(event){
+    event.preventDefault();
+
+    var id = event.dataTransfer.getData("text");
+    var sourceElement = document.getElementById(id);
+    var className = sourceElement.className;
+    //Change Target class to the source class
+    event.target.className = className;
+    //Remove source
+    sourceElement.remove();
+
+    var row = event.target.attributes['row'].value;
+    var col = event.target.attributes['col'].value;
+    ajaxInsertMine(row, col);
+}
+
+function ajaxInsertMine(row, col) {
+    $.ajax({
+        url: '/insertMine',
+        type: 'POST',
+        data: {"col": col, "row": row},
+        dataType: "text",
+        // success: function () {
+        // }
+    });
+}
+
+function drawElementOnDragEnter(event) {
+    event.target.classList.add("onDragEnter");
+}
+
+function undrawElementOnDragEnd(event) {
+    event.target.classList.remove("onDragEnter");
 }
