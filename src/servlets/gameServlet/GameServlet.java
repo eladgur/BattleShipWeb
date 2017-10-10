@@ -88,46 +88,50 @@ public class GameServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
 
-            //Generate Boards
-            //----tamir
-            out.println("<div id='upperContainer'>");
-            out.println("<table class='tg'>");
-            out.println("<tr>");
-            out.println("<th class='tg-yw4l'>SCORE</th>");
-            out.println("<th class='tg-yw4l'>NAME</th>");
-            out.println("<th class='tg-yw4l'>IS IT YOUR TURN</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<td class='tg-yzt1' id='scoreHolder'>0</td>");
-            out.println("<td class='tg-yzt1' id='nameHolder'>"+SessionUtils.getUsername(request)+"</td>");
-            out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'></p></td>");
-            out.println("</tr>");
-            out.println("</table>");
-            //----tamir
-
-            out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
-            out.println("</div>");
-
-
+            //Generate Table
+            generateTable(request, out);
+            //Generate Quit Button
+            generateQuitButton(out);
             out.println("<div id='boardsContainer'>");
+            //Generate Boards
             generateShipBoard(boardSize, out, gameEngine, userIndexInGame);
             generateTrackBoard(boardSize, out, gameEngine);
             out.println("</div>");
-            //out.println("<p id='whosTurn'></p>");
-            //type='hidden' means the field is not visible
-            //also - notice there is no type='submit' input since this form
-            //will be submitted using JavaScript
-
-            out.println("<form id='clickform' method='post' action='click'>");
-            out.println("<input id='form_col' type='hidden' name='" + COL_PARAMETER + "'/>");
-            out.println("<input id='form_row' type='hidden' name='" + ROW_PARAMETER + "'/>");
-            out.println("<input id='button'   type='hidden' name='button'/>");
-            out.println("</form>");
+            generateHiddenClickForm(out);
 
             out.println("</body>");
             out.println("</html>");
 
         }
+    }
+
+    private void generateHiddenClickForm(PrintWriter out) {
+        out.println("<form id='clickform' method='post' action='click'>");
+        out.println("<input id='form_col' type='hidden' name='" + COL_PARAMETER + "'/>");
+        out.println("<input id='form_row' type='hidden' name='" + ROW_PARAMETER + "'/>");
+        out.println("<input id='button'   type='hidden' name='button'/>");
+        out.println("</form>");
+    }
+
+    private void generateQuitButton(PrintWriter out) {
+        out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
+        out.println("</div>");
+    }
+
+    private void generateTable(HttpServletRequest request, PrintWriter out) {
+        out.println("<div id='upperContainer'>");
+        out.println("<table class='tg'>");
+        out.println("<tr>");
+        out.println("<th class='tg-yw4l'>SCORE</th>");
+        out.println("<th class='tg-yw4l'>NAME</th>");
+        out.println("<th class='tg-yw4l'>IS IT YOUR TURN</th>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td class='tg-yzt1' id='scoreHolder'>0</td>");
+        out.println("<td class='tg-yzt1' id='nameHolder'>"+ SessionUtils.getUsername(request)+"</td>");
+        out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'></p></td>");
+        out.println("</tr>");
+        out.println("</table>");
     }
 
     private GameEngine getGameEngineByGameName(String gameName) {
