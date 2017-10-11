@@ -28,3 +28,7 @@ a[href]:hover{
     background: #3ad6f2;
     text-decoration: none;
 }
+
+#submitButton:focus{
+    outline: none;
+}
