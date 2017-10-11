@@ -156,12 +156,16 @@ td {
 }
 
 #boardsContainer {
-    /*display: block;*/
+    display: block;
     margin: 0 auto;
+    position: relative;
+    top: 30%;
 }
 
 #upperContainer {
     display: block;
+    top: 5px;
+    position: relative;
 }
 
 .onDragEnter{

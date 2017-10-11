@@ -212,13 +212,6 @@ function updatePageOnGameEnd(winningPlayerIndex) {
 
 }
 
-function QuitGame()
-{
-    $.get('/redirectToLoby',function(data){
-        window.location.replace(data);
-    });
-}
-
 function updateAttackerBoards(row, column, attackersIndex, attackResult) {
 
     var shipBoardSquare = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']");
@@ -426,3 +419,17 @@ function drawElementOnDragEnter(event) {
 function undrawElementOnDragEnd(event) {
     event.target.classList.remove("onDragEnter");
 }
+
+function QuitGame()
+{
+    document.forms['gameEndForm'].submit();
+
+    // $.get('/redirectToLoby',function(data){
+    //     window.location.replace(data);
+    // });
+}
+
+// function goToStatistics()
+// {
+//     document.forms['gotoStatisticsForm'].submit();
+// }

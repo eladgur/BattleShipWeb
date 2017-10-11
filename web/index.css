@@ -13,9 +13,18 @@ a[href]:hover{
 }
 
 #submitButton{
-    color: pink;
+    -webkit-border-radius: 60;
+    -moz-border-radius: 60;
+    border-radius: 60px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 19px;
+    background: #52eb44;
+    padding: 6px 14px 6px 14px;
+    text-decoration: none;
 }
 
 #submitButton:hover{
-    color: deepskyblue;
+    background: #3ad6f2;
+    text-decoration: none;
 }

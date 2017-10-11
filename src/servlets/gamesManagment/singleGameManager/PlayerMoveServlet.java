@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import logic.GameEngine;
 import logic.data.enums.AttackResult;
 import logic.exceptions.NoShipAtPoisitionException;
+import servlets.gamesManagment.Game;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
 import xmlInputManager.Position;
@@ -34,9 +35,11 @@ public class PlayerMoveServlet extends HttpServlet {
         String gameName = (String) session.getAttribute("gameName");
         GameEngine gameEngine = gamesManager.getGameEngineByGameName(gameName);
         Position positionToAttack = new Position(row, col);
+        Game game = gamesManager.getGameByName(gameName);
 
         try {
             AttackResult attackResult = gameEngine.attackPosition(positionToAttack, false);
+            game.storeAttackResult(attackResult, row, col, userIndex);
             SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult,userIndex);
             MoveUpdateVerifyer curMoveMoveUpdateVerifyer = null;
             curMoveMoveUpdateVerifyer =  MoveUpdateVerifyer.noUpdatedValues(squareStatus);

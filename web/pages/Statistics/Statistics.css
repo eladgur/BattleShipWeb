@@ -1,0 +1,43 @@
+button#quitButtonFromStatistics {
+    top: 10px;
+    right: 10px;
+    position: fixed;
+
+    background: #f5352e;
+    background-image: -webkit-linear-gradient(top, #f5352e, #ff6f3b);
+    background-image: -moz-linear-gradient(top, #f5352e, #ff6f3b);
+    background-image: -ms-linear-gradient(top, #f5352e, #ff6f3b);
+    background-image: -o-linear-gradient(top, #f5352e, #ff6f3b);
+    background-image: linear-gradient(to bottom, #f5352e, #ff6f3b);
+    -webkit-border-radius: 53;
+    -moz-border-radius: 53;
+    border-radius: 53px;
+    font-family: Courier New;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+button#quitButtonFromStatistics:hover{
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+}
+
+#upperContainer {
+    display: block;
+    top: 5px;
+    position: relative;
+}
+
+#boardsContainer {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+}

@@ -15,6 +15,8 @@ import java.util.List;
 
 import static logic.data.Constants.*;
 import static logic.data.enums.AttackResult.*;
+import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class GameEngine implements ShipDrownListenable {
     private GameType gameType;
@@ -26,14 +28,14 @@ public class GameEngine implements ShipDrownListenable {
     public List<ShipDrownListener> shipDrownListeners;
     private int turnsCounter;
     private List<MoveData> moveHistoryList;
+    private LocalTime startTime;
+    private LocalTime turnStartTime;
 
     public GameEngine() {
         this.activePlayer = FIRSTPLAYER;
         this.otherPlayer = SECONDSPLAYER;
         this.gameStatus = GameStatus.WAITING_FOR_ATTACK_POSITION;
     }
-
-    private LocalTime startTime;
 
     public void loadAndValidateGameInfo(GameInfo gameInfo) throws LogicallyInvalidXmlInputException {
         this.gameInfo = gameInfo;
@@ -103,9 +105,18 @@ public class GameEngine implements ShipDrownListenable {
     }
 
     private void swapActivePlayer() {
+        updateAvgAttackTime();
         int temp = activePlayer;
         activePlayer = otherPlayer;
         otherPlayer = temp;
+    }
+
+    private void updateAvgAttackTime() {
+        LocalTime currentTime = LocalTime.now();
+        long avgAttackTime = SECONDS.between(this.turnStartTime, currentTime);
+        storePlayerAttackTime((int) avgAttackTime);
+
+        this.turnStartTime = LocalTime.now();
     }
 
     private boolean positionBeenAttackedBefore(Position position) {
@@ -265,7 +276,8 @@ public class GameEngine implements ShipDrownListenable {
     }
 
     public void startGame() {
-        startTime = LocalTime.now();
+        this.startTime = LocalTime.now();
+        this.turnStartTime = LocalTime.now();
     }
 
     public LocalTime getStartTime() {

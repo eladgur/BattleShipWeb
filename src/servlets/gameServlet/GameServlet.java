@@ -46,9 +46,13 @@ public class GameServlet extends HttpServlet {
         int boardSize = gameEngine.getPlayerData().getBoardSize();
         String userName = SessionUtils.getUsername(request);
         storeGameNameOnSession(gameName, request);
+        Game game = ServletUtils.getGamesManager(getServletContext()).getGameByName(gameName);
 
         try {
             addUserToGame(gameName, userName);
+            if (game.getAmountOfPlayers() == 2) {
+                gameEngine.startGame();
+            }
             int userIndexInGame = getUserIndex(gameName);
             storeUserIndexInSession(userIndexInGame, request.getSession());
             writePageToClient(request, response, boardSize, gameEngine, userIndexInGame);
@@ -107,7 +111,6 @@ public class GameServlet extends HttpServlet {
             generateHiddenClickForm(out);
             out.println("</body>");
             out.println("</html>");
-
         }
     }
 
@@ -123,6 +126,10 @@ public class GameServlet extends HttpServlet {
         out.println("<form id='clickform' method='post' action='click'>");
         out.println("<input id='form_col' type='hidden' name='" + COL_PARAMETER + "'/>");
         out.println("<input id='form_row' type='hidden' name='" + ROW_PARAMETER + "'/>");
+        out.println("<input id='button'   type='hidden' name='button'/>");
+        out.println("</form>");
+
+        out.println("<form id='gameEndForm' method='get' action='/EndGame'>");
         out.println("<input id='button'   type='hidden' name='button'/>");
         out.println("</form>");
     }
@@ -178,10 +185,9 @@ public class GameServlet extends HttpServlet {
         }
         out.println("</table>");
         out.println("</div>");
-
     }
 
-    private String generateShipBoardClassNameFromShipBoard(ShipBoard shipBoard, int row, int col) {
+    public static String generateShipBoardClassNameFromShipBoard(ShipBoard shipBoard, int row, int col) {
         Position position = new Position(row, col);
         ShipBoardSquareValue shipBoardSquareValue = shipBoard.getShipBoardSquareValue(position);
         String className;
