@@ -84,26 +84,28 @@ $(function () {
         }
     });
 });
-
+// Delete game
 $(function () {
     $("#deleteGameForm").on('submit', function (e) {
         e.preventDefault(); // prevent form for submiting for using ajax instead
         var curGameName = ($("#gameSelectList :selected").text());
-        var formDataGameName = new FormData();
-        formDataGameName.append('gameName', curGameName);
+        if (curGameName !== "") {
+            var formDataGameName = new FormData();
+            formDataGameName.append('gameName', curGameName);
 
-        $.ajax({
-            url: '/deleteGame',
-            type: 'POST',
-            data: {'gameName': curGameName},
-            cache: false,
-            success: function (data) {
-                //Delete the game from the list only if deleted from the server
-                if (data === "true") {
-                    $("#gameSelectList :selected").remove();
+            $.ajax({
+                url: '/deleteGame',
+                type: 'POST',
+                data: {'gameName': curGameName},
+                cache: false,
+                success: function (data) {
+                    //Delete the game from the list only if deleted from the server
+                    if (data === "true") {
+                        $("#gameSelectList :selected").remove();
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 });
 
@@ -121,7 +123,7 @@ function sendFile(file) {
         processData: false, // Don't process the files
         contentType: false, // Set content type to false as jQuery will tell the server its a query string request
         success: function (data, textStatus, jqXHR) {
-            alert("File Uploaded Successfully!")
+            swal("File Uploaded Successfully!");
         },
         error: function (jqXHR) {
             alert("Unscussfull file upload: " + jqXHR.responseText);
@@ -135,18 +137,21 @@ $(function () {
     $("#gameSelectList").on('change', function (e) {
         e.preventDefault(); // prevent form for submiting for using ajax instead
         var curGameName = ($("#gameSelectList :selected").text());
-        var formDataGameName = new FormData();
-        formDataGameName.append('gameName', curGameName);
-        $.ajax({
-            url: '/gamesInfo',
-            type: 'POST',
-            data: {'gameName': curGameName},
-            cache: false,
-            success: function (data) {
-                fillInfo(data);
-                //alert("succsses");
-            }
-        });
+
+        if (curGameName !== "") {
+            var formDataGameName = new FormData();
+            formDataGameName.append('gameName', curGameName);
+            $.ajax({
+                url: '/gamesInfo',
+                type: 'POST',
+                data: {'gameName': curGameName},
+                cache: false,
+                success: function (data) {
+                    fillInfo(data);
+                    //alert("succsses");
+                }
+            });
+        }
     });
 });
 
@@ -161,10 +166,39 @@ function isUserConnectedRoutine() {
         type: 'GET',
         success: function (isConnected) {
             if (isConnected === "false") {
-                $.get('/goToFirstPage',function(data){
+                $.get('/goToFirstPage', function (data) {
                     window.location.replace(data);
                 });
             }
         }
     });
 }
+
+// Go to specific game
+$(function () {
+    // this is the id of the form
+    $("#chooseGameForm").submit(function (e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var form = $(this);
+        var curGameName = ($("#gameSelectList :selected").text());
+        var formDataGameName = new FormData();
+        formDataGameName.append('gameName', curGameName);
+
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: {'gameName': curGameName},
+            datatype: 'json',
+            success: function (data) {
+                if (data.isGameFull === true) {
+                    swal("Game is full, please choose another game")
+                } else {
+                    // Submit and redirect to the game apge
+                    var hiddenGameForm = $("#hiddenGameForm");
+                    $("#hiddenGameNameInput").val(curGameName);
+                    hiddenGameForm.submit();
+                }
+            }
+        });
+    });
+});

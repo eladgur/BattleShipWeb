@@ -75,12 +75,16 @@ public class Game {
     }
 
     public void addUserToGame(String userName) throws GameFullException {
-        if (amountOfPlayers + 1 <= MAX_AMOUNT_OF_PLAYERS) {
+        if (isGameNotFull()) {
             this.playersNames.add(userName);
             this.amountOfPlayers++;
         } else {
             throw new GameFullException();
         }
+    }
+
+    public boolean isGameNotFull() {
+        return amountOfPlayers + 1 <= MAX_AMOUNT_OF_PLAYERS;
     }
 
     public void removeUserFromGame(String userName) {

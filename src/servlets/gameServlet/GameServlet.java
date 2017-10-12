@@ -19,13 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static constants.Constants.GAME_NAME;
+
 @WebServlet(name = "GameServlet", urlPatterns = {"/gamePage"})
 public class GameServlet extends HttpServlet {
 
     private static final int BOARD_SIZE = 10;
     private static final String ROW_PARAMETER = "row";
     private static final String COL_PARAMETER = "col";
-    private static final String GAME_NAME = "gameSelectList";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,14 +40,13 @@ public class GameServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-//        String rowStr = request.getParameter(ROW_PARAMETER);
-//        String colStr = request.getParameter(COL_PARAMETER);
         String gameName = request.getParameter(GAME_NAME);
         GameEngine gameEngine = getGameEngineByGameName(gameName);
         int boardSize = gameEngine.getPlayerData().getBoardSize();
         String userName = SessionUtils.getUsername(request);
         storeGameNameOnSession(gameName, request);
         Game game = ServletUtils.getGamesManager(getServletContext()).getGameByName(gameName);
+        PrintWriter writer = response.getWriter();
 
         try {
             addUserToGame(gameName, userName);
@@ -58,7 +58,6 @@ public class GameServlet extends HttpServlet {
             writePageToClient(request, response, boardSize, gameEngine, userIndexInGame);
         } catch (Game.GameFullException e) { // Game is full
             response.setStatus(500);
-            PrintWriter writer = response.getWriter();
             writer.print(e.getMessage() + " Please try other game");
         }
     }

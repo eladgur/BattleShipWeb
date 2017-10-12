@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="/lib/jquery-3.2.1.min.js"></script>
+    <script src="/lib/SweetAlert/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="/lib/SweetAlert/sweetalert2.min.css">
     <script src="loby.js"></script>
     <script src="http://localhost:35729/livereload.js"></script>
     <link rel="stylesheet" href="loby.css">
@@ -20,26 +22,32 @@
 
     </div>
     <div class="ContainerDiv" id="uploadFileDiv">
-    <form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
-    <input type="text" placeholder="Game Name" name="gameName" id="gameName" required>
-    <input class="submitButtons" type="file" name="file" id="fileInput" accept=".xml" required><br>
-    <input class="submitButtons" type="Submit" value="Upload File"><br>
-    </form>
+        <form action="/upload" id="uploadFileForm" enctype="multipart/form-data" method="POST">
+            <input type="text" placeholder="Game Name" name="gameName" id="gameName" required>
+            <input class="submitButtons" type="file" name="file" id="fileInput" accept=".xml" required><br>
+            <input class="submitButtons" type="Submit" value="Upload File"><br>
+        </form>
     </div>
     <div class="boxesDiv">
-    <h3 class="listHeadLine">Games:</h3>
+        <h3 class="listHeadLine">Games:</h3>
         <div class="ContainerDiv">
-        <form action="/gamePage" method="get" id="chooseGameForm">
-            <select name="gameSelectList" size="4" id="gameSelectList" required>
-            <!--TODO: Games added dynamically to this list using js !-->
-            </select>
-            <input id="startGameButton" type="submit" value="start game">
-        </form>
-        <form action="/deleteGame" id="deleteGameForm">
-            <input id="deleteGameButton" type="submit" value="delete game">
-        </form>
+            <!--<form action="/gamePage" method="get" id="chooseGameForm">-->
+            <form action="/tryGetIntoGame" method="get" id="chooseGameForm">
+                <div class="select" >
+                <select name="gameSelectList" size="3" id="gameSelectList" required>
+                    <!--TODO: Games added dynamically to this list using js !-->
+                </select>
+                </div>
+                <input id="startGameButton" type="submit" value="start game">
+            </form>
+            <form action="/gamePage" method="post" id="hiddenGameForm">
+                <input type="hidden" id="hiddenGameNameInput" name="gameName" value="">
+            </form>
+            <form action="/deleteGame" id="deleteGameForm">
+                <input id="deleteGameButton" type="submit" value="delete game">
+            </form>
         </div>
-        <div class="ContainerDiv" id ="gameInfo">
+        <div class="ContainerDiv" id="gameInfo">
             <h3 id class="listHeadLine">Game Info:</h3>
         </div>
     </div>

@@ -428,8 +428,3 @@ function QuitGame()
     //     window.location.replace(data);
     // });
 }
-
-// function goToStatistics()
-// {
-//     document.forms['gotoStatisticsForm'].submit();
-// }

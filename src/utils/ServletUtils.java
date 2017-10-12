@@ -1,5 +1,6 @@
 package utils;
 
+import com.google.gson.JsonObject;
 import logic.GameEngine;
 import logic.exceptions.LogicallyInvalidXmlInputException;
 import servlets.fileUpload.FileUploadServlet;
@@ -18,6 +19,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 import static constants.Constants.INT_PARAMETER_ERROR;
+import static constants.Constants.LOBY_PAGE_URL;
 import static constants.Constants.UPLOAD_DIR;
 
 public class ServletUtils {
