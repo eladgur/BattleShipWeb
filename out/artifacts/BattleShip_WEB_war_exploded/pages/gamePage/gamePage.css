@@ -1,7 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    text-align: center
+    text-align: center;
+    background-color: lightskyblue;
 }
 
 td {
@@ -70,7 +71,6 @@ td {
 }
 
 #quitButton {
-    position: absolute;
     background: #d93434;
     background-image: -webkit-linear-gradient(top, #d93434, #b84e2b);
     background-image: -moz-linear-gradient(top, #d93434, #b84e2b);
@@ -82,14 +82,11 @@ td {
     border-radius: 28px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 20px;
-    padding: 10px 20px 10px 20px;
+    font-size: 10px;
+    padding: 10px 10px 10px 10px;
     text-decoration: none;
-
-    right: 5px;
-    top: 5px;
-    /*display: inline-block;*/
-
+    margin-right: 1em;
+    margin-top: 1em;
 }
 
 #quitButton:hover {
@@ -104,15 +101,13 @@ td {
 
 /* tamir addition */
 
+/*Table*/
 .tg {
-    position: absolute;
     border-collapse: collapse;
     border-spacing: 0;
     border-color: #aaa;
-
-    /*display: inline-block;*/
-    top: 5px;
-    left: 5px;
+    width: 70%;
+    margin: 0 auto;
 }
 
 .tg td {
@@ -159,7 +154,7 @@ td {
     display: block;
     margin: 0 auto;
     position: relative;
-    top: 30%;
+    text-align: center;
 }
 
 #upperContainer {
@@ -168,6 +163,27 @@ td {
     position: relative;
 }
 
-.onDragEnter{
+.onDragEnter {
     background-color: Orange;
+}
+
+#scoreTableDiv {
+    width: 100%;
+    text-align: center;
+}
+
+#quiteButtonDiv {
+    width: 100%;
+    position: relative;
+    text-align: right;
+}
+
+.correntTurn{
+    color: green;
+    font-weight: bold;
+}
+
+.notCorrentTurn{
+    color: darkred;
+    font-weight: bold;
 }

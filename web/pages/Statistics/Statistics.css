@@ -1,43 +1,45 @@
+body{
+    background-color: lightgreen;
+}
+
 button#quitButtonFromStatistics {
-    top: 10px;
-    right: 10px;
-    position: fixed;
-
-    background: #f5352e;
-    background-image: -webkit-linear-gradient(top, #f5352e, #ff6f3b);
-    background-image: -moz-linear-gradient(top, #f5352e, #ff6f3b);
-    background-image: -ms-linear-gradient(top, #f5352e, #ff6f3b);
-    background-image: -o-linear-gradient(top, #f5352e, #ff6f3b);
-    background-image: linear-gradient(to bottom, #f5352e, #ff6f3b);
-    -webkit-border-radius: 53;
-    -moz-border-radius: 53;
-    border-radius: 53px;
-    font-family: Courier New;
+    background: #d93434;
+    background-image: -webkit-linear-gradient(top, #d93434, #b84e2b);
+    background-image: -moz-linear-gradient(top, #d93434, #b84e2b);
+    background-image: -ms-linear-gradient(top, #d93434, #b84e2b);
+    background-image: -o-linear-gradient(top, #d93434, #b84e2b);
+    background-image: linear-gradient(to bottom, #d93434, #b84e2b);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
     color: #ffffff;
-    font-size: 14px;
-    padding: 10px 20px 10px 20px;
+    font-size: 10px;
+    padding: 10px 10px 10px 10px;
     text-decoration: none;
+    margin-right: 1em;
+    margin-top: 1em;
 }
 
-button#quitButtonFromStatistics:hover{
-    background: #3cb0fd;
-    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-    text-decoration: none;
-}
+/*button#quitButtonFromStatistics:hover{*/
+    /*background: #3cb0fd;*/
+    /*background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);*/
+    /*background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);*/
+    /*background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);*/
+    /*background-image: -o-linear-gradient(top, #3cb0fd, #3498db);*/
+    /*background-image: linear-gradient(to bottom, #3cb0fd, #3498db);*/
+    /*text-decoration: none;*/
+/*}*/
 
-#upperContainer {
-    display: block;
-    top: 5px;
-    position: relative;
-}
+/*#upperContainer {*/
+    /*display: block;*/
+    /*top: 5px;*/
+    /*position: relative;*/
+/*}*/
 
-#boardsContainer {
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    top: 50%;
-}
+/*#boardsContainer {*/
+    /*display: block;*/
+    /*margin: 0 auto;*/
+    /*position: relative;*/
+    /*top: 50%;*/
+/*}*/

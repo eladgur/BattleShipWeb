@@ -97,10 +97,10 @@ public class GameServlet extends HttpServlet {
             out.println("<body>");
 
             out.println("<div id='upperContainer'>");
-            //Generate Table
-            generateTable(request, out);
             //Generate Quit Button
             generateQuitButton(out);
+            //Generate Table
+            generateTable(request, out);
             out.println("</div>");
 
             out.println("<div id='boardsContainer'>");
@@ -136,12 +136,13 @@ public class GameServlet extends HttpServlet {
     }
 
     private void generateQuitButton(PrintWriter out) {
+        out.println("<div id='quiteButtonDiv'>");
         out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
-
+        out.println("</div> ");
     }
 
     private void generateTable(HttpServletRequest request, PrintWriter out) {
-
+        out.println("<div id='scoreTableDiv'>");
         out.println("<table class='tg'>");
         out.println("<tr>");
         out.println("<th class='tg-yw4l'>SCORE</th>");
@@ -154,6 +155,7 @@ public class GameServlet extends HttpServlet {
         out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'></p></td>");
         out.println("</tr>");
         out.println("</table>");
+        out.println("</div>");
     }
 
     private GameEngine getGameEngineByGameName(String gameName) {

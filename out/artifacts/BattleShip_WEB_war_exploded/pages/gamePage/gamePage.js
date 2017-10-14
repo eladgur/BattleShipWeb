@@ -40,14 +40,19 @@ function askServerMyIndex() {
 
 function isCurrentIndexEqualToMyIndex() {
     var res;
+    var element = $('#whosTurn');
     if (myIndex === currentIndex) {
         res = true;
-        $('#whosTurn').text("your turn");
+        element.text("your turn");
+        element.removeClass("notCorrentTurn");
+        element.addClass("correntTurn");
     }
 
     else {
         res = false;
-        $('#whosTurn').text("Not your turn")
+        element.text("Not your turn");
+        element.removeClass("correntTurn");
+        element.addClass("notCorrentTurn");
     }
     return res;
 }
