@@ -132,28 +132,38 @@ function sendFile(file) {
 
 }
 
-//function getGameInfo
+//Set getGameInfo Interval
+$(function () {
+    //The users list is refreshed automatically every second
+    setInterval(ajaxGameInfo, refreshRate);
+});
+
+//function getGameInfo on select
 $(function () {
     $("#gameSelectList").on('change', function (e) {
         e.preventDefault(); // prevent form for submiting for using ajax instead
-        var curGameName = ($("#gameSelectList :selected").text());
-
-        if (curGameName !== "") {
-            var formDataGameName = new FormData();
-            formDataGameName.append('gameName', curGameName);
-            $.ajax({
-                url: '/gamesInfo',
-                type: 'POST',
-                data: {'gameName': curGameName},
-                cache: false,
-                success: function (data) {
-                    fillInfo(data);
-                    //alert("succsses");
-                }
-            });
-        }
+        ajaxGameInfo();
     });
 });
+
+function ajaxGameInfo() {
+    var curGameName = ($("#gameSelectList :selected").text());
+
+    if (curGameName !== "") {
+        var formDataGameName = new FormData();
+        formDataGameName.append('gameName', curGameName);
+        $.ajax({
+            url: '/gamesInfo',
+            type: 'POST',
+            data: {'gameName': curGameName},
+            cache: false,
+            success: function (data) {
+                fillInfo(data);
+                //alert("succsses");
+            }
+        });
+    }
+}
 
 function fillInfo(data) {
     $("#gameInfo p").remove();

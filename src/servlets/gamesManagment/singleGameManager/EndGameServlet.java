@@ -6,6 +6,7 @@ import logic.data.enums.ShipBoardSquareValue;
 import servlets.gamesManagment.Game;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
+import utils.SessionUtils;
 import xmlInputManager.Position;
 
 import javax.servlet.ServletException;
@@ -36,7 +37,9 @@ public class EndGameServlet extends HttpServlet {
 
         if (amountOfPlayersInGame < 2) {
             response.sendRedirect(LOBY_PAGE_URL);
+            game.removeUserFromGame(SessionUtils.getUsername(request));
         } else {
+            game.setGameAsInEndingProccess();
             generateStatisticsPage(request, response, gameName, gameEngine, game);
         }
     }

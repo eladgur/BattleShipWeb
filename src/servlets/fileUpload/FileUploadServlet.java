@@ -86,6 +86,7 @@ public class FileUploadServlet extends HttpServlet {
 
     public static void createNewGame(String gameName, String uploaderName, String filePath, GamesManager gamesManager) throws
             InvalidXmFormatException, LogicallyInvalidXmlInputException {
+
         GameInfo gameInfo = getDataFromXml(filePath);
         GameEngine gameEngine = new GameEngine();
         gameEngine.loadAndValidateGameInfo(gameInfo);

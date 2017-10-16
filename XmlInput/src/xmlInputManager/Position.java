@@ -11,6 +11,8 @@ public class Position {
     @XmlAttribute(name = "y", required = true)
     protected int y;
 
+
+
     public Position() {
     }
 

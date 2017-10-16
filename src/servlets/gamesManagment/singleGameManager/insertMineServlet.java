@@ -1,6 +1,7 @@
 package servlets.gamesManagment.singleGameManager;
 
 import logic.GameEngine;
+import servlets.gamesManagment.Game;
 import servlets.gamesManagment.GamesManager;
 import utils.ServletUtils;
 import xmlInputManager.Position;
@@ -31,14 +32,15 @@ public class insertMineServlet extends HttpServlet {
         int userIndex = (int) session.getAttribute("userIndex");
         String gameName = (String) session.getAttribute("gameName");
         GameEngine gameEngine = gamesManager.getGameEngineByGameName(gameName);
+        Game game = gamesManager.getGameByName(gameName);
         //Update game logic
 
         gameEngine.insertMine(insertPosition );
         String attackResult = "insertMine";
         SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult, userIndex);
         MoveUpdateVerifyer curMoveMoveUpdateVerifyer = MoveUpdateVerifyer.noUpdatedValues(squareStatus);
-
-        gamesManager.getGameByName(gameName).setMoveUpdateVerifyer(curMoveMoveUpdateVerifyer);
+        game.insertMineToShipBoard(row, col, userIndex);
+        game.setMoveUpdateVerifyer(curMoveMoveUpdateVerifyer);
 
     }
 

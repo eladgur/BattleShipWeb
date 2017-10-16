@@ -7,4 +7,5 @@ function onStatisticsQuitButtonPresses(event)
     $.get('/redirectToLoby',function(data){
         window.location.replace(data);
     });
+
 }

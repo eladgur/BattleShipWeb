@@ -115,6 +115,23 @@ public class GameServlet extends HttpServlet {
         }
     }
 
+    private void generateTable(HttpServletRequest request, PrintWriter out) {
+        out.println("<div id='scoreTableDiv'>");
+        out.println("<table class='tg'>");
+        out.println("<tr>");
+        out.println("<th class='tg-yw4l'>SCORE</th>");
+        out.println("<th class='tg-yw4l'>NAME</th>");
+        out.println("<th class='tg-yw4l'>IS IT YOUR TURN</th>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td class='tg-yzt1' id='scoreHolder'>0</td>");
+        out.println("<td class='tg-yzt1' id='nameHolder'>" + SessionUtils.getUsername(request) + "</td>");
+        out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'>Wait For Other Player</p></td>");
+        out.println("</tr>");
+        out.println("</table>");
+        out.println("</div>");
+    }
+
     private void generateMines(PrintWriter out, int numOfMines) {
         out.println("<div class=\"minesDiv\">\n");
         for (int i = 0; i < numOfMines; i++) {
@@ -139,23 +156,6 @@ public class GameServlet extends HttpServlet {
         out.println("<div id='quiteButtonDiv'>");
         out.println("<button id='quitButton' type=\"button\"> QuitGame</button>");
         out.println("</div> ");
-    }
-
-    private void generateTable(HttpServletRequest request, PrintWriter out) {
-        out.println("<div id='scoreTableDiv'>");
-        out.println("<table class='tg'>");
-        out.println("<tr>");
-        out.println("<th class='tg-yw4l'>SCORE</th>");
-        out.println("<th class='tg-yw4l'>NAME</th>");
-        out.println("<th class='tg-yw4l'>IS IT YOUR TURN</th>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td class='tg-yzt1' id='scoreHolder'>0</td>");
-        out.println("<td class='tg-yzt1' id='nameHolder'>" + SessionUtils.getUsername(request) + "</td>");
-        out.println("<td class='tg-yzt1' id='turnHolder'><p id='whosTurn'></p></td>");
-        out.println("</tr>");
-        out.println("</table>");
-        out.println("</div>");
     }
 
     private GameEngine getGameEngineByGameName(String gameName) {

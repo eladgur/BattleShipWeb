@@ -4,12 +4,44 @@ var currentIndex = -1;
 var refreshRate = 100;
 var duringRoutine = false;
 var Quit = false;
+var isGameStarted = false;
+var gameName;
+var isGameStartedRoutineTimer;
 
 window.onload = function () {
     askServerMyIndex();
     DisableTrackBoard();
-    $("#quitButton").on("click",onQuitCLick);
+    $("#quitButton").on("click", onQuitCLick);
 };
+
+//activate the timer calls after the page is loaded
+$(function () {
+
+    //prevent IE from caching ajax calls
+    $.ajaxSetup({cache: false});
+
+    //The users list is refreshed automatically every second
+    setInterval(serverRoutine, refreshRate);
+
+    //Check if the user is still connected to the server
+    setInterval(isUserConnectedRoutine, refreshRate);
+
+    //Check if the user is still connected to the server
+    isGameStartedRoutineTimer =  setInterval(isGameStartedRoutine, refreshRate);
+});
+
+function isGameStartedRoutine() {
+    $.ajax({
+        url: '/getAmountOfPlayersInGame',
+        type: 'GET',
+        success: function (amountOfPlayersInGame) {
+            if (amountOfPlayersInGame === "2") {
+                isGameStarted = true;
+                clearInterval(isGameStartedRoutineTimer);
+            }
+        }
+    });
+}
 
 function userQuitManuallyActions() {
     $.ajax({
@@ -20,10 +52,9 @@ function userQuitManuallyActions() {
     });
 }
 
-function onQuitCLick(event)
-{
+function onQuitCLick(event) {
     userQuitManuallyActions();
-    swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => { QuitGame(); });
+    swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => {QuitGame();});
 }
 
 //----index actions-----------
@@ -39,21 +70,8 @@ function askServerMyIndex() {
 }
 
 function isCurrentIndexEqualToMyIndex() {
-    var res;
-    var element = $('#whosTurn');
-    if (myIndex === currentIndex) {
-        res = true;
-        element.text("your turn");
-        element.removeClass("notCorrentTurn");
-        element.addClass("correntTurn");
-    }
+    var res = ( myIndex === currentIndex );
 
-    else {
-        res = false;
-        element.text("Not your turn");
-        element.removeClass("correntTurn");
-        element.addClass("notCorrentTurn");
-    }
     return res;
 }
 
@@ -138,64 +156,49 @@ function alertMoveJsonDetials(moveObj) {
 }
 
 function updatePageOnTechnicalGameEnd(attackersIndex) {
-    if(attackersIndex===myIndex)
-    {
-        swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => { QuitGame(); });
+    if (attackersIndex === myIndex) {
+        swal("We are sorry", "You lose the game technically because you left game =[", "error").then((value) => {QuitGame();});
     }
-    else
-    {
-        swal("Your Opoonent ran away!", "You win the game =]", "success").then((value) => { QuitGame(); });
+    else {
+        swal("Your Opoonent ran away!", "You win the game =]", "success").then((value) => {QuitGame();});
     }
-
 }
 
 function updateScore(index0Score, index1Score) {
-    if (myIndex==0){
+    if (myIndex == 0) {
         $("#scoreHolder").text(index0Score);
     }
-    else if(myIndex == 1) {
+    else if (myIndex == 1) {
         $("#scoreHolder").text(index1Score);
     }
-
 }
 
-function updateBoards(moveObj)
-{
+function updateBoards(moveObj) {
     var row = moveObj.row;
     var column = moveObj.column;
     var attackersIndex = moveObj.attackersIndex;
     var attackResult = moveObj.attackResult;
-    if(attackResult === "Quit" && Quit === false)
-    {
+
+    if (attackResult === "Quit" && Quit === false) {
         Quit = true;
         updatePageOnTechnicalGameEnd(attackersIndex);
     }
-    else if(attackResult === "Quit" && Quit === true)
-    {
+    else if (attackResult === "Quit" && Quit === true) {
         //do nothing
     }
-    else
-    {
-        if(attackResult === "insertMine")
-        {
-            //do nothing
-        }
-        else
-        {
-            updateScore(moveObj.index0Score,moveObj.index1Score);
-            var winGame = moveObj.isGameEnd;
+    else {
+        updateScore(moveObj.index0Score, moveObj.index1Score);
+        var winGame = moveObj.isGameEnd;
 
-            if (myIndex === attackersIndex) {
-                updateAttackerBoards(row, column, attackersIndex, attackResult);
-            } else {
-                updateDefenderBoards(row, column, attackersIndex, attackResult);
-            }
-
-            if (winGame === true) {
-                updatePageOnGameEnd(moveObj.winningPlayerIndex);
-            }
+        if (myIndex === attackersIndex) {
+            updateAttackerBoards(row, column, attackersIndex, attackResult, moveObj);
+        } else {
+            updateDefenderBoards(row, column, attackersIndex, attackResult, moveObj);
         }
 
+        if (winGame === true) {
+            updatePageOnGameEnd(moveObj.winningPlayerIndex);
+        }
     }
 
 }
@@ -205,19 +208,16 @@ function updatePageOnGameEnd(winningPlayerIndex) {
 
     if (currentUserIsTheWinner) {
         // alert("You win the game!");
-
-        swal("Good job!", "You win the game =]", "success").then((value) => { QuitGame(); });
-
+        swal("Good job!", "You win the game =]", "success").then((value) => {QuitGame();});
     } else {
         // alert("You lose the game!");
-        swal("We are sorry", "You lose the game =[", "error").then((value) => { QuitGame(); });
-
+        swal("We are sorry", "You lose the game =[", "error").then((value) => {QuitGame();});
     }
 
 
 }
 
-function updateAttackerBoards(row, column, attackersIndex, attackResult) {
+function updateAttackerBoards(row, column, attackersIndex, attackResult, moveObj) {
 
     var shipBoardSquare = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']");
     var trackBoardSquare = $("#trackBoard td[row= '" + row + "'][col= '" + column + "']");
@@ -226,6 +226,7 @@ function updateAttackerBoards(row, column, attackersIndex, attackResult) {
         updateCssClass(trackBoardSquare, "hit");
     }
     else if (attackResult == "SHIPDROWNHIT") {
+        markDrownShip(moveObj, $("#trackBoard"));
         //TODO: X
         updateCssClass(trackBoardSquare, "drownShip");
     }
@@ -241,6 +242,7 @@ function updateAttackerBoards(row, column, attackersIndex, attackResult) {
     }
     else if (attackResult == "MINEDROWNSHIP") {
         updateCssClass(trackBoardSquare, "mineExplosion");
+        markDrownShip(moveObj, $("#shipBoard"));
         updateCssClass(shipBoardSquare, "drownShip");
     }
     else if (attackResult == "MINEWATER") {
@@ -262,7 +264,7 @@ function updateAttackerBoards(row, column, attackersIndex, attackResult) {
     }
 }
 
-function updateDefenderBoards(row, column, attackersIndex, attackResult) {
+function updateDefenderBoards(row, column, attackersIndex, attackResult, moveObj) {
 
     var shipBoardSquare = $("#shipBoard td[row= '" + row + "'][col= '" + column + "']");
     var trackBoardSquare = $("#trackBoard td[row= '" + row + "'][col= '" + column + "']");
@@ -271,6 +273,7 @@ function updateDefenderBoards(row, column, attackersIndex, attackResult) {
         updateCssClass(shipBoardSquare, "hit");
     }
     else if (attackResult == "SHIPDROWNHIT") {
+        markDrownShip(moveObj, $("#shipBoard"));
         //TODO: X
         updateCssClass(shipBoardSquare, "drownShip");
     }
@@ -312,16 +315,7 @@ function updateCssClass(squareObject, className) {
 //------ before move and after move actions sector
 function BeforeMoveActions() {
     EnableTrackBoard();
-}
-
-function afterMoveActions() {
-    DisableTrackBoard();
-}
-
-// Disable and enable button sector
-
-function DisableTrackBoard() {
-    $("#trackBoard td").unbind("click");
+    EnableMineDrag();
 }
 
 function EnableTrackBoard() {
@@ -329,41 +323,64 @@ function EnableTrackBoard() {
     $(".trackBoardSquare").on("click", onTrackBoardSquareClickEventHandler);
 }
 
-//activate the timer calls after the page is loaded
-$(function () {
+function EnableMineDrag() {
+    $(".minesDiv img").attr('draggable', 'True');
+}
 
-    //prevent IE from caching ajax calls
-    $.ajaxSetup({cache: false});
+function afterMoveActions() {
+    DisableTrackBoard();
+    disableMineDrag();
+}
 
-    //The users list is refreshed automatically every second
-    setInterval(serverRoutine, refreshRate);
+function DisableTrackBoard() {
+    $("#trackBoard td").unbind("click");
+}
 
-    //Check if the user is still connected to the server
-    setInterval(isUserConnectedRoutine, refreshRate);
+function disableMineDrag() {
+    $(".minesDiv img").attr('draggable', 'False');
+}
 
-});
+// Disable and enable button sector
 
 function serverRoutine() {
-    if (duringRoutine === false) {
-        duringRoutine = true;
-        isUpdateCompleted();
-        if (isUpdated === true) {
-            askServerCurrentIndex();
-            if (isCurrentIndexEqualToMyIndex()) {
-                BeforeMoveActions();
+    if (isGameStarted) {
+        if (duringRoutine === false) {
+            duringRoutine = true;
+            isUpdateCompleted();
+            if (isUpdated === true) {
+                askServerCurrentIndex();
+                if (isCurrentIndexEqualToMyIndex()) {
+                    BeforeMoveActions();
+                    updateWhoseTurn(true);
+                }
+                else {
+                    afterMoveActions();
+                    updateWhoseTurn(false);
+                }
             }
             else {
+                getUpdateFromServer();
                 afterMoveActions();
             }
-        }
-        else {
-            getUpdateFromServer();
-            afterMoveActions();
-        }
 
-        duringRoutine = false;
+            duringRoutine = false;
+        }
     }
+}
 
+function updateWhoseTurn(hisTurn) {
+    var element = $('#whosTurn');
+
+    if (hisTurn) {
+        element.text("your turn");
+        element.removeClass("notCorrentTurn");
+        element.addClass("correntTurn");
+    }
+    else {
+        element.text("Not your turn");
+        element.removeClass("correntTurn");
+        element.addClass("notCorrentTurn");
+    }
 }
 
 function isUserConnectedRoutine() {
@@ -372,7 +389,7 @@ function isUserConnectedRoutine() {
         type: 'GET',
         success: function (isConnected) {
             if (isConnected === "false") {
-                $.get('/goToFirstPage',function(data){
+                $.get('/goToFirstPage', function (data) {
                     window.location.replace(data);
                 });
             }
@@ -386,11 +403,11 @@ function drag(event) {
     event.dataTransfer.setData("text", event.target.id);
 }
 
-function allowDrop(event){
+function allowDrop(event) {
     event.preventDefault();
 }
 
-function drop(event){
+function drop(event) {
     event.preventDefault();
 
     var id = event.dataTransfer.getData("text");
@@ -425,11 +442,59 @@ function undrawElementOnDragEnd(event) {
     event.target.classList.remove("onDragEnter");
 }
 
-function QuitGame()
-{
+function QuitGame() {
     document.forms['gameEndForm'].submit();
 
     // $.get('/redirectToLoby',function(data){
     //     window.location.replace(data);
     // });
+}
+
+//TODO: Drown Ship ( Taken from java )
+
+function markDrownShip(shipInfoObject, board) {
+    var drownShip = shipInfoObject.drownShip;
+    var row = drownShip.position.x,
+        column = drownShip.position.y,
+        shipLength = drownShip.length,
+        shipDirection = drownShip.direction;
+
+    switch (shipDirection) {
+        case "ROW":
+            setShipButtonOnShipDrownInRow(row, column, shipLength, board);
+            break;
+        case "COLUMN":
+            setShipButtonOnShipDrownInColumn(row, column, shipLength, board);
+            break;
+        case "DOWN_RIGHT":
+            setShipButtonOnShipDrownInColumn(row - shipLength + 1, column, shipLength, board);
+            setShipButtonOnShipDrownInRow(row, column, shipLength, board);
+            break;
+        case "UP_RIGHT":
+            setShipButtonOnShipDrownInColumn(row, column, shipLength, board);
+            setShipButtonOnShipDrownInRow(row, column, shipLength, board);
+            break;
+        case "RIGHT_UP":
+            setShipButtonOnShipDrownInRow(row, column - shipLength + 1, shipLength, board);
+            setShipButtonOnShipDrownInColumn(row - shipLength + 1, column, shipLength, board);
+            break;
+        case "RIGHT_DOWN":
+            setShipButtonOnShipDrownInRow(row, column - shipLength + 1, shipLength, board);
+            setShipButtonOnShipDrownInColumn(row, column, shipLength, board);
+            break;
+    }
+}
+
+function setShipButtonOnShipDrownInRow(row, firstColumn, shipLength, board) {
+    for (var column = firstColumn; column < firstColumn + shipLength; column++) {
+        var boardSquare = board.find("td[row= '" + row + "'][col= '" + column + "']");
+        updateCssClass(boardSquare, "drownShip");
+    }
+}
+
+function setShipButtonOnShipDrownInColumn(firstRow, column, shipLength, board) {
+    for (var row = firstRow; row < firstRow + shipLength; row++) {
+        var boardSquare = board.find("td[row= '" + row + "'][col= '" + column + "']");
+        updateCssClass(boardSquare, "drownShip");
+    }
 }

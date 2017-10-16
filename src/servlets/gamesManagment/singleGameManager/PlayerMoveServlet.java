@@ -40,7 +40,7 @@ public class PlayerMoveServlet extends HttpServlet {
         try {
             AttackResult attackResult = gameEngine.attackPosition(positionToAttack, false);
             game.storeAttackResult(attackResult, row, col, userIndex);
-            SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult,userIndex);
+            SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult,userIndex, gameEngine);
             MoveUpdateVerifyer curMoveMoveUpdateVerifyer = null;
             curMoveMoveUpdateVerifyer =  MoveUpdateVerifyer.noUpdatedValues(squareStatus);
             gamesManager.getGameByName(gameName).setMoveUpdateVerifyer(curMoveMoveUpdateVerifyer);

@@ -1,10 +1,14 @@
 package servlets.gamesManagment;
 
 import logic.GameEngine;
+import logic.data.Ship;
 import logic.data.ShipBoard;
 import logic.data.enums.AttackResult;
+import logic.data.enums.Direction;
+import logic.exceptions.NoShipAtPoisitionException;
 import servlets.gameServlet.GameServlet;
 import servlets.gamesManagment.singleGameManager.MoveUpdateVerifyer;
+import xmlInputManager.Position;
 
 import java.time.LocalTime;
 import java.util.LinkedList;
@@ -12,10 +16,14 @@ import java.util.List;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static java.time.temporal.ChronoUnit.SECONDS;
+import static logic.data.Constants.NUM_OF_PLAYERS;
 
 public class Game {
 
+
     public static final int MAX_AMOUNT_OF_PLAYERS = 2;
+    public static final String MINE = "mine";
+    private static final String DROWNSHIP = "drownShip";
 
     private String name;
     private GameEngine gameEngine;
@@ -23,11 +31,12 @@ public class Game {
     private String uploader;
     private List<String> playersNames;
     private MoveUpdateVerifyer moveUpdateVerifyer;
-    private boolean gameEnd;
+//    private boolean gameEnd;
     private int winnerIndex;
     private String user0ShipBoard[][];
     private String user1ShipBoard[][];
     private String endTime;
+    private boolean isGameInEndingProccess;
 
     public Game(String gameName, GameEngine gameEngine, int amountOfPlayers, String uploaderName) {
         int boardSize = gameEngine.getGameInfo().getBoardSize();
@@ -39,6 +48,7 @@ public class Game {
         this.uploader = uploaderName;
         this.moveUpdateVerifyer = null;
         this.endTime = null;
+        this.isGameInEndingProccess = false;
         createShipBoards(boardSize, gameEngine);
     }
 
@@ -84,7 +94,7 @@ public class Game {
     }
 
     public boolean isGameNotFull() {
-        return amountOfPlayers + 1 <= MAX_AMOUNT_OF_PLAYERS;
+        return (amountOfPlayers + 1 <= MAX_AMOUNT_OF_PLAYERS) && !isGameInEndingProccess;
     }
 
     public void removeUserFromGame(String userName) {
@@ -99,6 +109,7 @@ public class Game {
     public void storeAttackResult(AttackResult attackResult, int row, int col, int userIndex) {
         String[][] attackerBoardToUpdate;
         String[][] defenderBoardToUpdate;
+        int otherUserIndex = (userIndex + 1) % NUM_OF_PLAYERS;
 
         if (userIndex == 0) {
             attackerBoardToUpdate = this.user0ShipBoard;
@@ -108,23 +119,24 @@ public class Game {
             defenderBoardToUpdate = this.user0ShipBoard;
         }
 
-
-        updateAttackerBoard(attackResult, attackerBoardToUpdate, row, col);
-        updateDefenderBoard(attackResult, defenderBoardToUpdate, row, col);
+        updateAttackerBoard(attackResult, attackerBoardToUpdate, row, col, userIndex);
+        updateDefenderBoard(attackResult, defenderBoardToUpdate, row, col, otherUserIndex);
     }
 
-    private void updateAttackerBoard(AttackResult attackResult, String[][] attackerBoardToUpdate, int row, int col) {
+    private void updateAttackerBoard(AttackResult attackResult, String[][] attackerBoardToUpdate, int row, int col, int attackUserIndex) {
         String classNameToPut = "";
         boolean needToUpdateSquare = false;
 
         switch (attackResult) {
+
             case MINESHIP:
                 classNameToPut = "hit";
                 needToUpdateSquare = true;
                 break;
             case MINEDROWNSHIP:
-                classNameToPut = "drownShip";
-                needToUpdateSquare = true;
+                updateDrownShipSquares(attackerBoardToUpdate, row, col, attackUserIndex, attackResult);
+//                classNameToPut = "drownShip";
+//                needToUpdateSquare = true;
                 break;
             case MINEWATER:
                 classNameToPut = "miss";
@@ -148,7 +160,7 @@ public class Game {
         }
     }
 
-    private void updateDefenderBoard(AttackResult attackResult, String[][] defenderBoardToUpdate, int row, int col) {
+    private void updateDefenderBoard(AttackResult attackResult, String[][] defenderBoardToUpdate, int row, int col, int userIndex) {
         String classNameToPut = "";
         boolean needToUpdateSquare = false;
 
@@ -159,8 +171,9 @@ public class Game {
                 needToUpdateSquare = true;
                 break;
             case SHIPDROWNHIT:
-                classNameToPut = "drownShip";
-                needToUpdateSquare = true;
+                updateDrownShipSquares(defenderBoardToUpdate, row, col, userIndex, attackResult);
+//                classNameToPut = "drownShip";
+//                needToUpdateSquare = true;
                 break;
             case MISSHIT:
                 classNameToPut = "miss";
@@ -216,6 +229,10 @@ public class Game {
         return this.endTime;
     }
 
+    public void setGameAsInEndingProccess() {
+        this.isGameInEndingProccess = true;
+    }
+
     public class GameFullException extends Exception {
 
         private static final String msg = "Game is allready full";
@@ -227,5 +244,63 @@ public class Game {
 
     public String GetPlayerNameByIndex(int index) {
         return playersNames.get(index);
+    }
+
+    public void insertMineToShipBoard(int row, int col, int userIndex) {
+        String[][] shipBoard = (userIndex == 0 ? this.user0ShipBoard : this.user1ShipBoard);
+
+        shipBoard[row][col] = MINE;
+    }
+
+    private void updateDrownShipSquares(String[][] shipBoard, int row, int col, int userIndex, AttackResult attackResult) {
+        Position position = new Position(row, col);
+        //            Ship drownShip = gameEngine.getPlayerData(userIndex).getship(position);
+        Ship drownShip = attackResult.getShip();
+        if (drownShip != null) {
+            markDrownShip(drownShip, shipBoard);
+        }
+    }
+
+    private void markDrownShip(Ship drownShip, String[][] shipBoard) {
+        Direction shipDirection = drownShip.getDirection();
+        Position startingPosition = drownShip.getStartPoint();
+        int row = startingPosition.getX(), column = startingPosition.getY(), shipLength = drownShip.getLength();
+
+        switch (shipDirection) {
+            case ROW:
+                setShipButtonOnShipDrownInRow(row, column, shipLength, shipBoard);
+                break;
+            case COLUMN:
+                setShipButtonOnShipDrownInColumn(row, column, shipLength, shipBoard);
+                break;
+            case DOWN_RIGHT:
+                setShipButtonOnShipDrownInColumn(row - shipLength + 1, column, shipLength, shipBoard);
+                setShipButtonOnShipDrownInRow(row, column, shipLength, shipBoard);
+                break;
+            case UP_RIGHT:
+                setShipButtonOnShipDrownInColumn(row, column, shipLength, shipBoard);
+                setShipButtonOnShipDrownInRow(row, column, shipLength, shipBoard);
+                break;
+            case RIGHT_UP:
+                setShipButtonOnShipDrownInRow(row, column - shipLength + 1, shipLength, shipBoard);
+                setShipButtonOnShipDrownInColumn(row - shipLength + 1, column, shipLength, shipBoard);
+                break;
+            case RIGHT_DOWN:
+                setShipButtonOnShipDrownInRow(row, column - shipLength + 1, shipLength, shipBoard);
+                setShipButtonOnShipDrownInColumn(row, column, shipLength, shipBoard);
+                break;
+        }
+    }
+
+    private void setShipButtonOnShipDrownInRow(int row, int firstColumn, int shipLength, String[][] shipBoard) {
+        for (int column = firstColumn; column < firstColumn + shipLength; column++) {
+            shipBoard[row][column] = DROWNSHIP;
+        }
+    }
+
+    private void setShipButtonOnShipDrownInColumn(int firstRow, int column, int shipLength, String[][] shipBoard) {
+        for (int row = firstRow; row < firstRow + shipLength; row++) {
+            shipBoard[row][column] = DROWNSHIP;
+        }
     }
 }

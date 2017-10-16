@@ -3,6 +3,7 @@ package servlets.gamesManagment;
 import logic.exceptions.LogicallyInvalidXmlInputException;
 import servlets.fileUpload.FileUploadServlet;
 import utils.ServletUtils;
+import utils.SessionUtils;
 import xmlInputManager.InvalidXmFormatException;
 
 import static constants.Constants.UPLOAD_DIR;
