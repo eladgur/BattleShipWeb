@@ -20,7 +20,7 @@ public class GoToFirstPageServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
 
-        writer.println(FIRST_PAGE_URL);
+        writer.println(request.getContextPath() + FIRST_PAGE_URL);
         writer.flush();
     }
 }

@@ -37,6 +37,7 @@ public class userManuallyQuitServlet extends HttpServlet {
         } else if (userIndex == 1) {
             curMoveMoveUpdateVerifyer = MoveUpdateVerifyer.Playe1AttackedUpdateVerifyer(squareStatus);
         }
+
         gamesManager.getGameByName(gameName).setMoveUpdateVerifyer(curMoveMoveUpdateVerifyer);
 
     }

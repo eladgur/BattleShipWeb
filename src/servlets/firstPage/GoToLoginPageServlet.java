@@ -27,9 +27,9 @@ public class GoToLoginPageServlet extends HttpServlet {
         boolean isUserConnected = SessionUtils.isUserConnected(request);
 
         if (isUserConnected) {
-            response.sendRedirect(LOBY_PAGE_URL);
+            response.sendRedirect(request.getContextPath() + LOBY_PAGE_URL);
         } else {
-            response.sendRedirect(SIGN_UP_URL);
+            response.sendRedirect(request.getContextPath() + SIGN_UP_URL);
         }
     }
 }

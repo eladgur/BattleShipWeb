@@ -1,6 +1,15 @@
 var refreshRate = 200; //mili seconds
-var USERS_LIST_URL = "/userslist";
-var GAMES_LIST_URL = "/gameslist";
+
+
+var USERS_LIST_URL = buildUrlWithContextPath("userslist");
+var GAMES_LIST_URL = buildUrlWithContextPath("gameslist");
+var UPLOAD_URL = buildUrlWithContextPath("upload");
+var GAMEINFO_URL = buildUrlWithContextPath("gamesInfo");
+var IS_USER_CONNECTED_URL = buildUrlWithContextPath("isUserConnected");
+var GO_TO_FIRSTPAGE_URL = buildUrlWithContextPath("goToFirstPage");
+var DELETEGAME_URL = buildUrlWithContextPath("deleteGame");
+var TRY_GET_INTO_GAME_URL = buildUrlWithContextPath("tryGetIntoGame");
+var GAME_PAGE_URL = buildUrlWithContextPath("gamePage");
 
 //users = a list of usernames, essentially an array of javascript strings:
 function refreshUsersList(users) {
@@ -94,7 +103,7 @@ $(function () {
             formDataGameName.append('gameName', curGameName);
 
             $.ajax({
-                url: '/deleteGame',
+                url: DELETEGAME_URL,
                 type: 'POST',
                 data: {'gameName': curGameName},
                 cache: false,
@@ -115,7 +124,7 @@ function sendFile(file) {
     data.append('xmlFile', file);
     data.append('gameName', gameName);
     $.ajax({
-        url: '/upload',
+        url: UPLOAD_URL,
         type: 'POST',
         data: data,
         cache: false,
@@ -153,7 +162,7 @@ function ajaxGameInfo() {
         var formDataGameName = new FormData();
         formDataGameName.append('gameName', curGameName);
         $.ajax({
-            url: '/gamesInfo',
+            url: GAMEINFO_URL,
             type: 'POST',
             data: {'gameName': curGameName},
             cache: false,
@@ -172,11 +181,11 @@ function fillInfo(data) {
 
 function isUserConnectedRoutine() {
     $.ajax({
-        url: '/isUserConnected',
+        url: IS_USER_CONNECTED_URL,
         type: 'GET',
         success: function (isConnected) {
             if (isConnected === "false") {
-                $.get('/goToFirstPage', function (data) {
+                $.get(GO_TO_FIRSTPAGE_URL, function (data) {
                     window.location.replace(data);
                 });
             }
@@ -196,15 +205,16 @@ $(function () {
 
         $.ajax({
             type: form.attr('method'),
-            url: form.attr('action'),
+            url: TRY_GET_INTO_GAME_URL,
             data: {'gameName': curGameName},
             datatype: 'json',
             success: function (data) {
                 if (data.isGameFull === true) {
                     swal("Game is full, please choose another game")
                 } else {
-                    // Submit and redirect to the game apge
+                    // Submit and redirect to the game page
                     var hiddenGameForm = $("#hiddenGameForm");
+                    hiddenGameForm.attr("action", GAME_PAGE_URL);
                     $("#hiddenGameNameInput").val(curGameName);
                     hiddenGameForm.submit();
                 }

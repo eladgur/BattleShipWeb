@@ -105,7 +105,7 @@ public class LoginServlet extends HttpServlet {
         JsonObject json = new JsonObject();
         // Put some value pairs into the JSON object .
         json.addProperty("isSignUpSuccess", isSignUpSuccess);
-        json.addProperty("url", LOBY_PAGE_URL);
+        json.addProperty("url", request.getContextPath() + LOBY_PAGE_URL);
         /* Return to javascript a boolean if Login success or not and finally output the json string*/
         writer.print(json.toString());
     }

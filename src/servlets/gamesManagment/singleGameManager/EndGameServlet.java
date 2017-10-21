@@ -36,7 +36,7 @@ public class EndGameServlet extends HttpServlet {
         int amountOfPlayersInGame = game.getAmountOfPlayers();
 
         if (amountOfPlayersInGame < 2) {
-            response.sendRedirect(LOBY_PAGE_URL);
+            response.sendRedirect(request.getContextPath() + LOBY_PAGE_URL);
             game.removeUserFromGame(SessionUtils.getUsername(request));
         } else {
             game.setGameAsInEndingProccess();
@@ -104,10 +104,12 @@ public class EndGameServlet extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>End Game Statistics</title>");
-            out.println("<link rel='stylesheet' type='text/css' href='/pages/gamePage/gamePage.css' />");
-            out.println("<link rel='stylesheet' type='text/css' href='/pages/Statistics/Statistics.css' />");
-            out.println("<script src='/lib/jquery-3.2.1.min.js' type='text/javascript'></script>");
-            out.println("<script src='/pages/Statistics/Statistics.js' type='text/javascript'></script>");
+            out.println("<link rel='stylesheet' type='text/css' href='pages/gamePage/gamePage.css' />");
+            out.println("<link rel='stylesheet' type='text/css' href='pages/Statistics/Statistics.css' />");
+            out.println("<script src='lib/jquery-3.2.1.min.js' type='text/javascript'></script>");
+            out.println("<script src='lib/context-path-helper.js' type='text/javascript'></script>");
+
+            out.println("<script src='pages/Statistics/Statistics.js' type='text/javascript'></script>");
             out.println("</head>");
             out.println("<body>");
 

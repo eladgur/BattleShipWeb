@@ -28,7 +28,7 @@ td {
 
 .board {
     margin: auto;
-    background-image: url("/resources/images/background.jpg");
+    background-image: url("../../resources/images/background.jpg");
 
 }
 
@@ -38,27 +38,27 @@ td {
 
 /*Board Squares Styles*/
 .ship {
-    background-image: url("/resources/images/battleship.png");
+    background-image: url("../../resources/images/battleship.png");
     background-size: cover;
 }
 
 .mine {
-    background-image: url("/resources/images/mine.png");
+    background-image: url("../../resources/images/mine.png");
     background-size: cover;
 }
 
 .hit {
-    background-image: url("/resources/images/hit.png");
+    background-image: url("../../resources/images/hit.png");
     background-size: cover;
 }
 
 .mineExplosion {
-    background-image: url("/resources/images/mine-explosion.png");
+    background-image: url("../../resources/images/mine-explosion.png");
     background-size: cover;
 }
 
 .drownShip {
-    background-image: url("/resources/images/drownShip.png");
+    background-image: url("../../resources/images/drownShip.png");
     background-size: contain;
 }
 

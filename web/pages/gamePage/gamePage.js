@@ -7,6 +7,17 @@ var Quit = false;
 var isGameStarted = false;
 var gameName;
 var isGameStartedRoutineTimer;
+var USER_MANUALLY_QUIT_URL = buildUrlWithContextPath("userManuallyQuit");
+var GET_INDEX_URL = buildUrlWithContextPath("getIndex");
+var GET_AMOUNT_OF_PLAYERS_IN_GAME_URL = buildUrlWithContextPath("getAmountOfPlayersInGame");
+var CURRENT_PLAYER_INDEX_URL = buildUrlWithContextPath("currentPlayerIndex");
+var GET_UPDATE_FROM_SERVER_URL = buildUrlWithContextPath("getUpdateFromServer");
+var IS_UPDATE_COMPLETED_URL = buildUrlWithContextPath("isUpdateCompleted");
+var PLAYER_MOVE_URL= buildUrlWithContextPath("playerMove");
+var INSERT_MINE_URL= buildUrlWithContextPath("insertMine");
+var IS_USER_CONNECTED_URL = buildUrlWithContextPath("isUserConnected");
+var END_GAME_URL = buildUrlWithContextPath("EndGame");
+
 
 window.onload = function () {
     askServerMyIndex();
@@ -32,7 +43,7 @@ $(function () {
 
 function isGameStartedRoutine() {
     $.ajax({
-        url: '/getAmountOfPlayersInGame',
+        url: GET_AMOUNT_OF_PLAYERS_IN_GAME_URL,
         type: 'GET',
         success: function (amountOfPlayersInGame) {
             if (amountOfPlayersInGame === "2") {
@@ -45,7 +56,7 @@ function isGameStartedRoutine() {
 
 function userQuitManuallyActions() {
     $.ajax({
-        url: '/userManuallyQuit',
+        url: USER_MANUALLY_QUIT_URL,
         type: 'GET',
         success: function () {
         },
@@ -60,7 +71,7 @@ function onQuitCLick(event) {
 //----index actions-----------
 function askServerMyIndex() {
     $.ajax({
-        url: '/getIndex',
+        url: GET_INDEX_URL,
         type: 'GET',
         success: function (res) {
             // alert("your index is " + res);
@@ -79,7 +90,7 @@ function isCurrentIndexEqualToMyIndex() {
 
 function askServerCurrentIndex() {
     $.ajax({
-        url: '/currentPlayerIndex',
+        url: CURRENT_PLAYER_INDEX_URL,
         type: 'GET',
         success: function (res) {
             //alert("Current plyer index is "+ res);
@@ -94,7 +105,7 @@ function updateCurrentIndexVar(number) {
 
 function getUpdateFromServer() {
     $.ajax({
-        url: '/getUpdateFromServer',
+        url: GET_UPDATE_FROM_SERVER_URL,
         type: 'GET',
         success: function (res) {
             if (res) {
@@ -108,7 +119,7 @@ function getUpdateFromServer() {
 
 function isUpdateCompleted() {
     $.ajax({
-        url: '/isUpdateCompleted',
+        url: IS_UPDATE_COMPLETED_URL,
         type: 'GET',
         success: function (isCompleted) {
             if (isCompleted === "true") {
@@ -141,7 +152,7 @@ function onTrackBoardSquareClickEventHandler(event) {
     document.getElementById('form_col').value = col;
 
     $.ajax({
-        url: '/playerMove',
+        url: PLAYER_MOVE_URL,
         type: 'POST',
         data: {"col": document.getElementById('form_col').value, "row": document.getElementById('form_row').value},
         dataType: "text",
@@ -385,7 +396,7 @@ function updateWhoseTurn(hisTurn) {
 
 function isUserConnectedRoutine() {
     $.ajax({
-        url: '/isUserConnected',
+        url: IS_USER_CONNECTED_URL,
         type: 'GET',
         success: function (isConnected) {
             if (isConnected === "false") {
@@ -425,7 +436,7 @@ function drop(event) {
 
 function ajaxInsertMine(row, col) {
     $.ajax({
-        url: '/insertMine',
+        url: INSERT_MINE_URL,
         type: 'POST',
         data: {"col": col, "row": row},
         dataType: "text",
@@ -443,6 +454,7 @@ function undrawElementOnDragEnd(event) {
 }
 
 function QuitGame() {
+    $("#gameEndForm").attr('action', END_GAME_URL);
     document.forms['gameEndForm'].submit();
 
     // $.get('/redirectToLoby',function(data){

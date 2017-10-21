@@ -13,12 +13,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+import static constants.Constants.LOBY_PAGE_URL;
 
 
 @WebServlet(name = "redirectToLobyServlet", urlPatterns = "/redirectToLoby")
 public class redirectToLobyServlet extends HttpServlet {
-    private final String LOBY_PAGE_URL = "/pages/loby/loby.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,7 +35,7 @@ public class redirectToLobyServlet extends HttpServlet {
         }
 
         try (PrintWriter out = response.getWriter()) {
-            out.println(LOBY_PAGE_URL);
+            out.println(request.getContextPath() + LOBY_PAGE_URL);
             out.flush();
         }
     }
