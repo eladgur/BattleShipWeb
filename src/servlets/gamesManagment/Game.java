@@ -218,7 +218,7 @@ public class Game {
     }
 
     /*This function make sure that both players get the same end time*/
-    public String getEndTime() {
+    synchronized public String getEndTime() {
         if (this.endTime == null) {
             LocalTime startTime = gameEngine.getStartTime();
             LocalTime currentTime = LocalTime.now();

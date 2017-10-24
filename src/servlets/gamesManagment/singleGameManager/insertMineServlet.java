@@ -36,7 +36,7 @@ public class insertMineServlet extends HttpServlet {
         //Update game logic
 
         gameEngine.insertMine(insertPosition );
-        String attackResult = "insertMine";
+        String attackResult = "INSERTMINE";
         SquareStatusAfterMove squareStatus = new SquareStatusAfterMove(row, col, attackResult, userIndex);
         MoveUpdateVerifyer curMoveMoveUpdateVerifyer = MoveUpdateVerifyer.noUpdatedValues(squareStatus);
         game.insertMineToShipBoard(row, col, userIndex);
