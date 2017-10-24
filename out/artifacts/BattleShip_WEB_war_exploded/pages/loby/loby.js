@@ -10,6 +10,7 @@ var GO_TO_FIRSTPAGE_URL = buildUrlWithContextPath("goToFirstPage");
 var DELETEGAME_URL = buildUrlWithContextPath("deleteGame");
 var TRY_GET_INTO_GAME_URL = buildUrlWithContextPath("tryGetIntoGame");
 var GAME_PAGE_URL = buildUrlWithContextPath("gamePage");
+var LOGOUT_URL = buildUrlWithContextPath("logout");
 
 //users = a list of usernames, essentially an array of javascript strings:
 function refreshUsersList(users) {
@@ -116,6 +117,11 @@ $(function () {
             });
         }
     });
+});
+
+//Set log out button
+$(function () {
+    $("#logoutForm").attr("action", LOGOUT_URL);;
 });
 
 function sendFile(file) {
