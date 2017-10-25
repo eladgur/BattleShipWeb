@@ -24,7 +24,14 @@
                     if (data.isSignUpSuccess === true) {
                         window.location.replace(data.url);
                     }else {
-                        swal("User name allready exist, please pick another one")
+                        if (data.isNewUser === true) {
+                            swal("User name allready exist, please pick another one");
+                        } else {
+                            swal("You have already loged-in, if you wish to login with another user please logout first").then(
+                                (value) => {window.location.replace(data.url);}
+                                );
+                            // swal("You have already loged-in, if you wish to login with another user please logout first");
+                        }
                     }
                 }
             });

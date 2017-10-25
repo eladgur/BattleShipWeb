@@ -70,8 +70,10 @@ public class LoginServlet extends HttpServlet {
         boolean isSignUpSuccess = false;
         String usernameFromSession = SessionUtils.getUsername(request);
         UsersManager usersManager = ServletUtils.getUsersManager(getServletContext());
+        boolean isNewUser = (usernameFromSession == null);
 
-        if (usernameFromSession == null) {
+
+        if (isNewUser) {
             //user is not logged in yet
             String usernameFromParameter = request.getParameter(USERNAME);
             if (usernameFromParameter == null) {
@@ -105,6 +107,7 @@ public class LoginServlet extends HttpServlet {
         JsonObject json = new JsonObject();
         // Put some value pairs into the JSON object .
         json.addProperty("isSignUpSuccess", isSignUpSuccess);
+        json.addProperty("isNewUser", isNewUser);
         json.addProperty("url", request.getContextPath() + LOBY_PAGE_URL);
         /* Return to javascript a boolean if Login success or not and finally output the json string*/
         writer.print(json.toString());
